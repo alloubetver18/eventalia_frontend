@@ -1,19 +1,84 @@
 <section class="welcome">
     <p>Bienvenido a Eventalia</p><br>
     <p>Porque la vida se vive por momentos inolvidables</p>
-
-    <button mat-raised-button (click)="openDialog('0ms', '0ms')">Unete a Eventalia</button>
-    <a [routerLink]="['/register'] ">Unete a Eventalia</a>
+    <button mat-flat-button class="estilosbtnsecundario" (click)="openDialog('0ms', '0ms')">Unete a Eventalia</button>
 
 </section>
 
 <section class="eventos_activos">
-    <h3>Eventos Activos</h3>
+    <div class="eventos_head">
+        <h3>Eventos Activos</h3>
 
-    <a [routerLink]="['/listaeventos']">Ver todos los eventos</a>
+    <button mat-flat-button id="eventfull" class="estilosbtnprincipal" [routerLink]="['/listaeventos']">Ver todos los eventos</button>
+    
+    </div>
+    
 
     <section class="lista_eventos">
-        <!-- Aquí irán unas cuantas cartas -->
+        <mat-card class="example-card">
+            <mat-card-header class="uno">
+              <mat-card-title>Torneo de Laser Tag</mat-card-title>
+              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+            </mat-card-header>
+            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content class="tres">
+              <p>
+                Sala Box, Chiclana de la frontera, Cádiz
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="cuatro">
+              <button mat-button>Mas información</button>
+              
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="example-card">
+            <mat-card-header class="uno">
+              <mat-card-title>Torneo de Laser Tag</mat-card-title>
+              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+            </mat-card-header>
+            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content class="tres">
+              <p>
+                Sala Box, Chiclana de la frontera, Cádiz
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="cuatro">
+              <button mat-button>Mas información</button>
+              
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="example-card">
+            <mat-card-header class="uno">
+              <mat-card-title>Torneo de Laser Tag</mat-card-title>
+              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+            </mat-card-header>
+            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content class="tres">
+              <p>
+                Sala Box, Chiclana de la frontera, Cádiz
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="cuatro">
+              <button mat-button>Mas información</button>
+              
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="example-card">
+            <mat-card-header class="uno">
+              <mat-card-title>Torneo de Laser Tag</mat-card-title>
+              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+            </mat-card-header>
+            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content class="tres">
+              <p>
+                Sala Box, Chiclana de la frontera, Cádiz
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="cuatro">
+              <button mat-button>Mas información</button>
+              
+            </mat-card-actions>
+        </mat-card>
     </section>
 </section>
 
@@ -25,6 +90,10 @@
 <section class="generos">
     <h3>Géneros populares</h3>
     <section class="lista_generos">
+        <img src="./../../../assets/img/tipoevento1.jpg" alt="" srcset="">
+        <img src="./../../../assets/img/tipoevento2.jpg" alt="" srcset="">
+        <img src="./../../../assets/img/tipoevento3.jpg" alt="" srcset="">
+        <img src="./../../../assets/img/tipoevento4.jpg" alt="" srcset="">
         <!-- Aquí irían un conjunto de enlaces con imágenes -->
     </section>
 </section>

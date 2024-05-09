@@ -2,3 +2,23 @@
     width: 100px;
     height: 100px;
 }
+
+.formulario{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.derecha{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+input[type="submit"]{
+    background-color: #E04700;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+}

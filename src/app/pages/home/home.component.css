@@ -1,0 +1,109 @@
+.welcome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.estilosbtnprincipal{
+    background-color: #E04700;
+    color: white;
+}
+
+.estilosbtnsecundario{
+    background-color: #007DB8;
+    color: white;
+}
+
+.eventos_head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+#eventfull{
+    display: block;
+}
+
+.lista_eventos{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.example-card{
+    width: 23%;
+}
+
+.lista_generos{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.lista_generos img{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+}
+
+@media only screen and (max-width: 425px) {
+    #eventfull{
+        display: none;
+    }
+
+    .eventos_head{
+        justify-content: center;
+    }
+
+    .lista_eventos{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .example-card{
+        width: 100%;
+        display: grid;
+        grid-template-rows: repeat(1, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        align-items: center;
+        /* display: flex;
+        flex-direction: row;
+        align-items: center; */
+    }
+
+    .uno{
+        grid-column: 2 / 3;
+        grid-row: 1;
+    }
+
+    .dos{
+        grid-column: 1 / 2;
+        grid-row: 1;
+    }
+
+    .tres{
+        grid-column: 3 / 4;
+        grid-row: 1;
+    }
+
+    .cuatro{
+        grid-column: 4 / 5;
+        grid-row: 1;
+    }
+
+    .example-card img{
+        width: 100px;
+        height: 100px;
+    }
+
+    .lista_generos{
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    
+    .lista_generos img{
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+    }
+  }
