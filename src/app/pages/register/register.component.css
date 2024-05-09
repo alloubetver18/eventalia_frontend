@@ -22,3 +22,8 @@ input[type="submit"]{
     padding: 1rem;
     border-radius: 1rem;
 }
+
+.estilosbtnsecundario{
+    background-color: #007DB8;
+    color: white;
+}

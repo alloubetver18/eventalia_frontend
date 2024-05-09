@@ -17,9 +17,18 @@
         <input type="submit" value="Únete a Eventalia">
     </div>
     <div class="derecha">
-        <label for="imagen">Añadir imagen: </label>
-        <input type="file" name="imagen" id="" (change)="handleImageUpload($event)">
-        <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
+        <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
     </div>
    
-</form>
+    <!-- <div class="derecha">
+        <label for="imagen">Añadir imagen: </label>
+        <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen()">Añadir imagen</button>
+        <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
+        <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
+    </div> -->
+</form>    
+<div class="derecha">
+    <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen()">Añadir imagen</button>
+    
+    <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
+</div>
