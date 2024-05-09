@@ -1,0 +1,21 @@
+<h3>Registra tu organización en Eventalia y empieza a publicar tus eventos</h3>
+
+<form (submit)="registrar()">
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id=""><br>
+    <label for="descripcion">Describe la actividad de tu empresa</label>
+    <textarea name="descripcion" id="" cols="30" rows="10"></textarea><br>
+    <label for="email">Email</label>
+    <input type="email" name="email" id=""><br>
+    <label for="pass">Password</label>
+    <input type="password" name="pass" id=""><br>
+    <label for="pass2">Repetir Password</label>
+    <input type="password" name="pass2" id=""><br>
+    <label for="imagen">Añadir imagen: </label>
+    <input type="file" name="imagen" id="" (change)="handleImageUpload($event)">
+    <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
+
+    
+
+    <input type="submit" value="Registrar">
+</form>

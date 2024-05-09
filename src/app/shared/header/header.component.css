@@ -1,0 +1,38 @@
+:root{
+    --neutral-200: #F2EEED;
+}
+mat-toolbar{
+    height: 110px;
+    width: 100%;
+    }
+
+.mat-toolbar{
+    background-color: var( --neutral-200);
+}
+
+.toggleMenu{
+    height: 256px;
+}
+
+.burguer{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconoBurguer{
+    height: 50px;
+    width: 75px;
+    font-size: 50px;
+}
+
+.logo{
+    width: 117px;
+    height: 120px;
+}
+
+.spacer{
+    margin-right: 2rem;
+}

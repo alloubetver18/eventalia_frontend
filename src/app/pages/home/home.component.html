@@ -1,0 +1,30 @@
+<section class="welcome">
+    <p>Bienvenido a Eventalia</p><br>
+    <p>Porque la vida se vive por momentos inolvidables</p>
+
+    <button mat-raised-button (click)="openDialog('0ms', '0ms')">Unete a Eventalia</button>
+    <a [routerLink]="['/register'] ">Unete a Eventalia</a>
+
+</section>
+
+<section class="eventos_activos">
+    <h3>Eventos Activos</h3>
+
+    <a [routerLink]="['/listaeventos']">Ver todos los eventos</a>
+
+    <section class="lista_eventos">
+        <!-- Aquí irán unas cuantas cartas -->
+    </section>
+</section>
+
+<section class="slogan">
+    <img src="#" alt="imagen de slogan" srcset="">
+    <p>Sea cual sea tu edad, residencia o interes... ¡Encuentra un evento para tí!</p>
+</section>
+
+<section class="generos">
+    <h3>Géneros populares</h3>
+    <section class="lista_generos">
+        <!-- Aquí irían un conjunto de enlaces con imágenes -->
+    </section>
+</section>
