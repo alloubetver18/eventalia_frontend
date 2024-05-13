@@ -2,6 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    background-image: url("../../../assets/img/welcome.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    height: 25rem;
+    width: 100%;
+    
+
+}
+
+.welcome .transparent{
+    background-color: #e0470075;
+    width: 100%;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 3rem;
 }
 .estilosbtnprincipal{
     background-color: #E04700;
@@ -34,6 +55,8 @@
     width: 23%;
 }
 
+
+
 .lista_generos{
     display: flex;
     justify-content: space-evenly;
@@ -45,7 +68,34 @@
     border-radius: 50%;
 }
 
+.slogan{
+    display: flex;
+    margin: 2rem;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+img.uno, img.dos, img.tres, img.cuatro{
+    width:100%;
+    height: 18rem;
+}
+
+.slogan img{
+    width: 50%;
+    height: 500px;
+}
+
+.slogan h3{
+    display: block;
+    margin:auto;
+}
+
 @media only screen and (max-width: 425px) {
+    .welcome{
+        text-align: center;
+    }
+
     #eventfull{
         display: none;
     }
@@ -105,5 +155,17 @@
         width: 10rem;
         height: 10rem;
         border-radius: 50%;
+    }
+
+    .slogan{
+        display: flex;
+        margin: 2rem;
+        flex-direction: column;
+        
+    }
+    
+    .slogan img{
+        width: 80%;
+        height: 200px;
     }
   }

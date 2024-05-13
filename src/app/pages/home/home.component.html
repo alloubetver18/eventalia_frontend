@@ -1,7 +1,10 @@
 <section class="welcome">
-    <p>Bienvenido a Eventalia</p><br>
-    <p>Porque la vida se vive por momentos inolvidables</p>
+  <div class="transparent">
+    <h2>Bienvenido a Eventalia</h2>
+    <h3>Porque la vida se vive por momentos inolvidables</h3>
     <button mat-flat-button class="estilosbtnsecundario" (click)="openDialog('0ms', '0ms')">Unete a Eventalia</button>
+  </div>
+    
 
 </section>
 
@@ -17,10 +20,26 @@
     <section class="lista_eventos">
         <mat-card class="example-card">
             <mat-card-header class="uno">
-              <mat-card-title>Torneo de Laser Tag</mat-card-title>
-              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+              <mat-card-title>Feria del Caballo Jerez 2024</mat-card-title>
+              <mat-card-subtitle>Ayuntamiento de Jerez</mat-card-subtitle>
             </mat-card-header>
-            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <img class="dos" mat-card-image src="../../../assets/img/feria-caballo-jerez.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content class="tres">
+              <p>
+                Recinto Ferial, Jerez de la Frontera, Cádiz
+              </p>
+            </mat-card-content>
+            <mat-card-actions class="cuatro">
+              <button mat-button [routerLink]="['/datosEvento']">Mas información</button>
+              
+            </mat-card-actions>
+        </mat-card>
+        <mat-card class="example-card">
+            <mat-card-header class="uno">
+              <mat-card-title>Salón del Manga Chiclana 2024</mat-card-title>
+              <mat-card-subtitle>Ayuntamiento de Chiclana de la Frontera</mat-card-subtitle>
+            </mat-card-header>
+            <img class="dos" mat-card-image src="../../../assets/img/salon-manga-chiclana.jpg" alt="Photo of a Shiba Inu">
             <mat-card-content class="tres">
               <p>
                 Sala Box, Chiclana de la frontera, Cádiz
@@ -33,13 +52,13 @@
         </mat-card>
         <mat-card class="example-card">
             <mat-card-header class="uno">
-              <mat-card-title>Torneo de Laser Tag</mat-card-title>
-              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+              <mat-card-title>Torneo de Ajedrez Verano 2024</mat-card-title>
+              <mat-card-subtitle>Delegación de Cultura Provincia de Cádiz</mat-card-subtitle>
             </mat-card-header>
-            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <img class="dos" mat-card-image src="../../../assets/img/torneo-ajedrez.jpg" alt="Photo of a Shiba Inu">
             <mat-card-content class="tres">
               <p>
-                Sala Box, Chiclana de la frontera, Cádiz
+                Casa de la Juventud, Cádiz, Cádiz
               </p>
             </mat-card-content>
             <mat-card-actions class="cuatro">
@@ -50,25 +69,9 @@
         <mat-card class="example-card">
             <mat-card-header class="uno">
               <mat-card-title>Torneo de Laser Tag</mat-card-title>
-              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
+              <mat-card-subtitle>Casa de la Juventud Chiclana</mat-card-subtitle>
             </mat-card-header>
-            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="tres">
-              <p>
-                Sala Box, Chiclana de la frontera, Cádiz
-              </p>
-            </mat-card-content>
-            <mat-card-actions class="cuatro">
-              <button mat-button>Mas información</button>
-              
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="example-card">
-            <mat-card-header class="uno">
-              <mat-card-title>Torneo de Laser Tag</mat-card-title>
-              <mat-card-subtitle>Casa de la Juventud</mat-card-subtitle>
-            </mat-card-header>
-            <img class="dos" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <img class="dos" mat-card-image src="../../../assets/img/laser-tag.jpg" alt="Photo of a Shiba Inu">
             <mat-card-content class="tres">
               <p>
                 Sala Box, Chiclana de la frontera, Cádiz
@@ -83,8 +86,8 @@
 </section>
 
 <section class="slogan">
-    <img src="#" alt="imagen de slogan" srcset="">
-    <p>Sea cual sea tu edad, residencia o interes... ¡Encuentra un evento para tí!</p>
+    <img src="../../../assets/img/events.jpg" alt="imagen de slogan" srcset="">
+    <h3>Sea cual sea tu edad, residencia o interes... ¡Encuentra un evento para tí!</h3>
 </section>
 
 <section class="generos">

@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, MatInputModule, MatCheckboxModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -20,26 +22,6 @@ export class RegisterComponent {
 
   constructor(private sanitizer: DomSanitizer) { }
 
-  /* handleFileSelect(evt: Event){
-    var files = (<HTMLInputElement>evt.target).files;
-    var file = files![0];
-    
-    if (files && file) {
-
-      var reader = new FileReader();
-
-      reader.onload =this._handleReaderLoaded.bind(this);
-
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  _handleReaderLoaded(readerEvt: ProgressEvent<FileReader>) {
-    var binaryString = readerEvt.target!.result as string;
-    this.nuevaImagen = btoa(binaryString);  // Convierte la cadena binaria en base64
-    console.log(this.nuevaImagen);
-  } */
-
   cargarImagen(){
     if(this.base64Image==null){
       alert("No hay imagen cargada en memoria.");
@@ -49,7 +31,8 @@ export class RegisterComponent {
     
   }
 
-  buscarImagen(){
+  buscarImagen(event: Event){
+    event.preventDefault();
     this.findImage.nativeElement.click();
   }
 
@@ -87,7 +70,8 @@ export class RegisterComponent {
     
   }
 
-  registrar(){
+  registrar(evento: Event){
+    const inputActivado = evento.target as HTMLInputElement;
     alert("registrado");
   }
 }
