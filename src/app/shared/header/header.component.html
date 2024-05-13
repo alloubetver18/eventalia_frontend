@@ -1,7 +1,7 @@
 <mat-toolbar>
   <mat-drawer-container class="example-container" autosize>
     <mat-drawer class="toggleMenu" #drawer mode="side">
-      <button mat-raised-button (click)="openDialog('0ms', '0ms')">Login</button>
+      <button mat-raised-button (click)="openDialog('0ms', '0ms');drawer.toggle()" >Login</button>
       
     </mat-drawer>
     <mat-drawer-content>

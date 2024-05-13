@@ -12,7 +12,7 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -24,15 +24,19 @@ import { RouterLink } from '@angular/router';
 export class HeaderComponent {
   showFiller = false;
 
-  constructor(public dialog: MatDialog){
+  constructor(public dialog: MatDialog, private router: Router){
 
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(LoginComponent, {
+    const dialogRef = this.dialog.open(LoginComponent, {
       width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.router.navigate(['/perfil']);
+    });
   }
+
 }

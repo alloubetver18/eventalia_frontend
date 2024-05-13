@@ -1,0 +1,40 @@
+.title{
+    text-align: center;
+}
+
+.content{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-around;
+}
+
+.results .evento{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.results .evento img{
+    width: 100px;
+    height: 100px;
+}
+.estilosbtnsecundario{
+    background-color: #007DB8;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.generos{
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 425px) {
+    .filters{
+        display: none;
+    }
+}

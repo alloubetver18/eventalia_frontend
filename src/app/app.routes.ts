@@ -30,6 +30,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/datos-organizacion/datos-organizacion.component').then((m) => m.DatosOrganizacionComponent),
       },
       {
+        path: 'perfil',
+        loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.component').then((m) => m.PerfilUsuarioComponent),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

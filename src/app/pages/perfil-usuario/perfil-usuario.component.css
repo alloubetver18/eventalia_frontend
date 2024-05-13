@@ -1,0 +1,27 @@
+.datos_perfil{
+    display: flex;
+}
+
+.lista_eventos{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.example-card{
+    width: 23%;
+}
+
+img.uno, img.dos, img.tres, img.cuatro{
+    width:100%;
+    height: 18rem;
+}
+
+@media only screen and (max-width: 425px) {
+    .datos_perfil, .lista_eventos{
+        flex-direction: column;
+    }
+
+    .example-card{
+        width: 100%;
+    }
+}
