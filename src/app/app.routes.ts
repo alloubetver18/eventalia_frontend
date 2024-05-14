@@ -22,11 +22,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent),
       },
       {
-        path: 'datosEvento',
+        path: 'datosEvento/:id',
         loadComponent: () => import('./pages/datos-evento/datos-evento.component').then((m) => m.DatosEventoComponent),
       },
       {
-        path: 'datosOrganizacion',
+        path: 'datosOrganizacion/:id',
         loadComponent: () => import('./pages/datos-organizacion/datos-organizacion.component').then((m) => m.DatosOrganizacionComponent),
       },
       {

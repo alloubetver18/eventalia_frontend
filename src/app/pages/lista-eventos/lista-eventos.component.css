@@ -37,4 +37,8 @@
     .filters{
         display: none;
     }
+
+    mat-drawer{
+        height: 100%;
+    }
 }

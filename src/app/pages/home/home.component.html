@@ -18,70 +18,54 @@
     
 
     <section class="lista_eventos">
-        <mat-card class="example-card">
-            <mat-card-header class="uno">
-              <mat-card-title>Feria del Caballo Jerez 2024</mat-card-title>
-              <mat-card-subtitle>Ayuntamiento de Jerez</mat-card-subtitle>
-            </mat-card-header>
-            <img class="dos" mat-card-image src="../../../assets/img/feria-caballo-jerez.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="tres">
-              <p>
-                Recinto Ferial, Jerez de la Frontera, Cádiz
-              </p>
-            </mat-card-content>
-            <mat-card-actions class="cuatro">
-              <button mat-button [routerLink]="['/datosEvento']">Mas información</button>
-              
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="example-card">
-            <mat-card-header class="uno">
-              <mat-card-title>Salón del Manga Chiclana 2024</mat-card-title>
-              <mat-card-subtitle>Ayuntamiento de Chiclana de la Frontera</mat-card-subtitle>
-            </mat-card-header>
-            <img class="dos" mat-card-image src="../../../assets/img/salon-manga-chiclana.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="tres">
-              <p>
-                Sala Box, Chiclana de la frontera, Cádiz
-              </p>
-            </mat-card-content>
-            <mat-card-actions class="cuatro">
-              <button mat-button>Mas información</button>
-              
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="example-card">
-            <mat-card-header class="uno">
-              <mat-card-title>Torneo de Ajedrez Verano 2024</mat-card-title>
-              <mat-card-subtitle>Delegación de Cultura Provincia de Cádiz</mat-card-subtitle>
-            </mat-card-header>
-            <img class="dos" mat-card-image src="../../../assets/img/torneo-ajedrez.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="tres">
-              <p>
-                Casa de la Juventud, Cádiz, Cádiz
-              </p>
-            </mat-card-content>
-            <mat-card-actions class="cuatro">
-              <button mat-button>Mas información</button>
-              
-            </mat-card-actions>
-        </mat-card>
-        <mat-card class="example-card">
-            <mat-card-header class="uno">
-              <mat-card-title>Torneo de Laser Tag</mat-card-title>
-              <mat-card-subtitle>Casa de la Juventud Chiclana</mat-card-subtitle>
-            </mat-card-header>
-            <img class="dos" mat-card-image src="../../../assets/img/laser-tag.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content class="tres">
-              <p>
-                Sala Box, Chiclana de la frontera, Cádiz
-              </p>
-            </mat-card-content>
-            <mat-card-actions class="cuatro">
-              <button mat-button>Mas información</button>
-              
-            </mat-card-actions>
-        </mat-card>
+      <div class="personal_card">
+        <div class="imagen">
+          <a [routerLink]="['/datosEvento', 1]"><img src="../../../assets/img/feria-caballo-jerez.jpg" alt=""></a> 
+        </div>
+        <div class="datos">
+          <h3 class="nombre-evento">Feria del Caballo Jerez 2024</h3>
+          <p class="organizador">Ayuntamiento de Jerez</p>
+          <p class="fecha-hora">30/04/2024, 15:30</p>
+          <p class="ciudad">Jerez de la Frontera, Cádiz</p>
+        </div>
+        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
+      </div>
+      <div class="personal_card">
+        <div class="imagen">
+          <a [routerLink]="['/datosEvento', 2]"><img src="../../../assets/img/salon-manga-chiclana.jpg" alt=""></a> 
+        </div>
+        <div class="datos">
+          <h3 class="nombre-evento">Salón del Manga Chiclana 2024</h3>
+          <p class="organizador">Ayuntamiento de Chiclana de la Frontera</p>
+          <p class="fecha-hora">30/04/2024, 15:30</p>
+          <p class="ciudad">Chiclana de la Frontera, Cádiz</p>
+        </div>
+        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
+      </div>
+      <div class="personal_card">
+        <div class="imagen">
+          <a [routerLink]="['/datosEvento', 3]"><img src="../../../assets/img/torneo-ajedrez.jpg" alt=""></a> 
+        </div>
+        <div class="datos">
+          <h3 class="nombre-evento">Torneo de Ajedrez Verano 2024</h3>
+          <p class="organizador">Delegación de Cultura Provincia de Cádiz</p>
+          <p class="fecha-hora">30/04/2024, 15:30</p>
+          <p class="ciudad">Cádiz, Cádiz</p>
+        </div>
+        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
+      </div>
+      <div class="personal_card">
+        <div class="imagen">
+          <a [routerLink]="['/datosEvento', 4]"><img src="../../../assets/img/laser-tag.jpg" alt=""></a> 
+        </div>
+        <div class="datos">
+          <h3 class="nombre-evento">Torneo de Laser Tag</h3>
+          <p class="organizador">Casa de la Juventud Chiclana</p>
+          <p class="fecha-hora">30/04/2024, 15:30</p>
+          <p class="ciudad">Chiclana de la frontera, Cádiz</p>
+        </div>
+        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
+      </div>
     </section>
 </section>
 
@@ -91,7 +75,10 @@
 </section>
 
 <section class="generos">
-    <h3>Géneros populares</h3>
+    <div class="generos_head">
+      <h3>Géneros populares</h3>
+    </div>
+    
     <section class="lista_generos">
         <img src="./../../../assets/img/tipoevento1.jpg" alt="" srcset="">
         <img src="./../../../assets/img/tipoevento2.jpg" alt="" srcset="">

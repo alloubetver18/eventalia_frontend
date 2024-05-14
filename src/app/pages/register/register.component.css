@@ -80,8 +80,8 @@ input[type="submit"]:hover{
 
 
 .estilosbtnsecundario{
-    background-color: #007DB8;
-    color: white;
+    background-color: #007DB8 !important;
+    color: white !important;
     border: none;
     border-radius: 1rem;
     padding: 1rem;
