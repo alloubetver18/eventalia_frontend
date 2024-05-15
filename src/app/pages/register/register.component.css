@@ -32,6 +32,35 @@
 .generos{
     grid-column: 1 / 8;
     grid-row: 2;
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(4, auto);
+    flex-direction: column;
+    width: 50rem;
+}
+
+.generos_uno{
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+}
+
+.generos_dos{
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-column: 1 / 4;
+    grid-row: 2/3;
+}
+
+.generos_tres{
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-template-columns: repeat(4, 1fr);
+    grid-column: 1 / 4;
+    grid-row: 3/4;
 }
 
 .opciones{

@@ -6,7 +6,7 @@
     background-image: url("../../../assets/img/welcome.jpg");
     background-size:cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 50% 30%;
     
     height: 25rem;
     width: 100%;
@@ -15,7 +15,7 @@
 }
 
 .welcome .transparent{
-    background-color: #e0470075;
+    background-color: #f7f7f7b0;
     width: 100%;
     height: 25rem;
     display: flex;
@@ -24,19 +24,29 @@
     justify-content: flex-end;
     padding-bottom: 3rem;
 }
+
+.nosotros{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 .estilosbtnprincipal{
     background-color: #E04700 !important;
     color: white !important;
     border-radius: 5rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    
+    padding: 2rem;
 }
 
 .estilosbtnsecundario{
     background-color: #007DB8 !important;
     color: white !important;
     border-radius: 5rem;
-    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
 }
 
 .eventos_head{
@@ -58,6 +68,12 @@
 .lista_eventos{
     display: flex;
     justify-content: space-evenly;
+}
+
+.lista_generos .genero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .example-card, .personal_card{

@@ -4,6 +4,7 @@
 mat-toolbar{
     height: 110px;
     width: 100%;
+    justify-content: space-between;
     }
 
 .mat-toolbar{

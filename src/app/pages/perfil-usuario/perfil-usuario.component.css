@@ -1,5 +1,12 @@
 .datos_perfil{
     display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.datos_perfil img{
+    width: 250px;
+    height: 250px;
 }
 
 .lista_eventos{
