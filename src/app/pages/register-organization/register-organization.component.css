@@ -82,18 +82,6 @@
     height: 100px;
 }
 
-.formulario{
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center; */
-}
-
-.derecha{
-    /* display: flex;
-    flex-direction: column-reverse;
-    align-items: center; */
-}
-
 input[type="submit"]{
     background-color: #E04700;
     color: white;
@@ -105,4 +93,13 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background-color: #a53907;
     cursor: pointer;
+}
+
+
+.estilosbtnsecundario{
+    background-color: #007DB8 !important;
+    color: white !important;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
 }
