@@ -4,3 +4,8 @@
     object-fit: cover;
     object-position: center;
 }
+
+.datos_evento, .comentarios{
+    width: 80%;
+    margin: auto;
+}

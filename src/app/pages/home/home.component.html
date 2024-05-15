@@ -2,70 +2,63 @@
   <div class="transparent">
     <h2>Bienvenido a Eventalia</h2>
     <h3>Porque la vida se vive por momentos inolvidables</h3>
-    <button mat-flat-button class="estilosbtnsecundario" (click)="openDialog('0ms', '0ms')">Unete a Eventalia</button>
+    <button mat-flat-button class="estilosbtnprincipal" (click)="openDialog('0ms', '0ms')">Únete a Eventalia</button>
   </div>
     
 
+</section>
+
+<section class="nosotros">
+  <h1>¿Qué es Eventalia?</h1>
+
+  <h3>Eventalia es tu nueva aplicación social para eventos. Ya sea para buscar algo que hacer en tu tiempo libre, u organizar un evento para ti y tus conocidos, en Eventalia te ofrecemos una herramienta
+    para promocionarlo. Es muy facil: Registrate, Crea un Evento y compártelo. Otros usuarios quedarán informados al instante. ¿A qué esperas? únete a Eventalia.
+  </h3>
 </section>
 
 <section class="eventos_activos">
     <div class="eventos_head">
         <h3>Eventos Activos</h3>
 
-    <button mat-flat-button id="eventfull" class="estilosbtnprincipal" [routerLink]="['/listaeventos']">Ver todos los eventos</button>
+    <button mat-flat-button id="eventfull" class="estilosbtnsecundario" [routerLink]="['/listaeventos']">Ver todos los eventos</button>
     
     </div>
+
     
+    
+    <!-- <div class="lista_eventos_for">
+      @for (event of list_events; track event.id) {
+        <div class="personal_card">
+          <div class="imagen">
+            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a> 
+          </div>
+          <div class="datos">
+            <h3 class="nombre-evento">{{event.nombre}}</h3>
+            <p class="organizador">{{event.organizador}}</p>
+            <p class="fecha-hora">{{event.fecha_hora}}</p>
+            <p class="ciudad">{{event.ciudad}}</p>
+          </div>
+          <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
+        </div>
+      }
+    </div> -->
+
 
     <section class="lista_eventos">
-      <div class="personal_card">
-        <div class="imagen">
-          <a [routerLink]="['/datosEvento', 1]"><img src="../../../assets/img/feria-caballo-jerez.jpg" alt=""></a> 
+      @for (event of list_events; track event.id) {
+        <div class="personal_card">
+          <div class="imagen">
+            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a> 
+          </div>
+          <div class="datos">
+            <h3 class="nombre-evento">{{event.nombre}}</h3>
+            <p class="organizador">{{event.organizador}}</p>
+            <p class="fecha-hora">{{event.fecha_hora}}</p>
+            <p class="ciudad">{{event.ciudad}}</p>
+          </div>
+          <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
         </div>
-        <div class="datos">
-          <h3 class="nombre-evento">Feria del Caballo Jerez 2024</h3>
-          <p class="organizador">Ayuntamiento de Jerez</p>
-          <p class="fecha-hora">30/04/2024, 15:30</p>
-          <p class="ciudad">Jerez de la Frontera, Cádiz</p>
-        </div>
-        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
-      </div>
-      <div class="personal_card">
-        <div class="imagen">
-          <a [routerLink]="['/datosEvento', 2]"><img src="../../../assets/img/salon-manga-chiclana.jpg" alt=""></a> 
-        </div>
-        <div class="datos">
-          <h3 class="nombre-evento">Salón del Manga Chiclana 2024</h3>
-          <p class="organizador">Ayuntamiento de Chiclana de la Frontera</p>
-          <p class="fecha-hora">30/04/2024, 15:30</p>
-          <p class="ciudad">Chiclana de la Frontera, Cádiz</p>
-        </div>
-        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
-      </div>
-      <div class="personal_card">
-        <div class="imagen">
-          <a [routerLink]="['/datosEvento', 3]"><img src="../../../assets/img/torneo-ajedrez.jpg" alt=""></a> 
-        </div>
-        <div class="datos">
-          <h3 class="nombre-evento">Torneo de Ajedrez Verano 2024</h3>
-          <p class="organizador">Delegación de Cultura Provincia de Cádiz</p>
-          <p class="fecha-hora">30/04/2024, 15:30</p>
-          <p class="ciudad">Cádiz, Cádiz</p>
-        </div>
-        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
-      </div>
-      <div class="personal_card">
-        <div class="imagen">
-          <a [routerLink]="['/datosEvento', 4]"><img src="../../../assets/img/laser-tag.jpg" alt=""></a> 
-        </div>
-        <div class="datos">
-          <h3 class="nombre-evento">Torneo de Laser Tag</h3>
-          <p class="organizador">Casa de la Juventud Chiclana</p>
-          <p class="fecha-hora">30/04/2024, 15:30</p>
-          <p class="ciudad">Chiclana de la frontera, Cádiz</p>
-        </div>
-        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento']">Mas información</button>
-      </div>
+      }
     </section>
 </section>
 
@@ -80,10 +73,27 @@
     </div>
     
     <section class="lista_generos">
+      <div class="genero">
         <img src="./../../../assets/img/tipoevento1.jpg" alt="" srcset="">
+        <h4>Tiempo Libre</h4>
+      </div>
+      <div class="genero">
         <img src="./../../../assets/img/tipoevento2.jpg" alt="" srcset="">
+        <h4>Viajes</h4>
+      </div>
+      <div class="genero">
         <img src="./../../../assets/img/tipoevento3.jpg" alt="" srcset="">
+        <h4>Deportes</h4>
+      </div>
+      <div class="genero">
         <img src="./../../../assets/img/tipoevento4.jpg" alt="" srcset="">
+        <h4>Cultura</h4>
+      </div>
+
+        
+        
+        
+        
         <!-- Aquí irían un conjunto de enlaces con imágenes -->
     </section>
 </section>

@@ -1,8 +1,8 @@
 <section class="imagen">
-  <img src="../../../assets/img/laser-tag.jpg" alt="" />
+  <img [src]="eventoSeleccionado.img" alt="" />
 </section>
 <section class="datos_evento">
-  <h1>Torneo de Laser Tag</h1>
+  <h1>{{ eventoSeleccionado.nombre }}</h1>
   <h2>
     <a [routerLink]="['/datosOrganizacion', 1]"
       >Organiza: Casa de la Juventud</a

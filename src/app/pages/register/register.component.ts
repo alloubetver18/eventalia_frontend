@@ -49,7 +49,8 @@ export class RegisterComponent {
             const format = file.type.split('/')[1];
             console.log(`Formato: ${format}, Ancho: ${width}px, Alto: ${height}px`);
             console.log("Longitud de la cadena: "+(fileReader.result as string).length);
-            if ((format === 'jpeg' || format === 'png') && width <= 2048 && height <= 2048) {
+            //if ((format === 'jpeg' || format === 'png') && width <= 2048 && height <= 2048) {
+            if ((format === 'jpeg' || format === 'png')){
                 this.base64Image = fileReader.result as string;
                 this.imagenCargada = this.sanitizer.bypassSecurityTrustResourceUrl(this.base64Image);
                 console.log(this.base64Image);
@@ -57,9 +58,9 @@ export class RegisterComponent {
                 console.log("tamaño del archivo: "+((this.base64Image.length/1.37)/1024)+" kb");
               } else if (format !== 'jpeg' && format !== 'png') {
                 console.log('El archivo seleccionado no es una imagen jpg o png');
-            } else if (width > 2048 || height > 2048) {
+            } /* else if (width > 2048 || height > 2048) {
                 console.log('Las dimensiones de la imagen son mayores a 1024x720px');
-            }
+            } */
         };
         image.onerror = () => {
           console.log("El archivo seleccionado no es un archivo de imagen válido.");

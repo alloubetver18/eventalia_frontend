@@ -1,4 +1,14 @@
 footer{
     height: 15rem;
     background-color: #d9d9d9;
+    
+}
+
+.menu_footer{
+    padding-top: 1rem;
+}
+
+.menu_footer, .copyright, .social{
+    width: 80%;
+    margin: auto;
 }
