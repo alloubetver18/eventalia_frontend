@@ -34,6 +34,14 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.component').then((m) => m.PerfilUsuarioComponent),
       },
       {
+        path: 'añadirevento',
+        loadComponent: () => import('./pages/add-evento/add-evento.component').then((m) => m.AddEventoComponent),
+      },
+      {
+        path: 'admin',
+        loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

@@ -23,6 +23,24 @@ img.uno, img.dos, img.tres, img.cuatro{
     height: 18rem;
 }
 
+.estilosbtnprincipal{
+    background-color: #E04700 !important;
+    color: white !important;
+    border-radius: 5rem;
+    
+    padding: 1rem;
+}
+
+.estilosbtnsecundario{
+    background-color: #007DB8 !important;
+    color: white !important;
+    border-radius: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+
 @media only screen and (max-width: 425px) {
     .datos_perfil, .lista_eventos{
         flex-direction: column;

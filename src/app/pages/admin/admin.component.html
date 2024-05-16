@@ -1,7 +1,46 @@
-<h3>Administración</h3>
+<section class="formulario-admin">
+    <h3>Administración</h3>
 
-<select name="" id="" >
-    <option value="usuarios">Usuarios</option>
-    <option value="lugares">Lugares</option>
-    <option value="eventos">Eventos</option>
-</select>
+    <section class="filters">
+        <mat-form-field class="typeofdataselect">
+            <mat-label>Elemento a Administrar</mat-label>
+            <mat-select [(ngModel)]="selectedValue" (selectionChange)="cambiarDataSource($event)" name="food">
+            @for (type of datatypeselect; track type) {
+                <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+            }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="contentfilter">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+    </section>
+    <section class="results">
+        <table mat-table [dataSource]="dataSource">
+        <!-- Columnas dinámicas -->
+        @for (column of displayedColumns; track column) {
+            <ng-container [matColumnDef]="column">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> 
+                    @if(column === 'modify'){
+                        <a href="#">Modificar</a>
+                    }
+                    @else{
+                        @if(column === 'delete'){
+                            <input type="button" value="Eliminar">
+                        }
+                        @else{
+                        {{element[column]}}
+                        }
+                    }
+                </td>
+            </ng-container>
+        }
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of elements" #paginator></mat-paginator>
+    </section>
+</section>
+

@@ -1,0 +1,19 @@
+.formulario-admin{
+    width: 80%;
+    margin: auto;
+}
+
+.filters{
+    margin-bottom: 2rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.typeofdataselect{
+    width: 40%;
+}
+
+.contentfilter{
+    width: 50%;
+}
