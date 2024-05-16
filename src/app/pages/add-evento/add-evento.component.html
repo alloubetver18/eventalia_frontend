@@ -1,111 +1,173 @@
 <section class="formulario-evento">
-    <section class="uno">
-        <div class="uno-uno">
-            <h1>Disfruta de momentos inolvidables: Crea un Evento</h1>
-            <mat-form-field class="nombreEvento">
-                <mat-label>Nombre</mat-label>
-                <input matInput type="text" placeholder="" value="">
-            </mat-form-field><br>
-            <h3>Géneros</h3>
-            <div class="generos">
-                <div class="generos_uno">
-                    <mat-checkbox class="example-margin">Literatura</mat-checkbox>
-                    <mat-checkbox class="example-margin">Deportes</mat-checkbox>
-                    <mat-checkbox class="example-margin">Cultura</mat-checkbox>
-                    <mat-checkbox class="example-margin">Ocio</mat-checkbox>
-                </div>
-                <div class="generos_dos">
-                    <mat-checkbox class="example-margin">Viajes</mat-checkbox>
-                    <mat-checkbox class="example-margin">Videojuegos</mat-checkbox>
-                    <mat-checkbox class="example-margin">Tecnologías</mat-checkbox>
-                    <mat-checkbox class="example-margin">Negocios</mat-checkbox>
-                </div>
-                <div class="generos_tres">
-                    <mat-checkbox class="example-margin">Tiempo Libre</mat-checkbox>
-                    <mat-checkbox class="example-margin">Reuniones Sociales</mat-checkbox>
-                    <mat-checkbox class="example-margin">Artes escénicas</mat-checkbox>
-                    <mat-checkbox class="example-margin">Otros</mat-checkbox>
-                </div>
-            </div>
+  <section class="uno">
+    <div class="uno-uno">
+      <h1>Disfruta de momentos inolvidables: Crea un Evento</h1>
+      <mat-form-field class="nombreEvento">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" placeholder="" value="" /> </mat-form-field
+      ><br />
+      <h3>Géneros</h3>
+      <div class="generos">
+        <div class="generos_uno">
+          <mat-checkbox class="example-margin">Literatura</mat-checkbox>
+          <mat-checkbox class="example-margin">Deportes</mat-checkbox>
+          <mat-checkbox class="example-margin">Cultura</mat-checkbox>
+          <mat-checkbox class="example-margin">Ocio</mat-checkbox>
         </div>
-        <div class="uno-dos">
-            <div class="derecha">
-                <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
-                <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen($event)">Añadir imagen</button>
-            
-                <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
-            </div>
+        <div class="generos_dos">
+          <mat-checkbox class="example-margin">Viajes</mat-checkbox>
+          <mat-checkbox class="example-margin">Videojuegos</mat-checkbox>
+          <mat-checkbox class="example-margin">Tecnologías</mat-checkbox>
+          <mat-checkbox class="example-margin">Negocios</mat-checkbox>
         </div>
-    </section>
-    <section class="dos">
-        <mat-form-field class="descripcion">
-            <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-        </mat-form-field><br></section>
-    <section class="tres">
-        <div class="tres-uno">
-            <label for="">Donde quieras y cuando quieras...</label><br>
-            <div id="search">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Lugar</mat-label>
-                    <input matInput type="text" #locationInput placeholder="Buscar lugar por nombre" value="">
-                </mat-form-field>
-                
-                <!-- <input type="text" #locationInput placeholder="Buscar lugar por nombre"> -->
-                <button mat-flat-button class="estilosbtnsecundario" (click)="searchLocation()">Buscar</button>
-                <!-- <button (click)="searchLocation()">Buscar</button> -->
-            </div>
-            <div id="map">
-            </div>
+        <div class="generos_tres">
+          <mat-checkbox class="example-margin">Tiempo Libre</mat-checkbox>
+          <mat-checkbox class="example-margin">Reuniones Sociales</mat-checkbox>
+          <mat-checkbox class="example-margin">Artes escénicas</mat-checkbox>
+          <mat-checkbox class="example-margin">Otros</mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="uno-dos">
+      <div class="derecha">
+        <input
+          type="file"
+          #findImage
+          name="imagen"
+          id=""
+          (change)="handleImageUpload($event)"
+          style="display: none"
+        />
+        <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+          (click)="buscarImagen($event)"
+        >
+          Añadir imagen
+        </button>
 
-            <div id="position">
-                {{posicion}}
-            </div>
+        <img
+          class="imgPerfil"
+          [src]="imagenCargada"
+          alt="imagenGuardada"
+          srcset=""
+        /><br />
+      </div>
+    </div>
+  </section>
+  <section class="dos">
+    <mat-form-field class="descripcion">
+      <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
+      <textarea
+        matInput
+        placeholder="Ex. It makes me feel..."
+      ></textarea></mat-form-field
+    ><br />
+  </section>
+  <section class="tres">
+    <div class="tres-uno">
+      <label for="">Donde quieras y cuando quieras...</label><br />
+      <div id="search">
+        <mat-form-field class="example-full-width">
+          <mat-label>Lugar</mat-label>
+          <input
+            matInput
+            type="text"
+            #locationInput
+            placeholder="Buscar lugar por nombre"
+            value=""
+          />
+        </mat-form-field>
 
-            <a [href]="'https://www.google.com/maps/search/?api=1&query=' +posicion">Ir a la localización</a>
-        </div>
-        <div class="tres-dos">
-            <div class="cuando-quieras">
-                <mat-form-field class="example-form-field">
-                    <mat-label>Desde...</mat-label>
-                    <input matInput [matDatepicker]="datepicker1">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker1>
-                      <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                      </mat-datepicker-actions>
-                    </mat-datepicker>
-                </mat-form-field><br>
-                <mat-form-field class="example-form-field">
-                    <mat-label>Hasta</mat-label>
-                    <input matInput [matDatepicker]="datepicker2">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="datepicker2"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker2>
-                      <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                      </mat-datepicker-actions>
-                    </mat-datepicker>
-                </mat-form-field><br>
-            </div>
-        </div>
-    </section>
-    <section class="cuatro">
-        <div class="cuatro-uno">
-            <div class="terminos">
-                <mat-checkbox class="example-margin">Acepto la política de privacidad</mat-checkbox>
-                <mat-checkbox class="example-margin">Acepto los términos y condiciones del servicio</mat-checkbox>
-            </div>
-        </div>
-        <div class="cuatro-dos">
-            <div class="opciones">
-                <input type="submit" value="Crear Evento">
-                <button mat-flat-button class="estilosbtnsecundario" (click)="iraEventos($event)">Ver todos los eventos</button>
-            </div>
-        </div>
-    </section>
+        <!-- <input type="text" #locationInput placeholder="Buscar lugar por nombre"> -->
+        <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+          (click)="searchLocation()"
+        >
+          Buscar
+        </button>
+        <!-- <button (click)="searchLocation()">Buscar</button> -->
+      </div>
+      <div id="map"></div>
 
+      <div id="position">
+        {{ posicion }}
+      </div>
+
+      <a [href]="'https://www.google.com/maps/search/?api=1&query=' + posicion"
+        >Ir a la localización</a
+      >
+      <a
+        [href]="
+          'https://www.google.com/maps/search/?api=1&query=41.8838062,-5.0564346'
+        "
+        >Ir a la localización prescrita</a
+      >
+      <!-- -6.148869,36.420103
+            41.8838062,-5.0564346 -->
+    </div>
+    <div class="tres-dos">
+      <div class="cuando-quieras">
+        <mat-form-field class="example-form-field">
+          <mat-label>Desde...</mat-label>
+          <input matInput [matDatepicker]="datepicker1" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="datepicker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker1>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>
+                Apply
+              </button>
+            </mat-datepicker-actions>
+          </mat-datepicker> </mat-form-field
+        ><br />
+        <mat-form-field class="example-form-field">
+          <mat-label>Hasta</mat-label>
+          <input matInput [matDatepicker]="datepicker2" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="datepicker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker2>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>
+                Apply
+              </button>
+            </mat-datepicker-actions>
+          </mat-datepicker> </mat-form-field
+        ><br />
+      </div>
+    </div>
+  </section>
+  <section class="cuatro">
+    <div class="cuatro-uno">
+      <div class="terminos">
+        <mat-checkbox class="example-margin"
+          >Acepto la política de privacidad</mat-checkbox
+        >
+        <mat-checkbox class="example-margin"
+          >Acepto los términos y condiciones del servicio</mat-checkbox
+        >
+      </div>
+    </div>
+    <div class="cuatro-dos">
+      <div class="opciones">
+        <input type="submit" value="Crear Evento" />
+        <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+          (click)="iraEventos($event)"
+        >
+          Ver todos los eventos
+        </button>
+      </div>
+    </div>
+  </section>
 </section>
