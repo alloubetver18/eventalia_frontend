@@ -4,9 +4,13 @@
         <h2>Alban Loubet</h2>
         <h3>alban.loubet</h3>
         <h3>Generos: Ocio, Literatura</h3>
+        <button mat-flat-button class="estilosbtnprincipal" [routerLink]="['/añadirevento']">Crea un Evento</button>
+        <button mat-flat-button class="estilosbtnprincipal" [routerLink]="['/admin']">Administrar Eventos</button>
         <!-- Botón para crear un nuevo evento (si es tu perfil) -->
     </div>
     <div class="seguir">
+      <button mat-flat-button class="estilosbtnsecundario" >Seguir</button>
+      <button mat-flat-button class="estilosbtnsecundario" style="display: none;">Dejar de seguir</button>
       <!-- Botón para seguir (Si no es tu perfil) -->
     </div>
 

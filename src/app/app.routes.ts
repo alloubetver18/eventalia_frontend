@@ -18,6 +18,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/lista-eventos/lista-eventos.component').then((m) => m.ListaEventosComponent),
       },
       {
+        path: 'listaeventos/:tipodato/:idgenero',
+        loadComponent: () => import('./pages/lista-eventos/lista-eventos.component').then((m) => m.ListaEventosComponent),
+      },
+      {
         path: 'administracion',
         loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent),
       },
@@ -32,6 +36,14 @@ export const routes: Routes = [
       {
         path: 'perfil',
         loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.component').then((m) => m.PerfilUsuarioComponent),
+      },
+      {
+        path: 'añadirevento',
+        loadComponent: () => import('./pages/add-evento/add-evento.component').then((m) => m.AddEventoComponent),
+      },
+      {
+        path: 'admin',
+        loadComponent: () => import('./pages/admin/admin.component').then((m) => m.AdminComponent),
       },
       {
         path: '',
