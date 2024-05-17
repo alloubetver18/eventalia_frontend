@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ModalLugarComponent } from '../../components/modals/modal-lugar/modal-lugar.component';
 
 interface genero{
   id: number,
   denominacion: string
 }
 
-interface event{
+interface evento{
   id: number,
   img: string,
   nombre: string,
@@ -27,7 +29,7 @@ interface event{
 })
 export class DatosEventoComponent {
 
-  eventos: event[] = [
+  eventos: evento[] = [
     {
       id: 1,
       img: '../../../assets/img/feria-caballo-jerez_red.jpg',
@@ -90,7 +92,7 @@ export class DatosEventoComponent {
     }
   ];
 
-  eventoSeleccionado: event = {
+  eventoSeleccionado: evento = {
       id: 0,
       img: '',
       nombre: '',
@@ -103,7 +105,7 @@ export class DatosEventoComponent {
 
   id: any;
 
-  constructor(private activatedRoute: ActivatedRoute){
+  constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog){
     console.log(this.activatedRoute);
     this.activatedRoute.params.subscribe(params => {
         this.id = params['id'] || null;
@@ -112,6 +114,21 @@ export class DatosEventoComponent {
       });
   }
 
+  modalLugar(event:Event){
+    event.preventDefault();
+    this.openDialogmodalLugar('0','0');
+  }
+
+
+  openDialogmodalLugar(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(ModalLugarComponent, {
+      width: '500px',
+      height: '500px',
+      data: '36.420103,-6.148869',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
   
   
 }
