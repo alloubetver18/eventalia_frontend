@@ -130,6 +130,20 @@ input[type="submit"]:hover{
     width: 85%;
 }
 
+.uno-dos{
+    width: 100%;
+}
+
+.uno-dos .derecha img{
+    width: 40%;
+    height: 40%;
+    padding-bottom: 2rem;
+}
+
+.uno-dos .derecha button{
+    margin-bottom: 2rem;
+}
+
 .dos{
     width: 80%;
     margin: auto;
