@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 
 export interface PeriodicElement {
   name: string;
-  position: number;
+  id: number;
   weight: number;
   symbol: string;
 }
@@ -22,16 +22,30 @@ export interface Usuario {
   Blocked: boolean;
 }
 
+export interface Evento {
+  id: number;
+  Nombre: string;
+  Latitud: string;
+  Longitud: string;
+  Descripcion: string;
+  Fecha: string;
+  Hora: string;
+}
+
 const ELEMENT_DATA_USERS: Usuario[] = [
   {id: 1, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
-  {id: 1, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
-  {id: 1, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
-  {id: 1, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
+  {id: 2, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
+  {id: 3, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
+  {id: 4, Nombre: 'Alban', Apellidos: 'Loubet Vergara', Nick: 'albanlove', Email: 'albanlove@gmail.com', Blocked: false},
 ];
+
+const ELEMENT_DATA_EVENTS: Evento[] = [
+  {id: 1, Nombre: 'Feria del Caballo Jerez 2025', Latitud: '26.34532423', Longitud: '-60.3434243', Descripcion: 'Vive la feria del caballo en Jerez', Fecha: '25/05/2025', Hora: '17:30'},
+]
 
 export interface PeriodicElement2 {
   name2: string;
-  position2: number;
+  id: number;
   weight2: number;
   symbol2: string;
 }
@@ -42,50 +56,49 @@ interface DataType {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Prueba1', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  {id: 1, name: 'Prueba1', weight: 1.0079, symbol: 'H'},
+  {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {id: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {id: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {id: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {id: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {id: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {id: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 
 const ELEMENT_DATA2: PeriodicElement2[] = [
-  {position2: 1, name2: 'Prueba2', weight2: 1.0079, symbol2: 'H'},
-  {position2: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
-  {position2: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
-  {position2: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
-  {position2: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
-  {position2: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
-  {position2: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
-  {position2: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
-  {position2: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
-  {position2: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
+  {id: 1, name2: 'Prueba2', weight2: 1.0079, symbol2: 'H'},
+  {id: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
+  {id: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
+  {id: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
+  {id: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
+  {id: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
+  {id: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
+  {id: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
+  {id: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
+  {id: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
 ];
 
 const ELEMENT_DATA3: PeriodicElement2[] = [
-  {position2: 1, name2: 'Prueba3', weight2: 1.0079, symbol2: 'H'},
-  {position2: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
-  {position2: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
-  {position2: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
-  {position2: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
-  {position2: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
-  {position2: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
-  {position2: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
-  {position2: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
-  {position2: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
+  {id: 1, name2: 'Prueba3', weight2: 1.0079, symbol2: 'H'},
+  {id: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
+  {id: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
+  {id: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
+  {id: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
+  {id: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
+  {id: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
+  {id: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
+  {id: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
+  {id: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
 ];
 
 const COLUMN_DEFINITIONS: {[key: string]: string[]} = {
   1: ['id', 'Nombre', 'Apellidos', 'Nick', 'Email', 'Blocked'],
-  2: ['position', 'name', 'weight', 'symbol'],
-  3: ['position2', 'name2', 'weight2'],
-  4: ['position2', 'name2'],
-
+  2: ['id', 'name', 'weight', 'symbol'],
+  3: ['id', 'Nombre', 'Latitud', 'Longitud', 'Descripcion', 'Fecha', 'Hora'],
+  4: ['id', 'name2'],
   // Más tipos aquí
 }
 
@@ -112,7 +125,7 @@ export class AdminComponent {
 
   displayedColumns: string[] = [...COLUMN_DEFINITIONS['1'], 'modify', 'delete'];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA_USERS);
-
+  currentDataSource: string = '1';
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -128,18 +141,22 @@ export class AdminComponent {
       case '1':
         this.dataSource = new MatTableDataSource(ELEMENT_DATA_USERS);
         this.changeColumns('1');
+        this.currentDataSource = '1';
         break;
       case '2':
         this.dataSource = new MatTableDataSource(ELEMENT_DATA);
         this.changeColumns('2');
+        this.currentDataSource = '2';
         break;
       case '3':
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA2);
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA_EVENTS);
         this.changeColumns('3');
+        this.currentDataSource = '3';
         break;
       case '4':
         this.dataSource = new MatTableDataSource(ELEMENT_DATA3);
         this.changeColumns('4');
+        this.currentDataSource = '4';
         break;
     }
     setTimeout(() => this.dataSource.paginator = this.paginator);
@@ -152,6 +169,30 @@ export class AdminComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  modifyUser(id: number, currentdata: string, event: Event){
+    event.preventDefault();
+    console.log("Modificando el registro "+id+" de la tabla "+currentdata);
+    switch(currentdata){
+      case '1':
+        console.log("Modificando el registro "+id+" de la tabla Usuarios Comunes");
+        break;
+      case '2':
+        console.log("Modificando el registro "+id+" de la tabla Organizaciones");
+        break;
+      case '3':
+        console.log("Modificando el registro "+id+" de la tabla Eventos");
+        break;
+      case '4':
+        console.log("Modificando el registro "+id+" de la tabla Lugares");
+        break;
+    }
+  }
+
+  deleteUser(id: number, currentdata: string, event: Event){
+    event.preventDefault();
+    console.log("Eliminando el registro "+id+" de la tabla "+currentdata);
   }
 
 }
