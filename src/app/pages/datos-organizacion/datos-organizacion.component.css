@@ -5,3 +5,8 @@
     background-position: center;
     background-size: cover;
 }
+
+.datos_organizacion, .comentarios{
+    width: 80%;
+    margin: auto;
+}

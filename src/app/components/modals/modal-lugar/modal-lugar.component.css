@@ -1,5 +1,14 @@
+
+.como-llegar{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+
 #map{
     width: 80%;
     height: 400px;
-    
+    margin: auto;
 }
+
+

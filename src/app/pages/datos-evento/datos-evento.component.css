@@ -5,7 +5,36 @@
     object-position: center;
 }
 
+.datos_evento{
+    display: flex;
+    justify-content: space-between;
+}
+
+.datos_evento .der .reacciones button{
+    margin-top: 2rem;
+}
+
 .datos_evento, .comentarios{
     width: 80%;
     margin: auto;
+}
+
+.comentar{
+    width: 100%;
+    margin: auto;
+    
+}
+
+.comentar mat-form-field{
+    height: 10rem;
+    width: 100%;
+    resize: none;
+}
+
+.estilosbtnsecundario{
+    background-color: #007DB8 !important;
+    color: white !important;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
 }

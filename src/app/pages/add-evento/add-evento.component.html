@@ -69,12 +69,21 @@
       <label for="">Donde quieras y cuando quieras...</label><br />
       <div id="search">
         <mat-form-field class="example-full-width">
-          <mat-label>Lugar</mat-label>
+          <mat-label>Nombre del lugar</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Nombre del lugar"
+            value=""
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Buscar lugar por nombre, dirección o coordenadas (LON,LAT)</mat-label>
           <input
             matInput
             type="text"
             #locationInput
-            placeholder="Buscar lugar por nombre"
+            placeholder=""
             value=""
           />
         </mat-form-field>
@@ -101,40 +110,60 @@
     </div>
     <div class="tres-dos">
       <div class="cuando-quieras">
-        <mat-form-field class="example-form-field">
-          <mat-label>Desde...</mat-label>
-          <input matInput [matDatepicker]="datepicker1" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="datepicker1"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #datepicker1>
-            <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Cancel</button>
-              <button mat-raised-button color="primary" matDatepickerApply>
-                Apply
-              </button>
-            </mat-datepicker-actions>
-          </mat-datepicker> </mat-form-field
-        ><br />
-        <mat-form-field class="example-form-field">
-          <mat-label>Hasta</mat-label>
-          <input matInput [matDatepicker]="datepicker2" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="datepicker2"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #datepicker2>
-            <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Cancel</button>
-              <button mat-raised-button color="primary" matDatepickerApply>
-                Apply
-              </button>
-            </mat-datepicker-actions>
-          </mat-datepicker> </mat-form-field
-        ><br />
+        <label for="">Más información:</label><br />
+        <div class="mas-info">
+          <mat-form-field class="nombreEvento">
+            <mat-label>Dirección</mat-label>
+            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+          ><br>
+          <mat-form-field class="nombreEvento">
+            <mat-label>Localidad</mat-label>
+            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+          ><br>
+          <mat-form-field class="nombreEvento">
+            <mat-label>Provincia</mat-label>
+            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+          ><br>
+          <mat-form-field class="example-form-field">
+            <mat-label>Desde...</mat-label>
+            <input matInput [matDatepicker]="datepicker1" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="datepicker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker1>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Apply
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker> </mat-form-field
+          ><br />
+          <mat-form-field class="example-form-field">
+            <mat-label>Hasta</mat-label>
+            <input matInput [matDatepicker]="datepicker2" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="datepicker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker2>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>
+                  Apply
+                </button>
+              </mat-datepicker-actions>
+            </mat-datepicker> </mat-form-field
+          ><br />
+          <mat-form-field class="nombreEvento">
+            <mat-label>Hora de inicio (HH:MM)</mat-label>
+            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+          ><br>
+        </div>
+        
       </div>
     </div>
   </section>

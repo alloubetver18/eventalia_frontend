@@ -10,8 +10,21 @@
     padding-bottom: 3rem;
 }
 
+.filters{
+    width: 50%;
+}
+
 .filters mat-form-field{
-    width: 25rem;
+    width: 100%;
+}
+
+.listed_control{
+    text-align: center;
+    margin:auto;
+}
+
+.results{
+    width: 50%;
 }
 
 .results .evento{
@@ -22,9 +35,18 @@
 }
 
 .results .evento img{
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
 }
+
+.results .evento .datosEvento{
+    display: flex;
+    width: 20rem;
+    height: 10rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .estilosbtnsecundario{
     background-color: #007DB8;
     color: white;

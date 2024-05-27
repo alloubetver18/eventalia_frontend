@@ -32,23 +32,32 @@ export class HeaderComponent {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '250px',
+      width: '400px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/perfil']);
+      console.log(result);
+      if(result){
+        this.router.navigate(['/perfil']);
+      }else{
+        this.router.navigate(['/register']);
+      }
+      
     });
   }
 
   openDialogRegister(enterAnimationDuration: string, exitAnimationDuration: string): void {
     const dialogRef = this.dialog.open(TipoUsuarioComponent, {
-      width: '250px',
+      width: '400px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.router.navigate(['/register']);
+      if(result){
+        this.router.navigate(['/register']);
+      }
+      
     });
   }
 

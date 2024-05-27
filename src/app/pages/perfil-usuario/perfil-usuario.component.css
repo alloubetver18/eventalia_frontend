@@ -40,6 +40,43 @@ img.uno, img.dos, img.tres, img.cuatro{
     margin-top: 1rem;
 }
 
+.lista_eventos{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.lista_generos .genero{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.example-card, .personal_card{
+    width: 23%;
+}
+
+.personal_card .imagen img{
+    width:100%;
+    height: 18rem;
+}
+
+.datos{
+    text-align: center;
+}
+
+.hidden-btn{
+    display: none;
+}
+
+.recomended_control{
+    text-align: center;
+}
+
+.eventos_recomendados, .eventos_siguiendo, .eventos_creados{
+    width: 90%;
+    margin: auto;
+}
+
 
 @media only screen and (max-width: 425px) {
     .datos_perfil, .lista_eventos{

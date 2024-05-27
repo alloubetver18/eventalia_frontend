@@ -2,50 +2,66 @@
   <img [src]="eventoSeleccionado.img" alt="" />
 </section>
 <section class="datos_evento">
-  <h1>{{ eventoSeleccionado.nombre }}</h1>
-  <h2>
-    <a [routerLink]="['/datosOrganizacion', 1]"
-      >Organiza: Casa de la Juventud</a
-    >
-  </h2>
-  <h2>Fecha: 30/04/2024</h2>
-  <h2>Hora: 17:00</h2>
-  <section class="lugar">
+  <section class="izq">
+    <h1>{{ eventoSeleccionado.nombre }}</h1>
+    <h2>
+      <a [routerLink]="['/datosOrganizacion', eventoSeleccionado.id_organizador]"
+        >Organiza: {{ eventoSeleccionado.organizador }}</a
+      >
+    </h2>
+    <h2>Fecha: 30/04/2024</h2>
+    <h2>Hora: 17:00</h2>
+    <section class="lugar">
+      
+      <a href="#" (click)="modalLugar($event)">
+        Lugar: {{eventoSeleccionado.direccion}}</a>
+    </section>
+    <section class="descripcion">
+      <p>{{eventoSeleccionado.descripcion}}</p>
+    </section>
     
-    <a href="#" (click)="modalLugar($event)">
-      Lugar: Sala Box Recinto Ferial de Chiclana de la Frontera, nave 2 Chiclana
-    de la Frontera Cádiz</a>
+    <section class="generos">
+      Etiquetas: 
+      @for (genero of eventoSeleccionado.generos; track genero.id) {
+        <span>{{genero.denominacion}}</span>,
+      }
+    </section>
   </section>
-  <section class="descripcion">
-    <p>
-      Gran torneo de Laser Tag, con motivo de la llegada de la primavera, en
-      Chiclana de la Frontera. Para apuntarse como participante, puede
-      inscribirse en la web oficial del toreo:
-    </p>
-
-    <p>www.lasertagtournament2024.chicolanadelafrontera.com</p>
-
-    <p>
-      Inscripción gratuita, excepto fianza de 5 € por los equipos. La finaza se
-      devolverá al concluir el torneo. Premio asegurado solo por participar. A
-      partir de 10 años.
-    </p>
+  <section class="der">
+    <section class="reacciones">
+      <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+        >
+          Seguir
+        </button>
+      <!-- Reportar -->
+      <!-- Me interesa -->
+    </section>
   </section>
   
-  <section class="generos">
-    Etiquetas: Ocio, Deportes, Actividades al aire libre.
-  </section>
-  <section class="reacciones">
-    <!-- Reportar -->
-    <!-- Me interesa -->
-  </section>
+  
 </section>
 <section class="comentarios">
   <div class="comentario">
     <h3>Alban.loubet, el 13/05/2024, dijo:</h3>
     <p>Estoy deseando que llegue el día</p>
   </div>
-  <div class="formulario">
-    <!-- Aquí irá un formulario de comentarios -->
+  <div class="comentar">
+    <mat-form-field class="comentario">
+        <mat-label>Deja un comentario acerca del evento</mat-label>
+        <textarea
+          matInput
+          placeholder="Ex. It makes me feel..."
+        ></textarea></mat-form-field
+      ><br />
+      <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+        >
+          Comentar
+        </button>
   </div>
 </section>
+
+

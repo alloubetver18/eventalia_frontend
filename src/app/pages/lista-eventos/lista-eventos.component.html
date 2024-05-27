@@ -4,29 +4,29 @@
     <section class="filters">
     <mat-form-field class="example-full-width">
         <mat-label>Nombre</mat-label>
-        <input matInput type="text" placeholder="" value="">
+        <input [(ngModel)]="searchTerm" matInput type="text" placeholder="" value="" (input)="filter()">
     </mat-form-field><br>
     <mat-form-field class="example-form-field">
         <mat-label>Desde...</mat-label>
-        <input matInput [matDatepicker]="datepicker1">
+        <input matInput [matDatepicker]="datepicker1" [(ngModel)]="fromTerm" >
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
         <mat-datepicker #datepicker1>
           <mat-datepicker-actions>
             <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filter()">Apply</button>
           </mat-datepicker-actions>
         </mat-datepicker>
     </mat-form-field><br>
     <mat-form-field class="example-form-field">
         <mat-label>Hasta</mat-label>
-        <input matInput [matDatepicker]="datepicker2">
+        <input matInput [matDatepicker]="datepicker2" [(ngModel)]="toTerm" >
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="datepicker2"></mat-datepicker-toggle>
         <mat-datepicker #datepicker2>
           <mat-datepicker-actions>
             <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filter()">Apply</button>
           </mat-datepicker-actions>
         </mat-datepicker>
     </mat-form-field><br>
@@ -59,42 +59,25 @@
     </section>
 
     <section class="results">
-        <div class="evento">
-            <img src="../../../assets/img/laser-tag.jpg" alt="" class="imgEvento">
-            <div class="datosEvento">
-                <h3>Torneo de Laser Tag</h3>
-                <p>Sala Box, Chiclana de la frontera, Cádiz</p>
-                <p>Deportes, Actividades al aire libre</p>
-            </div>
-            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento']">Info.</button>
-        </div>
-        <div class="evento">
-            <img src="../../../assets/img/feria-caballo-jerez.jpg" alt="" class="imgEvento">
-            <div class="datosEvento">
-                <h3>Feria del Caballo Jerez 2024</h3>
-                <p>Recinto Ferial, Jerez de la Frontera, Cádiz</p>
-                <p>Actividades al aire libre</p>
-            </div>
-            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento']">Info.</button>
-        </div>
-        <div class="evento">
-            <img src="../../../assets/img/salon-manga-chiclana.jpg" alt="" class="imgEvento">
-            <div class="datosEvento">
-                <h3>Salón del Manga Chiclana 2024</h3>
-                <p>Sala Box, Chiclana de la frontera, Cádiz</p>
-                <p>Ocio, Cultura</p>
-            </div>
-            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento']">Info.</button>
-        </div>
-        <div class="evento">
-            <img src="../../../assets/img/torneo-ajedrez.jpg" alt="" class="imgEvento">
-            <div class="datosEvento">
-                <h3>Torneo de Ajedrez Verano 2024</h3>
-                <p>Casa de la Juventud, Cádiz, Cádiz</p>
-                <p>Ocio, Deportes</p>
-            </div>
-            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento']">Info.</button>
-        </div>
+        <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
+        <section class="lista_eventos">
+            @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 6, currentPage: p }; track event.id) {
+                <div class="evento">
+                    <img [src]="event.img" alt="" class="imgEvento">
+                    <div class="datosEvento">
+                        <h3>{{event.nombre}}</h3>
+                        <p>{{event.organizador}}</p>
+                        <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                </div>
+            }
+            
+          </section>
+          
+        
+        
+        <!-- A partir de aquí, la paginación. Más info en tu Drive y en tu gmail -->
     </section>
 
 </div>

@@ -5,6 +5,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ModifyCommonUserComponent } from '../../components/modals/modify-common-user/modify-common-user.component';
+import { ModifyEventComponent } from '../../components/modals/modify-event/modify-event.component';
+import { ModifyOrganizationComponent } from '../../components/modals/modify-organization/modify-organization.component';
 
 export interface PeriodicElement {
   name: string;
@@ -25,11 +30,29 @@ export interface Usuario {
 export interface Evento {
   id: number;
   Nombre: string;
-  Latitud: string;
-  Longitud: string;
+  Lugar: number;
   Descripcion: string;
   Fecha: string;
   Hora: string;
+}
+
+export interface Organization{
+  id: number;
+  Nombre: string;
+  Descripcion: string;
+  Nick: string;
+  Email: string;
+  Blocked: boolean;
+}
+
+export interface Lugar{
+  id: number;
+  Nombre: string;
+  Lat: string;
+  Lon: string;
+  Direccion: string;
+  Localidad: string;
+  Provincia: string;
 }
 
 const ELEMENT_DATA_USERS: Usuario[] = [
@@ -40,67 +63,32 @@ const ELEMENT_DATA_USERS: Usuario[] = [
 ];
 
 const ELEMENT_DATA_EVENTS: Evento[] = [
-  {id: 1, Nombre: 'Feria del Caballo Jerez 2025', Latitud: '26.34532423', Longitud: '-60.3434243', Descripcion: 'Vive la feria del caballo en Jerez', Fecha: '25/05/2025', Hora: '17:30'},
+  {id: 1, Nombre: 'Feria del Caballo Jerez 2025', Lugar: 1, Descripcion: 'Vive la feria del caballo en Jerez', Fecha: '25/05/2025', Hora: '17:30'},
 ]
 
-export interface PeriodicElement2 {
-  name2: string;
-  id: number;
-  weight2: number;
-  symbol2: string;
-}
+const ELEMENT_DATA_ORGANIZATIONS: Organization[] = [
+  {id: 1, Nombre: 'Ayuntamiento de Chiclana de la Frontera', Descripcion: 'Ayuntamiento de la localidad de Chiclana de la Frontera', Nick: 'ayuntamientochicl', Email: 'info@ayuntamientochiclana.es', Blocked: false},
+]
+
+const ELEMENT_DATA_PLACES: Lugar[] = [
+  {id: 1, Nombre: 'Recinto Ferial', Lat: '32.23', Lon: '23.32', Direccion: 'Recinto Ferial', Localidad: 'Jerez de la Frontera', Provincia: 'Cádiz'}
+]
 
 interface DataType {
   value: string;
   viewValue: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {id: 1, name: 'Prueba1', weight: 1.0079, symbol: 'H'},
-  {id: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {id: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {id: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {id: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {id: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {id: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {id: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
-const ELEMENT_DATA2: PeriodicElement2[] = [
-  {id: 1, name2: 'Prueba2', weight2: 1.0079, symbol2: 'H'},
-  {id: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
-  {id: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
-  {id: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
-  {id: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
-  {id: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
-  {id: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
-  {id: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
-  {id: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
-  {id: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
-];
-
-const ELEMENT_DATA3: PeriodicElement2[] = [
-  {id: 1, name2: 'Prueba3', weight2: 1.0079, symbol2: 'H'},
-  {id: 2, name2: 'Helium', weight2: 4.0026, symbol2: 'He'},
-  {id: 3, name2: 'Lithium', weight2: 6.941, symbol2: 'Li'},
-  {id: 4, name2: 'Beryllium', weight2: 9.0122, symbol2: 'Be'},
-  {id: 5, name2: 'Boron', weight2: 10.811, symbol2: 'B'},
-  {id: 6, name2: 'Carbon', weight2: 12.0107, symbol2: 'C'},
-  {id: 7, name2: 'Nitrogen', weight2: 14.0067, symbol2: 'N'},
-  {id: 8, name2: 'Oxygen', weight2: 15.9994, symbol2: 'O'},
-  {id: 9, name2: 'Fluorine', weight2: 18.9984, symbol2: 'F'},
-  {id: 10, name2: 'Neon', weight2: 20.1797, symbol2: 'Ne'},
-];
 
 const COLUMN_DEFINITIONS: {[key: string]: string[]} = {
   1: ['id', 'Nombre', 'Apellidos', 'Nick', 'Email', 'Blocked'],
-  2: ['id', 'name', 'weight', 'symbol'],
-  3: ['id', 'Nombre', 'Latitud', 'Longitud', 'Descripcion', 'Fecha', 'Hora'],
-  4: ['id', 'name2'],
+  2: ['id', 'Nombre', 'Descripcion', 'Nick', 'Email', 'Blocked'],
+  3: ['id', 'Nombre', 'Lugar', 'Descripcion', 'Fecha', 'Hora'],
+  /* 4: ['id', 'Nombre', 'Lat', 'Lon', 'Direccion', 'Localidad', 'Provincia'], */
   // Más tipos aquí
 }
+
 
 
 @Component({
@@ -120,12 +108,17 @@ export class AdminComponent {
     {value: '1', viewValue: 'Usuarios Comunes'},
     {value: '2', viewValue: 'Organizaciones'},
     {value: '3', viewValue: 'Eventos'},
-    {value: '4', viewValue: 'Lugares'},
+    /* {value: '4', viewValue: 'Lugares'}, */
   ];
 
   displayedColumns: string[] = [...COLUMN_DEFINITIONS['1'], 'modify', 'delete'];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA_USERS);
   currentDataSource: string = '1';
+
+  constructor(public dialog: MatDialog, private router: Router){
+    
+  }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -144,7 +137,7 @@ export class AdminComponent {
         this.currentDataSource = '1';
         break;
       case '2':
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA_ORGANIZATIONS);
         this.changeColumns('2');
         this.currentDataSource = '2';
         break;
@@ -153,11 +146,11 @@ export class AdminComponent {
         this.changeColumns('3');
         this.currentDataSource = '3';
         break;
-      case '4':
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA3);
+      /* case '4':
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA_PLACES);
         this.changeColumns('4');
         this.currentDataSource = '4';
-        break;
+        break; */
     }
     setTimeout(() => this.dataSource.paginator = this.paginator);
   }
@@ -177,16 +170,19 @@ export class AdminComponent {
     switch(currentdata){
       case '1':
         console.log("Modificando el registro "+id+" de la tabla Usuarios Comunes");
+        this.openModifyCommonUserDialog('0s', '0s', ELEMENT_DATA_USERS[id-1]);
         break;
       case '2':
         console.log("Modificando el registro "+id+" de la tabla Organizaciones");
+        this.openModifyOrganizationDialog('0s', '0s', ELEMENT_DATA_ORGANIZATIONS[id-1]);
         break;
       case '3':
         console.log("Modificando el registro "+id+" de la tabla Eventos");
+        this.openModifyEventDialog('0s', '0s', ELEMENT_DATA_EVENTS[id-1]);
         break;
-      case '4':
+      /* case '4':
         console.log("Modificando el registro "+id+" de la tabla Lugares");
-        break;
+        break; */
     }
   }
 
@@ -194,5 +190,45 @@ export class AdminComponent {
     event.preventDefault();
     console.log("Eliminando el registro "+id+" de la tabla "+currentdata);
   }
+
+  openModifyCommonUserDialog(enterAnimationDuration: string, exitAnimationDuration: string, element: any): void {
+    const dialogRef = this.dialog.open(ModifyCommonUserComponent, {
+      width: '800px',
+      height: '800px',
+      data: element,
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  openModifyOrganizationDialog(enterAnimationDuration: string, exitAnimationDuration: string, element: any): void {
+    const dialogRef = this.dialog.open(ModifyOrganizationComponent, {
+      width: '800px',
+      height: '800px',
+      data: element,
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+  openModifyEventDialog(enterAnimationDuration: string, exitAnimationDuration: string, element: any): void {
+    const dialogRef = this.dialog.open(ModifyEventComponent, {
+      width: '800px',
+      height: '800px',
+      data: element,
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
 
 }

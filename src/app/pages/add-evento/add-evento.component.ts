@@ -33,7 +33,7 @@ export class AddEventoComponent implements OnInit {
 
   map!: mapboxgl.Map;
 
-  posicion: string = '36.420103,-6.148869';
+  posicion: string|any = '36.420103,-6.148869';
 
   accessTokenMapBox: string =
     'pk.eyJ1IjoiYWxsb3ViZXR2ZXIxODEyIiwiYSI6ImNsY3RhZ2o5dTBqMHAzb3MxeHZzZ3lyanEifQ.2Jw1OyBFbyNkNAubvzRJeA';
@@ -48,6 +48,7 @@ export class AddEventoComponent implements OnInit {
       center: [-6.148869, 36.420103], // longitud, latitud
       zoom: 10, // zoom inicial
     });
+    const mark = new mapboxgl.Marker().setLngLat([36.420103, -6.148869]).addTo(this.map);
   }
 
   searchLocation() {
