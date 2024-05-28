@@ -1,12 +1,17 @@
 <section class="imagen">
-    <!-- Aquí irá la imagen representativa del evento, en formato base64 -->
+    <img [src]="organizacionSeleccionada.img" alt="" />
 </section>
 <section class="datos_organizacion">
-    <h1>Casa de la Juventud Chiclana de la Frontera</h1>
-    <h2>casadelajuventudchiclana.es</h2>
-    <h2>info&#64;casadelajuventudchiclana.es</h2>
+    <h1>{{ organizacionSeleccionada.nombre }}</h1>
+    <h2>{{ organizacionSeleccionada.web }}</h2>
+    <h2>{{ organizacionSeleccionada.email_contacto }}</h2>
     <section class="descripcion">
-        <p>Organización sin ánimo de lucro, bajo la dirección del Ayuntamiento de Chiclana, con el objetivo de guiar a los jóvenes de la localidad de Chiclana de la Frontera en sus circunstancias personales a todos los niveles.</p>
+        <p>{{ organizacionSeleccionada.descripcion }}</p>
+    </section>
+
+    <section class="eventos">
+        <h2>Eventos organizados por ellos:</h2>
+        <h3>Próximamente...</h3>
     </section>
    
     

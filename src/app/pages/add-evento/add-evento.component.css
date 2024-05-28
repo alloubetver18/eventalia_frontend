@@ -123,7 +123,8 @@ input[type="submit"]:hover{
     padding: 1rem;
 }
 
-.uno{
+
+.formulario_evento .uno{
     width: 80%;
     margin: auto;
     display: flex;
@@ -131,34 +132,34 @@ input[type="submit"]:hover{
     justify-content: space-between;
 }
 
-.uno-uno .nombreEvento{
+.formulario_evento .uno-uno .nombreEvento{
     width: 85%;
 }
 
-.uno-dos{
+.formulario_evento .uno-dos{
     width: 100%;
 }
 
-.uno-dos .derecha img{
+.formulario_evento .uno-dos .derecha img{
     width: 40%;
     height: 40%;
     padding-bottom: 2rem;
 }
 
-.uno-dos .derecha button{
+.formulario_evento .uno-dos .derecha button{
     margin-bottom: 2rem;
 }
 
-.dos{
+.formulario_evento .dos{
     width: 80%;
     margin: auto;
 }
 
-.dos .descripcion{
+.formulario_evento .dos .descripcion{
     width: 100%;
 }
 
-.tres{
+.formulario_evento .tres{
     width: 80%;
     margin: auto;
     display: flex;
@@ -166,11 +167,11 @@ input[type="submit"]:hover{
     justify-content: space-between;
 }
 
-.tres .tres-uno{
+.formulario_evento .tres .tres-uno{
     width: 50%;
 }
 
-.tres .tres-dos{
+.formulario_evento .tres .tres-dos{
     width: 50%;
     height: 100%;
     padding-left: 2rem;
@@ -179,34 +180,34 @@ input[type="submit"]:hover{
     justify-content: center;
 }
 
-#map{
+.formulario_evento #map{
     width: 80%;
     height: 400px;
     
 }
 
-#search{
+.formulario_evento #search{
     padding-bottom: 3rem;
     padding-top: 1.5rem;
 }
 
-#search mat-form-field{
+.formulario_evento #search mat-form-field{
     width: 100%;
 }
 
-.cuando-quieras mat-form-field{
+.formulario_evento .cuando-quieras mat-form-field{
     width: 100%;
 }
 
-.mas-info{
+.formulario_evento .mas-info{
     margin-top: 2rem;
 }
 
-.mas-info mat-form-field{
+.formulario_evento .mas-info mat-form-field{
     margin-top: 2rem;
 }
 
-.cuatro{
+.formulario_evento .cuatro{
     width: 80%;
     margin: auto;
     display: flex;
@@ -215,7 +216,7 @@ input[type="submit"]:hover{
     justify-content: space-between;
 }
 
-.opciones input, .opciones button{
+.formulario_evento .opciones input, .opciones button{
     width: 20rem;
     margin-bottom: 1rem;
 }

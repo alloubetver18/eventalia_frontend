@@ -1,10 +1,12 @@
 <section class="formulario-evento">
+  <form (submit)="registrarEvento($event)" [formGroup]="myForm" class="formulario_evento">
   <section class="uno">
     <div class="uno-uno">
       <h1>Disfruta de momentos inolvidables: Crea un Evento</h1>
+    
       <mat-form-field class="nombreEvento">
         <mat-label>Nombre</mat-label>
-        <input matInput type="text" placeholder="" value="" /> </mat-form-field
+        <input formControlName="name" matInput type="text" placeholder="" value="" /> </mat-form-field
       ><br />
       <h3>Géneros</h3>
       <div class="generos">
@@ -58,7 +60,7 @@
   <section class="dos">
     <mat-form-field class="descripcion">
       <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
-      <textarea
+      <textarea formControlName="description"
         matInput
         placeholder="Ex. It makes me feel..."
       ></textarea></mat-form-field
@@ -71,6 +73,7 @@
         <mat-form-field class="example-full-width">
           <mat-label>Nombre del lugar</mat-label>
           <input
+            formControlName="placename"
             matInput
             type="text"
             placeholder="Nombre del lugar"
@@ -92,7 +95,7 @@
         <button
           mat-flat-button
           class="estilosbtnsecundario"
-          (click)="searchLocation()"
+          (click)="searchLocation($event)"
         >
           Buscar
         </button>
@@ -114,19 +117,19 @@
         <div class="mas-info">
           <mat-form-field class="nombreEvento">
             <mat-label>Dirección</mat-label>
-            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+            <input formControlName="placeaddress" matInput type="text" placeholder="" value="" /> </mat-form-field
           ><br>
           <mat-form-field class="nombreEvento">
             <mat-label>Localidad</mat-label>
-            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+            <input formControlName="placecity" matInput type="text" placeholder="" value="" /> </mat-form-field
           ><br>
           <mat-form-field class="nombreEvento">
             <mat-label>Provincia</mat-label>
-            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+            <input formControlName="placeprovince" matInput type="text" placeholder="" value="" /> </mat-form-field
           ><br>
           <mat-form-field class="example-form-field">
             <mat-label>Desde...</mat-label>
-            <input matInput [matDatepicker]="datepicker1" />
+            <input formControlName="dateFrom" matInput [matDatepicker]="datepicker1" />
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle
               matIconSuffix
@@ -143,7 +146,7 @@
           ><br />
           <mat-form-field class="example-form-field">
             <mat-label>Hasta</mat-label>
-            <input matInput [matDatepicker]="datepicker2" />
+            <input formControlName="dateTo" matInput [matDatepicker]="datepicker2" />
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle
               matIconSuffix
@@ -160,7 +163,7 @@
           ><br />
           <mat-form-field class="nombreEvento">
             <mat-label>Hora de inicio (HH:MM)</mat-label>
-            <input matInput type="text" placeholder="" value="" /> </mat-form-field
+            <input formControlName="starsAt" matInput type="text" placeholder="" value="" /> </mat-form-field
           ><br>
         </div>
         
@@ -169,14 +172,14 @@
   </section>
   <section class="cuatro">
     <div class="cuatro-uno">
-      <div class="terminos">
+      <!-- <div class="terminos">
         <mat-checkbox class="example-margin"
           >Acepto la política de privacidad</mat-checkbox
         >
         <mat-checkbox class="example-margin"
           >Acepto los términos y condiciones del servicio</mat-checkbox
         >
-      </div>
+      </div> -->
     </div>
     <div class="cuatro-dos">
       <div class="opciones">
@@ -191,4 +194,5 @@
       </div>
     </div>
   </section>
+  </form>
 </section>

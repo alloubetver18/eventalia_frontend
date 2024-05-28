@@ -20,6 +20,10 @@
     width: 100%;
 }
 
+textarea{
+    resize: none;
+}
+
 .derecha{
     grid-column: 7 / 12;
     grid-row: 1;

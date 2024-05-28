@@ -13,7 +13,7 @@
 .izquierda{
     grid-column: 1 / 6;
     grid-row: 1;
-    width: 100%;
+    width: 150%;
 }
 
 .izquierda mat-form-field{
@@ -78,8 +78,8 @@
 }
 
 .imgPerfil{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 }
 
 .formulario{

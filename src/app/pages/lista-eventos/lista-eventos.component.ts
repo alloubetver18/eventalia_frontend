@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsMo
 import { MatNativeDateModule } from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ActivatedRoute } from '@angular/router';
 
 interface event{
   id: number,
@@ -21,13 +23,14 @@ interface event{
   to: Date |null,
   ciudad: string,
   provincia: number,
-  generos: number[]
+  generos: number[],
+  generosString: string
 }
 
 @Component({
   selector: 'app-lista-eventos',
   standalone: true,
-  imports: [MatInputModule, MatDatepickerModule, MatSelectModule, MatCheckboxModule, MatButtonModule, RouterLink, MatSidenavModule, NgxPaginationModule, FormsModule, MatNativeDateModule, DatePipe],
+  imports: [MatProgressSpinnerModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatCheckboxModule, MatButtonModule, RouterLink, MatSidenavModule, NgxPaginationModule, FormsModule, MatNativeDateModule, DatePipe],
   templateUrl: './lista-eventos.component.html',
   styleUrl: './lista-eventos.component.css'
 })
@@ -37,11 +40,28 @@ export class ListaEventosComponent implements OnInit{
 
   fromTerm: Date | null = null;
 
-  dateFilter: string = '2024-04-30';  // Puedes ajustar esta fecha según necesites
-
   toTerm: Date|null = null;
 
+  provinceTerm: number = -1;
+
   p: number = 1;
+
+  filtersApplied: number = 0;
+
+  themesSelected: boolean[] = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ]
 
   eventlist: event[] = [
     {
@@ -53,18 +73,20 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-05-05'),
       ciudad: 'Chiclana de la Frontera',
       provincia: 0,
-      generos: [1,2]
+      generos: [1,2],
+      generosString: "Literatura, Deportes"
     },
     {
       id: 2,
       img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
+      nombre: 'Torneo de Ajedrez Verano 2024 Málaga',
       organizador: 'Delegación de Cultura Provincia de Cádiz',
       from: new Date('2024-04-28'),
       to: new Date('2024-05-03'),
       ciudad: 'Cádiz, Cádiz',
-      provincia: 0,
-      generos: [1,2]
+      provincia: 2,
+      generos: [3,5],
+      generosString: "Cultura, Viajes"
     },
     {
       id: 3,
@@ -75,62 +97,68 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-06-05'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [1,2]
+      generos: [3,4],
+      generosString: "Cultura, Ocio"
     },
     {
       id: 4,
       img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
+      nombre: 'Torneo de Ajedrez Verano 2024 Sevilla',
+      organizador: 'Delegación de Cultura Provincia de Sevilla',
       from: new Date('2024-05-15'),
       to: new Date('2024-05-25'),
       ciudad: 'Cádiz, Cádiz',
-      provincia: 0,
-      generos: [1,2]
+      provincia: 1,
+      generos: [1,2,3,4],
+      generosString: "Literatura, Deportes, Cultura, Ocio"
     },
     {
       id: 5,
       img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
+      nombre: 'Torneo de Laser Tag Jaén',
       organizador: 'Casa de la Juventud Chiclana',
       from: new Date('2024-06-20'),
       to: new Date('2024-06-25'),
       ciudad: 'Chiclana de la frontera, Cádiz',
-      provincia: 0,
-      generos: [1,2]
+      provincia: 4,
+      generos: [1,2,7,8],
+      generosString: "Literatura, Deportes, Negocios, Tiempo Libre"
     },
     {
       id: 6,
       img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
+      nombre: 'Torneo de Ajedrez Verano 2024 Sevilla',
       organizador: 'Delegación de Cultura Provincia de Cádiz',
       from: new Date('2024-06-30'),
       to: new Date('2024-07-05'),
       ciudad: 'Cádiz, Cádiz',
-      provincia: 0,
-      generos: [1,2]
+      provincia: 1,
+      generos: [8,9],
+      generosString: "Tiempo Libre, Reuniones Sociales"
     },
     {
       id: 7,
       img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
+      nombre: 'Torneo de Juegos Retro',
       organizador: 'Casa de la Juventud Chiclana',
       from: new Date('2024-7-10'),
       to: new Date('2024-07-15'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [1,2]
+      generos: [1,4],
+      generosString: "Literatura, Ocio"
     },
     {
       id: 8,
       img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
+      nombre: 'Torneo de Ajedrez Verano 2024 Malaga',
       organizador: 'Delegación de Cultura Provincia de Cádiz',
       from: new Date('2024-07-12'),
       to: new Date('2024-07-15'),
       ciudad: 'Cádiz, Cádiz',
-      provincia: 0,
-      generos: [1,2]
+      provincia: 2,
+      generos: [1,2],
+      generosString: "Literatura, Deportes"
     },
     {
       id: 9,
@@ -141,7 +169,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-08-15'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [1,2]
+      generos: [6,9],
+      generosString: "Videojuegos, Tiempo Libre"
     }
   ];
 
@@ -149,95 +178,223 @@ export class ListaEventosComponent implements OnInit{
 
   eventResult: event[] = [];
 
+  filteredEvents: event[] = [];
+
+  themesList: number[] = [];
+
+  constructor(private route: ActivatedRoute) {
+    console.log("Entrando en el constructor del componente.");
+    this.route.params.subscribe(params => {
+      // Aquí puedes acceder a los parámetros de la ruta
+      console.log(params);
+      // Por ejemplo, si tienes un parámetro llamado 'id', puedes acceder a él así:
+      const id = params['idgenero'];
+      console.log('ID:', id);
+      if(id==undefined){
+        this.eventResult = this.eventlist;
+      }else{
+        this.themesSelected[id-1]=true;
+        this.themesList.push(parseInt(id));
+        this.filter();
+      }
+      
+    });
+  }
+
   ngOnInit(): void {
-    this.eventResult = this.eventlist;
+    console.log("Entrando en el NgOnInit del componente.");
+
+    this.route.params.subscribe(params => {
+      // Aquí puedes acceder a los parámetros de la ruta
+      console.log(params);
+      // Por ejemplo, si tienes un parámetro llamado 'id', puedes acceder a él así:
+      const id = params['idgenero'];
+      console.log('ID:', id);
+      if(id==undefined){
+        this.eventResult = this.eventlist;
+      }else{
+        this.themesSelected[id-1]=true;
+        this.themesList.push(parseInt(id));
+        this.filter();
+      }
+      
+    });
   }
 
 
   filter(){
-    if(this.searchTerm){
-      //buscamos por nombre
-      this.searchByName();
-    }
-    if(this.fromTerm){
-      //Buscamos por fecha
-      console.log(this.fromTerm);
-      this.searchByFromDate();
-      //Si no hemos buscado aún: Buscamos en todos los registros
-      //Si lo hemos hecho: buscamos en el array de resultados
-    }
-    if(this.toTerm){
-      this.searchByToDate();
-    }
-  }
 
+    /* Filtraremos por los siguientes elementos, de mayor a menor restricción:
+    - Fecha de Inicio y/o Fecha de Fin
+    - Provincia
+    - Género/s
+    - Nombre */
 
-  /* filterEvents() {
-    const term = this.searchTerm.toLowerCase();
-    const targetDate = new Date(this.dateFilter);
+    //Reiniciamos toda la estructura de búsqueda
 
-    this.eventSearch = this.eventlist.filter(event => {
-      const isAfterDate = event.fecha_hora! >= targetDate;
+    this.filtersApplied = 0;
 
-      const matchesTerm = (Object.keys(event) as (keyof Event)[]).some(key => {
-        // Evitamos la comparación en la propiedad 'fecha_hora' porque es un objeto Date
-        if (key !== 'fecha_hora') {
-          return event[key].toString().toLowerCase().includes(term);
-        }
-        return false;
-      });
-
-      return isAfterDate && matchesTerm;
-    });
-  } */
-
-
-   searchByName(){
     this.eventSearch = [];
-    console.log(this.searchTerm);
-    if (this.searchTerm) {
-      const term = this.searchTerm.toLowerCase();
-      this.eventSearch = this.eventlist.filter(event =>
-        Object.values(event).some(value =>
-          value.toString().toLowerCase().includes(term)
-        )
-      );
-      this.eventResult = this.eventSearch;
-    } else {
-      this.eventSearch = this.eventlist;
+
+    this.eventResult = [];
+
+    this.filteredEvents = [];
+
+    console.log("Iniciamos el proceso de filtrado.");
+
+    console.log("Limpiando lista de pantalla...");
+
+    console.log("Preparando listado para la búsqueda.");
+
+    this.eventSearch = this.eventlist;
+
+    this.searchByDate();
+    this.searchByProvince();
+    this.searchByName();
+    this.searchByThemes();
+
+    if(this.filtersApplied==0){
+      this.eventResult = this.eventlist;
     }
-  } /**/
+    this.p=1;
+    
+  }
 
-  searchByFromDate(){
-    //Comprobar si ya se ha buscado
-    console.log(this.eventSearch.length);
-    if(this.eventSearch.length>0){
-      //Si se ha buscado, filtrar desde esta lista
-      console.log("comprobarndo la fecha");
+  searchByDate(){
+    console.log("Paso 1: Filtramos por fecha");
 
-      this.eventSearch = this.eventSearch.filter(item => item.from!  >= this.fromTerm!);
-      this.eventResult = this.eventSearch;
-      this.eventSearch = [];
+    if(this.fromTerm == null && this.toTerm == null){
+      console.log("Mensaje de Fechas: No se han seleccionado ninguna fecha. Pasamos al siguente filtro.");
     }else{
-      this.eventSearch = this.eventlist.filter(item => item.from!  >= this.fromTerm!);
-      this.eventResult = this.eventSearch;
-      this.eventSearch = [];
+      console.log("Mensaje de Fechas: Al menos se ha añadido una fecha al filtro. Iniciando proceso de filtrado.");
+      this.filtersApplied++;
+      if(this.filteredEvents.length>0){
+        this.eventSearch = this.filteredEvents;
+      }
+
+      if(this.fromTerm != null){
+        this.filteredEvents = this.eventSearch.filter(obj =>
+          obj.from! >= this.fromTerm!);
+        if(this.toTerm != null){
+          this.filteredEvents = this.filteredEvents.filter(obj =>
+            obj.from! <= this.toTerm!);
+        }
+        this.eventResult = this.filteredEvents;
+      }else{
+        if(this.toTerm != null){
+          this.filteredEvents = this.eventSearch.filter(obj =>
+            obj.from! <= this.toTerm!);
+          this.eventResult = this.filteredEvents;
+        }
+      }
+      console.log("Proceso de filtrado por fechas finalizado. Número de elementos filtrados: "+this.eventResult.length);
+    }
+  }
+  
+  searchByProvince(){
+    console.log("Paso 2: Filtramos por provincias");
+
+    if(this.provinceTerm == -1){
+      console.log("Mensaje de Provincias: No se ha seleccionado ninguna provincia. Pasamos al siguente filtro.");
+    }else{
+      console.log("Mensaje de Provincias: Se ha seleccionado una provincia. Iniciando proceso de filtrado.");
+      this.filtersApplied++;
+      if(this.filteredEvents.length>0){
+        this.eventSearch = this.filteredEvents;
+      }
+
+      this.filteredEvents = this.eventSearch.filter(obj =>
+        obj.provincia == this.provinceTerm );
+      this.eventResult = this.filteredEvents;
+      console.log("Proceso de filtrado por provincias finalizado. Número de elementos filtrados: "+this.eventResult.length);
+    }
+    
+  }
+
+  searchByName(){
+    console.log("Paso 3: Filtramos por nombre");
+
+    if(this.searchTerm.length==0){
+      console.log("Mensaje de Nombre: No se ha escrito ningun nombre. Pasamos al siguente filtro.");
+    }else{
+      console.log("Mensaje de Nombre: Se ha escrito al menos 1 caracter. Iniciando proceso de filtrado.");
+      this.filtersApplied++;
+      if(this.filteredEvents.length>0){
+        this.eventSearch = this.filteredEvents;
+      }
+
+      const term = this.searchTerm.toLowerCase();
+      this.filteredEvents = this.eventSearch.filter(obj =>
+        obj.nombre.toLowerCase().includes(term));
+      this.eventResult = this.filteredEvents;
+      console.log("Proceso de filtrado por nombre finalizado. Número de elementos filtrados: "+this.eventResult.length);
+    }
+    
+  } 
+
+  selectTheme(event: MatCheckboxChange){
+    console.log(event.source.value);
+    const isChecked = event.checked;
+    if(isChecked){
+      this.themesList.push(parseInt(event.source.value));
+    }else{
+      this.themesList = this.themesList.filter(num => num !== parseInt(event.source.value));
+    }
+    console.log('Checkbox is checked:', isChecked);
+    console.log(this.themesList);
+    this.filter();
+  }
+
+  searchByThemes(){
+    console.log("Paso 4: Filtramos por géneros");
+
+    if(this.themesList.length==0){
+      console.log("Mensaje de Género: No se ha seleccionado ningun género. Pasamos al siguente filtro.");
+      console.log("Número de elementos filtrados: "+this.eventResult.length);
+
+    }else{
+      console.log("Mensaje de Género: Se ha seleccionado al menos 1 géneros. Iniciando proceso de filtrado.");
+      this.filtersApplied++;
+      if(this.filteredEvents.length>0){
+        this.eventSearch = this.filteredEvents;
+      }
+
+      this.filteredEvents = this.eventSearch.filter(item => 
+        item.generos.some(genero => this.themesList.includes(genero))
+      );
+
+      this.eventResult = this.filteredEvents;
+      console.log("Proceso de filtrado por género finalizado. Número de elementos filtrados: "+this.eventResult.length);
     }
   }
 
-  searchByToDate(){
-    //Comprobar si ya se ha buscado
-    console.log(this.eventSearch.length);
-    if(this.eventSearch.length>0){
-      //Si se ha buscado, filtrar desde esta lista
-      console.log("comprobarndo la fecha");
+  
 
-      this.eventSearch = this.eventSearch.filter(item => item.to!  <= this.toTerm!);
-      this.eventResult = this.eventSearch;
-    }else{
-      this.eventSearch = this.eventlist.filter(item => item.to!  <= this.toTerm!);
-      this.eventResult = this.eventSearch;
+  
+
+  reiniciarFiltros(){
+
+    console.log("Filtros reiniciados.");
+    this.eventResult = this.eventlist;
+    this.filteredEvents = [];
+    this.eventSearch = [];
+
+    this.searchTerm = '';
+
+    this.fromTerm = null;
+
+    this.toTerm = null;
+
+    this.provinceTerm = -1;
+
+    this.themesList = [];
+
+    this.filtersApplied = 0;
+
+    for(let i=0;i<this.themesSelected.length;i++){
+      this.themesSelected[i]=false;
     }
+
   }
 
 }

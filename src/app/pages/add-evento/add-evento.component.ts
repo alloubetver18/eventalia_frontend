@@ -8,6 +8,31 @@ import * as mapboxgl from 'mapbox-gl';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+export interface EventData {
+  id: number;
+  Name: string;
+  Description: string;
+  themes: number[];
+  avatarImage: string|null;
+  avatarImageFormat: string;
+  Place: Lugar;
+  from: Date;
+  to: Date;
+  hour: string;
+}
+
+export interface Lugar {
+  id: number;
+  name: string;
+  address: string;
+  lonlat: string;
+  localidad: string;
+  provincia: string;
+}
+
 @Component({
   selector: 'app-add-evento',
   standalone: true,
@@ -16,6 +41,7 @@ import { Router } from '@angular/router';
     MatCheckboxModule,
     MatDatepickerModule,
     MatButtonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './add-evento.component.html',
   styleUrl: './add-evento.component.css',
@@ -33,12 +59,15 @@ export class AddEventoComponent implements OnInit {
 
   map!: mapboxgl.Map;
 
+  myForm!: FormGroup;
+
   posicion: string|any = '36.420103,-6.148869';
 
   accessTokenMapBox: string =
     'pk.eyJ1IjoiYWxsb3ViZXR2ZXIxODEyIiwiYSI6ImNsY3RhZ2o5dTBqMHAzb3MxeHZzZ3lyanEifQ.2Jw1OyBFbyNkNAubvzRJeA';
 
-  constructor(private sanitizer: DomSanitizer, private router: Router) {}
+  constructor(private sanitizer: DomSanitizer, private router: Router, private fb: FormBuilder) {}
+
   ngOnInit(): void {
     this.map = new mapboxgl.Map({
       accessToken:
@@ -49,9 +78,24 @@ export class AddEventoComponent implements OnInit {
       zoom: 10, // zoom inicial
     });
     const mark = new mapboxgl.Marker().setLngLat([36.420103, -6.148869]).addTo(this.map);
+
+    this.myForm = this.fb.group({
+      // Define tus controles de formulario y validaciones aquí
+      name: ['', Validators.required],
+      description: [''],
+      placename: [''],
+      placeaddress: [''],
+      placecity: [''],
+      placeprovince: [''],
+      dateFrom: [''],
+      dateTo: [''],
+      starsAt: [''],
+      // Agrega más controles según sea necesario
+    });
   }
 
-  searchLocation() {
+  searchLocation(event: Event) {
+    event.preventDefault();
     var location = this.locationInput.nativeElement.value;
 
     // Realizar una solicitud a la API de Mapbox Geocoding
@@ -77,26 +121,6 @@ export class AddEventoComponent implements OnInit {
         new mapboxgl.Marker().setLngLat(coordinates).addTo(this.map);
       });
   }
-
-  /* handleFileSelect(evt: Event){
-    var files = (<HTMLInputElement>evt.target).files;
-    var file = files![0];
-
-    if (files && file) {
-
-      var reader = new FileReader();
-
-      reader.onload =this._handleReaderLoaded.bind(this);
-
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  _handleReaderLoaded(readerEvt: ProgressEvent<FileReader>) {
-    var binaryString = readerEvt.target!.result as string;
-    this.nuevaImagen = btoa(binaryString);  // Convierte la cadena binaria en base64
-    console.log(this.nuevaImagen);
-  } */
 
   cargarImagen() {
     if (this.base64Image == null) {
@@ -129,10 +153,7 @@ export class AddEventoComponent implements OnInit {
           console.log(
             'Longitud de la cadena: ' + (fileReader.result as string).length
           );
-          if (
-            (format === 'jpeg' || format === 'png') &&
-            width <= 2048 &&
-            height <= 2048
+          if ((format === 'jpeg' || format === 'png') && width <= 2048 && height <= 2048
           ) {
             this.base64Image = fileReader.result as string;
             this.imagenCargada = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -164,9 +185,38 @@ export class AddEventoComponent implements OnInit {
     }
   }
 
-  registrar(evento: Event) {
+  registrarEvento(evento: Event) {
     const inputActivado = evento.target as HTMLInputElement;
     alert('registrado');
+    
+    evento.preventDefault();
+    console.log(this.myForm.get('name')?.value);
+
+    let newPlace: Lugar = {
+      id: 0,
+      name: this.myForm.get('placename')?.value,
+      address: this.myForm.get('placeaddress')?.value,
+      lonlat: this.posicion,
+      localidad: this.myForm.get('placecity')?.value,
+      provincia: this.myForm.get('placeprovince')?.value,
+    };
+
+    let newEvent: EventData = {
+      id: 0,
+      Name: this.myForm.get('name')?.value,
+      Description: this.myForm.get('description')?.value,
+      themes: [1,2,3],//Arreglar esto
+      avatarImage: '',//Terminar
+      avatarImageFormat: '',
+      Place: newPlace,
+      from: new Date(),
+      to: new Date(),
+      hour: '15:30'
+    }
+
+    alert("Evento necesita ser terminado y almacenado para enviar.");
+    console.log(JSON.stringify(newEvent));
+
   }
 
   iraEventos(event: Event) {
