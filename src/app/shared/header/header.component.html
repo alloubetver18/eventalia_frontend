@@ -17,13 +17,20 @@
     
     <span><a [routerLink]="['/home']"><img class="logo" src="../../../assets/img/Ev_vectorial.svg" alt="" srcset=""></a></span>
     
-    <button mat-icon-button class="example-icon burguer" [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with menu icon" >
-      <mat-icon class="iconoBurguer" >menu</mat-icon>
-    </button>
+    @if(!isLogged){
+      <button mat-icon-button class="example-icon burguer" [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with menu icon" >
+        <mat-icon class="iconoBurguer" >menu</mat-icon>
+      </button>
+    }@else{
+      <!-- <span>Bienvenido, {{user.email}}</span> -->
+      <button mat-icon-button class="example-icon burguer" [matMenuTriggerFor]="profileMenu" aria-label="Example icon-button with menu icon">
+        <mat-icon class="iconoBurguer" >account_circle</mat-icon>
+      </button>
+    }
 
-    <button mat-icon-button class="example-icon burguer" [matMenuTriggerFor]="profileMenu" aria-label="Example icon-button with menu icon" style="display: none;">
-      <mat-icon class="iconoBurguer" >account_circle</mat-icon>
-    </button>
+    
+
+    
 
     
 <mat-menu #beforeMenu="matMenu" xPosition="before">
@@ -32,7 +39,8 @@
 </mat-menu>
 
 <mat-menu #profileMenu="matMenu" xPosition="before">
+
   <button mat-menu-item (click)="openDialog('0ms', '0ms')">Perfil</button>
-  <button mat-menu-item (click)="openDialogRegister('0ms', '0ms')">Cerrar Sesión</button>
+  <button mat-menu-item (click)="logout()">Cerrar Sesión</button>
 </mat-menu>
 </mat-toolbar>

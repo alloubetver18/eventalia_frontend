@@ -1,5 +1,5 @@
-<section class="registerUser">
-    <form (submit)="registrar($event)" class="formulario_registro">
+<section class="modifyUser">
+    <form (submit)="modificar($event)" class="formulario_modificar">
         <div class="izquierda">
             <h3>Modificar Usuario Común</h3>
             <mat-form-field class="example-full-width">
@@ -59,21 +59,9 @@
             </div>
         </div>
     
-        <div class="terminos">
-            <mat-checkbox class="example-margin">Acepto la política de privacidad</mat-checkbox>
-            <mat-checkbox class="example-margin">Acepto los términos y condiciones del servicio</mat-checkbox>
-        </div>
-    
         <div class="opciones">
-            <input type="submit" value="Únete a Eventalia">
-            <button mat-flat-button class="estilosbtnsecundario" (click)="iraEventos($event)">Ver todos los eventos</button>
+            <input type="submit" value="Modificar">
+            <button mat-flat-button class="estilosbtnsecundario" (click)="iraEventos($event)">Cancelar</button>
         </div>
-       
-        <!-- <div class="derecha">
-            <label for="imagen">Añadir imagen: </label>
-            <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen()">Añadir imagen</button>
-            <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
-            <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
-        </div> -->
     </form> 
 </section>

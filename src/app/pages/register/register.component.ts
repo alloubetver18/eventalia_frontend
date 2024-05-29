@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from '../../services/auth.service';
+
 export interface Usuario {
   id: number;
   Name: string;
@@ -27,7 +29,8 @@ export interface Usuario {
   standalone: true,
   imports: [MatButtonModule, MatInputModule, MatCheckboxModule, RouterLink, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
+  providers: [AuthService]
 })
 export class RegisterComponent implements OnInit{
   
@@ -47,7 +50,7 @@ export class RegisterComponent implements OnInit{
 
   themesList: number[] = [];
 
-  constructor(private sanitizer: DomSanitizer, private router: Router, private fb: FormBuilder) { }
+  constructor(private authservice: AuthService, private sanitizer: DomSanitizer, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -133,6 +136,17 @@ export class RegisterComponent implements OnInit{
       Blocked: false
 
     }
+
+    let emailregisterservice: string = "usuario@usuario.es";
+    let passwordregisterservice: string = "password";
+    if(this.myForm.get('email')?.value.length>0){
+      emailregisterservice = this.myForm.get('email')?.value;
+    }
+    if(this.myForm.get('password')?.value.length>0){
+      passwordregisterservice = this.myForm.get('password')?.value;
+    }
+
+    this.authservice.register(emailregisterservice, passwordregisterservice);
 
     alert("Usuario creado y almacenado para enviar.");
     console.log(JSON.stringify(newUserData));

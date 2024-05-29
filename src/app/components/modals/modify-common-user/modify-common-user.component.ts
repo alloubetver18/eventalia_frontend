@@ -79,7 +79,7 @@ export class ModifyCommonUserComponent {
     
   }
 
-  registrar(evento: Event){
+  modificar(evento: Event){
     const inputActivado = evento.target as HTMLInputElement;
     alert("registrado");
   }

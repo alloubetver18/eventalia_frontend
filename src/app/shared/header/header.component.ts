@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
@@ -15,19 +15,32 @@ import {
 import {MatMenuModule} from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
 import { TipoUsuarioComponent } from '../../components/modals/tipo-usuario/tipo-usuario.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatSidenavModule,RouterLink, MatMenuModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  providers: [AuthService]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   showFiller = false;
+  public isLogged = false;
+  user: any;
 
-  constructor(public dialog: MatDialog, private router: Router){
+  constructor(private authService: AuthService, public dialog: MatDialog, private router: Router){
 
+  }
+  async ngOnInit(): Promise<any> {
+    this.user = await this.authService.getCurrentUser();
+    if(this.user){
+      console.log("user: ", this.user);
+      this.isLogged=true;
+    }else{
+      this.isLogged=false;
+    }
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -59,6 +72,11 @@ export class HeaderComponent {
       }
       
     });
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/home']);
   }
 
 }
