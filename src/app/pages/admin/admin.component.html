@@ -6,18 +6,22 @@
             <mat-label>Elemento a Administrar</mat-label>
             <mat-select [(ngModel)]="selectedValue" (selectionChange)="cambiarDataSource($event)" name="food">
             @for (type of datatypeselect; track type) {
-                <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+                @if(type.value=="1"){
+                    <mat-option [value]="type.value" selected>{{type.viewValue}}</mat-option>
+                }@else{
+                    <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+                }
+                
             }
             </mat-select>
         </mat-form-field>
         <mat-form-field class="contentfilter">
             <mat-label>Buscar</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            <input [(ngModel)]="searchTerm" matInput (input)="searchByName()" placeholder="Ex. Mia" #input>
         </mat-form-field>
     </section>
     <section class="results">
-        <table mat-table [dataSource]="dataSource">
-        <!-- Columnas dinámicas -->
+        <!-- <table mat-table [dataSource]="dataSource">
         @for (column of displayedColumns; track column) {
             <ng-container [matColumnDef]="column">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
@@ -40,7 +44,88 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of elements" #paginator></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of elements" #paginator></mat-paginator> -->
+        <!-- Listado de usuarios comunes -->
+        @if(selectedValue=="1"){
+            <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
+            @if(eventResult.length==0){
+                <section class="lista_eventos buscando">
+                    <mat-spinner></mat-spinner>
+                </section>
+            }@else{
+                <section class="lista_eventos">
+                    @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 3, currentPage: p }; track event.id) {
+                        <div class="evento">
+                            <img [src]="event.img" alt="" class="imgEvento">
+                            <div class="datosEvento">
+                                <h3>{{event.nombre}}</h3>
+                                <p>{{event.organizador}}</p>
+                                <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
+                                <p>{{event.generosString}}</p>
+                            </div>
+                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                        </div>
+                    }
+                    
+                </section>
+            }
+        }
+        
+        <!-- Listado de organizaciones -->
+        @if(selectedValue=="2"){
+            <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
+            @if(eventResult.length==0){
+                <section class="lista_eventos buscando">
+                    <mat-spinner></mat-spinner>
+                </section>
+            }@else{
+                <section class="lista_eventos">
+                    @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 3, currentPage: p }; track event.id) {
+                        <div class="evento">
+                            <img [src]="event.img" alt="" class="imgEvento">
+                            <div class="datosEvento">
+                                <h3>{{event.nombre}}</h3>
+                                <p>{{event.organizador}}</p>
+                                <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
+                                <p>{{event.generosString}}</p>
+                            </div>
+                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                        </div>
+                    }
+                    
+                </section>
+            }
+        }
+        
+        <!-- Listado de eventos -->
+
+        @if(selectedValue=="3"){
+            <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
+            @if(eventResult.length==0){
+                <section class="lista_eventos buscando">
+                    <mat-spinner></mat-spinner>
+                </section>
+            }@else{
+                <section class="lista_eventos">
+                    @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 3, currentPage: p }; track event.id) {
+                        <div class="evento">
+                            <img [src]="event.img" alt="" class="imgEvento">
+                            <div class="datosEvento">
+                                <h3>{{event.nombre}}</h3>
+                                <p>{{event.organizador}}</p>
+                                <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
+                                <p>{{event.generosString}}</p>
+                            </div>
+                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                        </div>
+                    }
+                    
+                </section>
+            }
+        }
+        
+
+
     </section>
 </section>
 

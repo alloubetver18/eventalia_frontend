@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { AuthService } from '../../services/auth.service';
 
 interface event{
   id: number,
@@ -18,12 +19,16 @@ interface event{
   standalone: true,
   imports: [MatButtonModule, MatCardModule, RouterLink, NgxPaginationModule],
   templateUrl: './perfil-usuario.component.html',
-  styleUrl: './perfil-usuario.component.css'
+  styleUrl: './perfil-usuario.component.css',
+  providers: [AuthService]
 })
-export class PerfilUsuarioComponent {
+export class PerfilUsuarioComponent implements OnInit{
+  
   p: number = 1;
   q: number = 1;
   r: number = 1;
+
+  emaildeusuario:any ;
 
   recomended_events: event[] = [
     {
@@ -192,5 +197,21 @@ export class PerfilUsuarioComponent {
       fecha_hora: '30/04/2024, 15:30',
       ciudad: 'Chiclana de la Frontera, Cádiz'
     },
-  ]
+  ];
+
+  constructor(public authService: AuthService, private router: Router){
+
+  }
+
+  async ngOnInit() {
+    //alert("Aquí se obtendrán los datos del usuario a partir de las credenciales almacenadas en IndexedDB");
+    let currentUser = await this.authService.getCurrentUser();
+    console.log(currentUser?.email);
+    this.emaildeusuario = currentUser?.email;
+    if(currentUser==null){
+      console.log("intentando entrar en el perfil sin estar logueado. redirigiendo a Home");
+      this.router.navigate(['/home']);
+    }
+  }
+
 }

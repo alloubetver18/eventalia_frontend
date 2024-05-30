@@ -18,3 +18,72 @@
 .contentfilter{
     width: 50%;
 }
+
+.results{
+    width: 50%;
+}
+
+.results .btnreiniciar{
+    background-color: #007DB8;
+    margin: auto;
+    width: fit-content;
+    display: block;
+    color: white;
+}
+
+.buscando {
+    display:flex;
+    justify-content: center;
+}
+
+.results .evento{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 15rem;
+}
+
+.results .evento img{
+    width: 140px;
+    height: 140px;
+}
+
+.results .evento .datosEvento{
+    display: flex;
+    width: 20rem;
+    height: 10rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.estilosbtnsecundario{
+    background-color: #007DB8;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.generos{
+    display: flex;
+    flex-direction: column;
+}
+
+.lista_eventos{
+    display: flex;
+}
+
+.lista_eventos .evento{
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 425px) {
+
+    .lista_eventos{
+        display: flex;
+        flex-direction: column;
+    }
+
+}

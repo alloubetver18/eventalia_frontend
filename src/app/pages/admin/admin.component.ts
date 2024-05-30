@@ -6,10 +6,18 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ModifyCommonUserComponent } from '../../components/modals/modify-common-user/modify-common-user.component';
 import { ModifyEventComponent } from '../../components/modals/modify-event/modify-event.component';
 import { ModifyOrganizationComponent } from '../../components/modals/modify-organization/modify-organization.component';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 export interface PeriodicElement {
   name: string;
@@ -89,12 +97,25 @@ const COLUMN_DEFINITIONS: {[key: string]: string[]} = {
   // Más tipos aquí
 }
 
+interface event{
+  id: number,
+  img: string,
+  nombre: string,
+  organizador: string,
+  from: Date |null,
+  to: Date |null,
+  ciudad: string,
+  provincia: number,
+  generos: number[],
+  generosString: string
+}
+
 
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [MatTableModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatPaginatorModule],
+  imports: [MatTableModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatCheckboxModule, MatButtonModule, RouterLink, MatSidenavModule, NgxPaginationModule, FormsModule, MatNativeDateModule, DatePipe],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
@@ -102,7 +123,9 @@ export class AdminComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  selectedValue!: string;
+  p: number = 1;
+
+  selectedValue: string = "1";
 
   datatypeselect: DataType[] = [
     {value: '1', viewValue: 'Usuarios Comunes'},
@@ -111,12 +134,131 @@ export class AdminComponent {
     /* {value: '4', viewValue: 'Lugares'}, */
   ];
 
+  eventList: event[] = [
+    {
+      id: 1,
+      img: '../../../assets/img/salon-manga-chiclana.jpg',
+      nombre: 'Salón del Manga Chiclana 2024',
+      organizador: 'Ayuntamiento de Chiclana de la Frontera',
+      from: new Date('2024-04-30'),
+      to: new Date('2024-05-05'),
+      ciudad: 'Chiclana de la Frontera',
+      provincia: 0,
+      generos: [1,2],
+      generosString: "Literatura, Deportes"
+    },
+    {
+      id: 2,
+      img: '../../../assets/img/torneo-ajedrez.jpg',
+      nombre: 'Torneo de Ajedrez Verano 2024 Málaga',
+      organizador: 'Delegación de Cultura Provincia de Cádiz',
+      from: new Date('2024-04-28'),
+      to: new Date('2024-05-03'),
+      ciudad: 'Cádiz, Cádiz',
+      provincia: 2,
+      generos: [3,5],
+      generosString: "Cultura, Viajes"
+    },
+    {
+      id: 3,
+      img: '../../../assets/img/laser-tag.jpg',
+      nombre: 'Torneo de Laser Tag',
+      organizador: 'Casa de la Juventud Chiclana',
+      from: new Date('2024-05-30'),
+      to: new Date('2024-06-05'),
+      ciudad: 'Chiclana de la frontera, Cádiz',
+      provincia: 0,
+      generos: [3,4],
+      generosString: "Cultura, Ocio"
+    },
+    {
+      id: 4,
+      img: '../../../assets/img/torneo-ajedrez.jpg',
+      nombre: 'Torneo de Ajedrez Verano 2024 Sevilla',
+      organizador: 'Delegación de Cultura Provincia de Sevilla',
+      from: new Date('2024-05-15'),
+      to: new Date('2024-05-25'),
+      ciudad: 'Cádiz, Cádiz',
+      provincia: 1,
+      generos: [1,2,3,4],
+      generosString: "Literatura, Deportes, Cultura, Ocio"
+    },
+    {
+      id: 5,
+      img: '../../../assets/img/laser-tag.jpg',
+      nombre: 'Torneo de Laser Tag Jaén',
+      organizador: 'Casa de la Juventud Chiclana',
+      from: new Date('2024-06-20'),
+      to: new Date('2024-06-25'),
+      ciudad: 'Chiclana de la frontera, Cádiz',
+      provincia: 4,
+      generos: [1,2,7,8],
+      generosString: "Literatura, Deportes, Negocios, Tiempo Libre"
+    },
+    {
+      id: 6,
+      img: '../../../assets/img/torneo-ajedrez.jpg',
+      nombre: 'Torneo de Ajedrez Verano 2024 Sevilla',
+      organizador: 'Delegación de Cultura Provincia de Cádiz',
+      from: new Date('2024-06-30'),
+      to: new Date('2024-07-05'),
+      ciudad: 'Cádiz, Cádiz',
+      provincia: 1,
+      generos: [8,9],
+      generosString: "Tiempo Libre, Reuniones Sociales"
+    },
+    {
+      id: 7,
+      img: '../../../assets/img/laser-tag.jpg',
+      nombre: 'Torneo de Juegos Retro',
+      organizador: 'Casa de la Juventud Chiclana',
+      from: new Date('2024-7-10'),
+      to: new Date('2024-07-15'),
+      ciudad: 'Chiclana de la frontera, Cádiz',
+      provincia: 0,
+      generos: [1,4],
+      generosString: "Literatura, Ocio"
+    },
+    {
+      id: 8,
+      img: '../../../assets/img/torneo-ajedrez.jpg',
+      nombre: 'Torneo de Ajedrez Verano 2024 Malaga',
+      organizador: 'Delegación de Cultura Provincia de Cádiz',
+      from: new Date('2024-07-12'),
+      to: new Date('2024-07-15'),
+      ciudad: 'Cádiz, Cádiz',
+      provincia: 2,
+      generos: [1,2],
+      generosString: "Literatura, Deportes"
+    },
+    {
+      id: 9,
+      img: '../../../assets/img/laser-tag.jpg',
+      nombre: 'Torneo de Laser Tag',
+      organizador: 'Casa de la Juventud Chiclana',
+      from: new Date('2024-08-10'),
+      to: new Date('2024-08-15'),
+      ciudad: 'Chiclana de la frontera, Cádiz',
+      provincia: 0,
+      generos: [6,9],
+      generosString: "Videojuegos, Tiempo Libre"
+    }
+  ];
+
+  eventSearch: event[] = [];
+
+  eventResult: event[] = [];
+
+  filteredEvents: event[] = [];
+
   displayedColumns: string[] = [...COLUMN_DEFINITIONS['1'], 'modify', 'delete'];
   dataSource: any = new MatTableDataSource(ELEMENT_DATA_USERS);
   currentDataSource: string = '1';
 
+  searchTerm: string = '';
+
   constructor(public dialog: MatDialog, private router: Router){
-    
+    this.eventResult = this.eventList;
   }
 
   ngAfterViewInit() {
@@ -229,6 +371,27 @@ export class AdminComponent {
       console.log(result);
     });
   }
+
+   searchByName(){
+    console.log("Paso 3: Filtramos por nombre");
+
+    if(this.searchTerm.length==0){
+      console.log("Mensaje de Nombre: No se ha escrito ningun nombre. Pasamos al siguente filtro.");
+    }else{
+      console.log("Mensaje de Nombre: Se ha escrito al menos 1 caracter. Iniciando proceso de filtrado.");
+      
+      if(this.filteredEvents.length>0){
+        this.eventSearch = this.filteredEvents;
+      }
+
+      const term = this.searchTerm.toLowerCase();
+      this.filteredEvents = this.eventSearch.filter(obj =>
+        obj.nombre.toLowerCase().includes(term));
+      this.eventResult = this.filteredEvents;
+      console.log("Proceso de filtrado por nombre finalizado. Número de elementos filtrados: "+this.eventResult.length);
+    }
+    
+  }  /**/
 
 
 }

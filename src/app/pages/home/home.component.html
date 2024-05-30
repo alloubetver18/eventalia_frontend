@@ -2,7 +2,12 @@
   <div class="transparent">
     <h2>Bienvenido a Eventalia</h2>
     <h3>Porque la vida se vive por momentos inolvidables</h3>
-    <button mat-flat-button class="estilosbtnprincipal" (click)="openDialog('0ms', '0ms')">Únete a Eventalia</button>
+    @if(user$|async){
+      
+    }@else{
+      <button mat-flat-button class="estilosbtnprincipal" (click)="openDialog('0ms', '0ms')">Únete a Eventalia</button>
+    }
+    
   </div>
     
 
@@ -18,7 +23,7 @@
 
 <section class="eventos_activos">
     <div class="eventos_head">
-        <h3>Eventos Activos</h3>
+        <h3>Próximos eventos</h3>
 
     <button mat-flat-button id="eventfull" class="estilosbtnsecundario" [routerLink]="['/listaeventos']">Ver todos los eventos</button>
     
@@ -63,13 +68,13 @@
 </section>
 
 <section class="slogan">
-    <img src="../../../assets/img/events.jpg" alt="imagen de slogan" srcset="">
+    <img src="../../../assets/img/events-redux.jpg" alt="imagen de slogan" srcset="">
     <h3>Sea cual sea tu edad, residencia o interes... ¡Encuentra un evento para tí!</h3>
 </section>
 
 <section class="generos">
     <div class="generos_head">
-      <h3>Géneros populares</h3>
+      <h3>Algunos de nuestros géneros...</h3>
     </div>
     
     <section class="lista_generos">

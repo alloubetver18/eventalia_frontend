@@ -4,7 +4,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsModule
@@ -182,7 +182,7 @@ export class ListaEventosComponent implements OnInit{
 
   themesList: number[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     console.log("Entrando en el constructor del componente.");
     this.route.params.subscribe(params => {
       // Aquí puedes acceder a los parámetros de la ruta
@@ -212,6 +212,8 @@ export class ListaEventosComponent implements OnInit{
       console.log('ID:', id);
       if(id==undefined){
         this.eventResult = this.eventlist;
+      }else if(Number.isNaN(parseInt(id)) || id>12){
+        this.router.navigate(['/listaeventos']);
       }else{
         this.themesSelected[id-1]=true;
         this.themesList.push(parseInt(id));

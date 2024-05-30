@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { LoginComponent } from '../../components/modals/login/login.component';
+
+import {JsonPipe, AsyncPipe} from "@angular/common";
 import {
   MatDialog,
   MatDialogRef,
@@ -16,30 +18,64 @@ import {MatMenuModule} from '@angular/material/menu';
 import { Router, RouterLink } from '@angular/router';
 import { TipoUsuarioComponent } from '../../components/modals/tipo-usuario/tipo-usuario.component';
 import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatSidenavModule,RouterLink, MatMenuModule],
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatSidenavModule,RouterLink, MatMenuModule, JsonPipe, AsyncPipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   providers: [AuthService]
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnChanges{
+
+  @Input() userData: Observable<any> = this.authService.afAuth.user;
+
   showFiller = false;
   public isLogged = false;
+  
   user: any;
-
-  constructor(private authService: AuthService, public dialog: MatDialog, private router: Router){
+  public user$: Observable<any> = this.authService.afAuth.user;
+  constructor(public authService: AuthService, public dialog: MatDialog, private router: Router){
 
   }
   async ngOnInit(): Promise<any> {
-    this.user = await this.authService.getCurrentUser();
-    if(this.user){
-      console.log("user: ", this.user);
-      this.isLogged=true;
-    }else{
-      this.isLogged=false;
+    console.log("cargar la cabecera");
+    this.user = await this.authService.getCurrentUser().then(()=>{
+      if(this.user){
+        console.log("user: ", this.user);
+        this.isLogged=true;
+      }else{
+        console.log("no existe usuario logueado");
+        this.isLogged=false;
+      }
+    });
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("ha habido cambios");
+    if (changes['userData']) {
+      console.log(this.userData);
+    }
+  }
+
+  async logout(){
+    try{
+      await this.authService.logout().then(async ()=>{
+        let currentUser = await this.authService.getCurrentUser();
+        console.log(currentUser);
+        if(currentUser==null){
+          alert("El usuario cerró sesión de forma exitosa.");
+        }else{
+          /* this.dialogRef.close("success"); */
+          //this.router.navigateByUrl('/home');
+        };
+      this.router.navigate(['/home']);
+    });
+    }catch(error){
+      console.log(error);
     }
   }
 
@@ -51,9 +87,9 @@ export class HeaderComponent implements OnInit{
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if(result){
+      if(result=="success"){
         this.router.navigate(['/perfil']);
-      }else{
+      }else if(result=="register"){
         this.router.navigate(['/register']);
       }
       
@@ -72,11 +108,6 @@ export class HeaderComponent implements OnInit{
       }
       
     });
-  }
-
-  logout(){
-    this.authService.logout();
-    this.router.navigate(['/home']);
   }
 
 }

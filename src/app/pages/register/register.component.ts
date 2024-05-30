@@ -118,7 +118,6 @@ export class RegisterComponent implements OnInit{
 
   registrar(evento: Event){
     const inputActivado = evento.target as HTMLInputElement;
-    alert("registrado");
     evento.preventDefault();
     console.log(this.myForm.get('name')?.value);
 
@@ -146,12 +145,19 @@ export class RegisterComponent implements OnInit{
       passwordregisterservice = this.myForm.get('password')?.value;
     }
 
-    this.authservice.register(emailregisterservice, passwordregisterservice);
+    //Añadir a partir de aquí el almacenamiento en mi BackEnd del nuevo usuario.
+    this.authservice.register(emailregisterservice, passwordregisterservice).then(async ()=>{
+      let currentUser = await this.authservice.getCurrentUser();
+      console.log(currentUser);
+      if(currentUser==null){
+        alert("No se ha creado el nuevo usuario.");
+      }else{
+        alert("Usuario creado con éxito. A partir de aquí, crearemos un nuevo usuario en nuestra BD, para almacenar el resto de la información.");
+        this.authservice.logout();
+        this.router.navigateByUrl('/home');
+      }
+    });
 
-    alert("Usuario creado y almacenado para enviar.");
-    console.log(JSON.stringify(newUserData));
-
-    //this.router.navigate(['/home']);
   }
 
   selectTheme(event: MatCheckboxChange){

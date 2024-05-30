@@ -13,7 +13,17 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<any>{
     try{
-      const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const result = await this.afAuth.signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        /* var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert("Los datos de inicio de sesión son erroneos.");
+        } */
+        console.log(error);
+      });
 
       return result;
     }catch(error){
@@ -27,9 +37,20 @@ export class AuthService {
   
   async register(email: string, password: string): Promise<any>{
     try{
-      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const result:any = await this.afAuth.createUserWithEmailAndPassword(email, password)
+        .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/email-already-in-use') {
+          alert('The email is already in use.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
 
       return result;
+        });
     }catch(error){
       console.log(error);
     }

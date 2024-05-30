@@ -153,7 +153,7 @@ export class AddEventoComponent implements OnInit {
           console.log(
             'Longitud de la cadena: ' + (fileReader.result as string).length
           );
-          if ((format === 'jpeg' || format === 'png') && width <= 2048 && height <= 2048
+          if ((format === 'jpeg' || format === 'png') && width <= 300 && height <= 2048
           ) {
             this.base64Image = fileReader.result as string;
             this.imagenCargada = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -168,9 +168,9 @@ export class AddEventoComponent implements OnInit {
             );
           } else if (format !== 'jpeg' && format !== 'png') {
             console.log('El archivo seleccionado no es una imagen jpg o png');
-          } else if (width > 2048 || height > 2048) {
+          } else if (width > 300 || height > 2048) {
             console.log(
-              'Las dimensiones de la imagen son mayores a 1024x720px'
+              'Las dimensiones de la imagen son mayores a 300px de alto'
             );
           }
         };

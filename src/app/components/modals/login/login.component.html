@@ -1,5 +1,5 @@
 
-<form class="formulario" (submit)="loginInSystem($event)">
+<form class="formulario" [formGroup]="userForm" (ngSubmit)="loginInSystem($event)">
     <img class="logo" src="../../../assets/img/Ev_vectorial.svg" alt="" srcset="">
     <h2>Entrar en Eventalia</h2>
 
@@ -11,6 +11,6 @@
         <mat-label>Password</mat-label>
         <input formControlName="password" matInput type="password" placeholder="" value="">
     </mat-form-field><br>
-    <button type="submit" mat-button mat-dialog-close >Entrar</button><br>
-    <a href="#" (click)="toRegister($event)">Registrar como Usuario</a>
+    <button type="submit" [disabled]="userForm.invalid" mat-button mat-dialog-close >Entrar</button><br>
+    <a href="#"  (click)="toRegister($event)">Registrar como Usuario</a>
 </form>
