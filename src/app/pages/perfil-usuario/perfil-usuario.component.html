@@ -1,84 +1,124 @@
 <section class="datos_perfil">
-    <img src="../../../assets/img/default_user.png" alt="">
-    <div class="data">
-        <h2>Alban Loubet</h2>
-        <h3>alban.loubet</h3>
-        <h4>{{emaildeusuario}}</h4>
-        <h3>Generos: Ocio, Literatura</h3>
-        <button mat-flat-button class="estilosbtnprincipal" [routerLink]="['/añadirevento']">Crea un Evento</button>
-        <button mat-flat-button class="estilosbtnprincipal" [routerLink]="['/admin']">Administrar Eventos</button>
-        <!-- Botón para crear un nuevo evento (si es tu perfil) -->
-    </div>
-    <div class="seguir">
-      <button mat-flat-button class="estilosbtnsecundario" >Seguir</button>
-      <button mat-flat-button class="estilosbtnsecundario" style="display: none;">Dejar de seguir</button>
-      <!-- Botón para seguir (Si no es tu perfil) -->
-    </div>
+  <img [src]="imageString" alt="Cargando..." />
+  <div class="data">
+    <h2>{{ nombre }} {{ apellidos }}</h2>
+    <h3>{{ nick }}</h3>
+    <h4>{{ emaildeusuario }}</h4>
+    <h3>Generos: {{ themes }}</h3>
+    @if(rol==2){
+    <button
+      mat-flat-button
+      class="estilosbtnprincipal"
+      [routerLink]="['/añadirevento']"
+    >
+      Crea un Evento
+    </button>
+    } @if(rol==3){
+    <button
+      mat-flat-button
+      class="estilosbtnprincipal"
+      [routerLink]="['/admin']"
+    >
+      Administrar Eventos
+    </button>
+    }
 
+    <!-- Botón para crear un nuevo evento (si es tu perfil) -->
+  </div>
+  <div class="seguir">
+    <button mat-flat-button class="estilosbtnsecundario">Seguir</button>
+    <button mat-flat-button class="estilosbtnsecundario" style="display: none">
+      Dejar de seguir
+    </button>
+    <!-- Botón para seguir (Si no es tu perfil) -->
+  </div>
 </section>
 
 <section class="eventos_recomendados">
   <div class="head">
-      <p>Te recomendamos:</p>
-      <!-- Añadir Paginación. Sabes cómo hacerlo -->
+    <p>Te recomendamos:</p>
+    <!-- Añadir Paginación. Sabes cómo hacerlo -->
   </div>
   <section class="lista_eventos">
-    @for (event of recomended_events|paginate: { id: 'recomended', itemsPerPage: 4, currentPage: p }; track event.id) {
-      <div class="personal_card">
-        <div class="imagen">
-          <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a> 
-        </div>
-        <div class="datos">
-          <h3 class="nombre-evento">{{event.nombre}}</h3>
-          <p class="organizador">{{event.organizador}}</p>
-          <p class="fecha-hora">{{event.fecha_hora}}</p>
-          <p class="ciudad">{{event.ciudad}}</p>
-        </div>
-        <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
+    @for (event of new_recommended_events|paginate: { id: 'recomended',
+    itemsPerPage: 4, currentPage: p }; track event.id) {
+    <div class="personal_card">
+      <div class="imagen">
+        <a [routerLink]="['/datosEvento', event.id]"
+          ><img [src]="event.image" alt=""
+        /></a>
       </div>
+      <div class="datos">
+        <h3 class="nombre-evento">{{ event.name }}</h3>
+        <p class="organizador">{{ event.created_by }}</p>
+        <p class="fecha-hora">
+          {{ event.date_when_started }} | {{ event.date_when_finish }}
+        </p>
+        <p class="ciudad">{{ event.city }}</p>
+      </div>
+      <button
+        class="hidden-btn"
+        mat-button
+        [routerLink]="['/datosEvento', event.id]"
+      >
+        Mas información
+      </button>
+    </div>
     }
-    
   </section>
-  <pagination-controls id="recomended" class="recomended_control" (pageChange)="p = $event"></pagination-controls>
-  
+  <pagination-controls
+    id="recomended"
+    class="recomended_control"
+    (pageChange)="p = $event"
+  ></pagination-controls>
 </section>
 
 <section class="eventos_siguiendo">
-    <div class="head">
-        <p>Últimamente, has seguido los siguientes eventos:</p>
-        <!-- Añadir Paginación. Sabes cómo hacerlo -->
+  <div class="head">
+    <p>Últimamente, has seguido los siguientes eventos:</p>
+    <!-- Añadir Paginación. Sabes cómo hacerlo -->
+  </div>
+  <section class="lista_eventos">
+    @for (event of events_followed|paginate: { id: 'follow', itemsPerPage: 4,
+    currentPage: q }; track event.id) {
+    <div class="personal_card">
+      <div class="imagen">
+        <a [routerLink]="['/datosEvento', event.id]"
+          ><img [src]="event.img" alt=""
+        /></a>
+      </div>
+      <div class="datos">
+        <h3 class="nombre-evento">{{ event.nombre }}</h3>
+        <p class="organizador">{{ event.organizador }}</p>
+        <p class="fecha-hora">{{ event.fecha_hora }}</p>
+        <p class="ciudad">{{ event.ciudad }}</p>
+      </div>
+      <button
+        class="hidden-btn"
+        mat-button
+        [routerLink]="['/datosEvento', event.id]"
+      >
+        Mas información
+      </button>
     </div>
-    <section class="lista_eventos">
-      @for (event of events_followed|paginate: { id: 'follow', itemsPerPage: 4, currentPage: q }; track event.id) {
-        <div class="personal_card">
-          <div class="imagen">
-            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a> 
-          </div>
-          <div class="datos">
-            <h3 class="nombre-evento">{{event.nombre}}</h3>
-            <p class="organizador">{{event.organizador}}</p>
-            <p class="fecha-hora">{{event.fecha_hora}}</p>
-            <p class="ciudad">{{event.ciudad}}</p>
-          </div>
-          <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
-        </div>
-      }
-      
-    </section>
-    <pagination-controls id="follow" class="recomended_control" (pageChange)="q = $event"></pagination-controls>
-    
+    }
+  </section>
+  <pagination-controls
+    id="follow"
+    class="recomended_control"
+    (pageChange)="q = $event"
+  ></pagination-controls>
 </section>
 
-<section class="eventos_creados">
+<!-- <section class="eventos_creados">
     <div class="head">
         <p>Eventos que has creado:</p>
-        <!-- Añadir Paginación. Sabes cómo hacerlo -->
     </div>
     <section class="lista_eventos">
       @for (event of events_created|paginate: { id: 'created', itemsPerPage: 4, currentPage: r }; track event.id) {
         <div class="personal_card">
           <div class="imagen">
-            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a> 
+            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a>
           </div>
           <div class="datos">
             <h3 class="nombre-evento">{{event.nombre}}</h3>
@@ -89,8 +129,7 @@
           <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
         </div>
       }
-      
+
     </section>
     <pagination-controls id="created" class="recomended_control" (pageChange)="r = $event"></pagination-controls>
-</section>
-
+</section> -->
