@@ -8,6 +8,8 @@
 .datos_evento{
     display: flex;
     justify-content: space-between;
+    height: fit-content;
+    margin-bottom: 3rem;
 }
 
 .datos_evento .der .reacciones button{
@@ -17,6 +19,7 @@
 .datos_evento, .comentarios{
     width: 80%;
     margin: auto;
+    margin-bottom: 3rem;
 }
 
 .comentar{

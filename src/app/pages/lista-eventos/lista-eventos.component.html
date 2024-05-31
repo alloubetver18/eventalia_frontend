@@ -58,12 +58,15 @@
     </section>
 
     <section class="filter_responsive">
+        
         <!-- Aquí, en versión móvil, irá un botón para abrir un modal con los filtros correspondientes -->
         <!-- Este modal, al cerrarse, devolverá un objeto que contendrá la información a partir la cual se filtrarán los datos a mostrar en pantalla -->
     </section>
+    <section class="restartFilter"></section>
 
     
     <section class="results">
+        <button mat-flat-button primary class="btnreiniciar filter_responsive" (click)="mostrarFiltrosResponsive()">Mostrar Filtros</button>
         <button mat-flat-button primary class="btnreiniciar" (click)="reiniciarFiltros()">Reiniciar Filtros</button>
         <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
         @if(eventResult.length==0){

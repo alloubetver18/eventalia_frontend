@@ -13,6 +13,8 @@ import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { FiltersComponent } from '../../components/modals/filters/filters.component';
 
 interface event{
   id: number,
@@ -61,7 +63,7 @@ export class ListaEventosComponent implements OnInit{
     false,
     false,
     false
-  ]
+  ];
 
   eventlist: event[] = [
     {
@@ -182,7 +184,7 @@ export class ListaEventosComponent implements OnInit{
 
   themesList: number[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
     console.log("Entrando en el constructor del componente.");
     this.route.params.subscribe(params => {
       // Aquí puedes acceder a los parámetros de la ruta
@@ -370,8 +372,29 @@ export class ListaEventosComponent implements OnInit{
     }
   }
 
-  
 
+  mostrarFiltrosResponsive(){
+    this.openDialogmodalFiltros('0', '0');
+  }
+
+  openDialogmodalFiltros(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(FiltersComponent, {
+      width: '500px',
+      height: '800px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      this.searchTerm = result['name'];
+      this.fromTerm = result['from'];
+      this.toTerm = result['to'];
+      this.provinceTerm = result['province'];
+      this.themesList = result['themes'];
+      this.filter();
+    });
+  }
   
 
   reiniciarFiltros(){

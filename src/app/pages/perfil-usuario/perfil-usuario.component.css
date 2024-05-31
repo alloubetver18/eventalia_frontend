@@ -86,4 +86,8 @@ img.uno, img.dos, img.tres, img.cuatro{
     .example-card{
         width: 100%;
     }
+
+    .personal_card{
+        width: 100%;
+    }
 }
