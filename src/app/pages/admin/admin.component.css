@@ -87,6 +87,9 @@
     display: flex;
     flex-direction: column;
 }
+.opciones{
+    display: flex;
+}
 
 @media only screen and (max-width: 425px) {
 
@@ -113,6 +116,14 @@
 
     .results .evento{
         margin-bottom: 2rem;
+    }
+
+    .opciones{
+        display: flex;
+    }
+
+    ul.ngx-pagination{
+        padding-inline-start: 0 !important;
     }
 
 }

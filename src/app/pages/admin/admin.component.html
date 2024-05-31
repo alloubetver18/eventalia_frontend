@@ -63,7 +63,11 @@
                                 <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
                                 <p>{{event.generosString}}</p>
                             </div>
-                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                            <div class="opciones">
+                                <button mat-flat-button color="primary" class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                                <button mat-flat-button color="warn" class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Borrar</button>
+                                <button mat-flat-button color="accent" class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Modificar</button>
+                            </div>
                         </div>
                     }
                     
@@ -89,7 +93,11 @@
                                 <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
                                 <p>{{event.generosString}}</p>
                             </div>
-                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                            <div class="opciones">
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Borrar</button>
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Modificar</button>
+                            </div>
                         </div>
                     }
                     
@@ -116,7 +124,12 @@
                                 <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
                                 <p>{{event.generosString}}</p>
                             </div>
-                            <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                            <div class="opciones">
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Borrar</button>
+                                <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Modificar</button>
+                            </div>
+                            
                         </div>
                     }
                     

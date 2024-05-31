@@ -257,6 +257,8 @@ export class AdminComponent {
 
   searchTerm: string = '';
 
+  caracteresbuscado: number = 0;
+
   constructor(public dialog: MatDialog, private router: Router){
     this.eventResult = this.eventList;
   }
@@ -374,15 +376,25 @@ export class AdminComponent {
 
    searchByName(){
     console.log("Paso 3: Filtramos por nombre");
+    
 
     if(this.searchTerm.length==0){
       console.log("Mensaje de Nombre: No se ha escrito ningun nombre. Pasamos al siguente filtro.");
+      this.eventResult = this.eventList;
     }else{
       console.log("Mensaje de Nombre: Se ha escrito al menos 1 caracter. Iniciando proceso de filtrado.");
-      
-      if(this.filteredEvents.length>0){
-        this.eventSearch = this.filteredEvents;
+      if(this.searchTerm.length>this.caracteresbuscado){
+        this.caracteresbuscado++;
+        if(this.filteredEvents.length>0){
+          this.eventSearch = this.filteredEvents;
+        }else{
+          this.eventSearch = this.eventResult;
+        }
+      }else if(this.searchTerm.length<this.caracteresbuscado){
+        this.caracteresbuscado--;
+        this.eventSearch = this.eventList;
       }
+      
 
       const term = this.searchTerm.toLowerCase();
       this.filteredEvents = this.eventSearch.filter(obj =>

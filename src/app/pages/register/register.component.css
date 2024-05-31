@@ -17,7 +17,7 @@
 }
 
 .izquierda mat-form-field{
-    width: 100%;
+    width: 125%;
 }
 
 .derecha{
@@ -27,6 +27,7 @@
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
+    width: auto;
 }
 
 .generos{
@@ -114,4 +115,52 @@ input[type="submit"]:hover{
     border: none;
     border-radius: 1rem;
     padding: 1rem;
+}
+
+@media only screen and (max-width: 425px) {
+
+    .formulario_registro{
+        /* width: 100%; */
+        display: grid;
+        /* justify-content: center; */
+        grid-template-rows: repeat(15, auto);
+        grid-template-columns: repeat(1, auto);
+    }
+
+    .derecha{
+        grid-column: 1;
+        grid-row: 5 / 8;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+    }
+
+    .derecha button{
+        /* margin-left: 2rem; */
+    }
+
+    .izquierda{
+        grid-column: 1;
+        grid-row: 1/4;
+        width: 300px;
+    }
+
+    .izquierda mat-form-field{
+        width: 18rem;
+    }
+
+    .generos{
+        grid-column: 1;
+        grid-row: 9/12;
+        display: flex;
+    }
+
+    .opciones{
+        grid-column: 1;
+        grid-row: 13/15;
+    }
+
+
 }
