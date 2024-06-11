@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { AuthService } from '../../services/auth.service';
 import { CommonUsersServiceService } from '../../services/common-users-service.service';
 import { eventInterfaceProfile } from '../../models/event.interface';
+import { delay } from 'rxjs';
 
 interface event {
   id: number;
@@ -47,174 +48,11 @@ export class PerfilUsuarioComponent implements OnInit {
 
   new_recommended_events: eventInterfaceProfile[] = [];
 
-  recomended_events: event[] = [
-    {
-      id: 1,
-      img: '../../../assets/img/salon-manga-chiclana.jpg',
-      nombre: 'Feria del Caballo Jerez 2024',
-      organizador: 'Ayuntamiento de Jerez',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Jerez de la Frontera, Cádiz',
-    },
-    {
-      id: 2,
-      img: '../../../assets/img/salon-manga-chiclana.jpg',
-      nombre: 'Salón del Manga Chiclana 2024',
-      organizador: 'Ayuntamiento de Chiclana de la Frontera',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la Frontera, Cádiz',
-    },
-    {
-      id: 3,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 4,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 5,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 6,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 7,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 8,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 9,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 10,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-  ];
+  new_followed_events: eventInterfaceProfile[] = [];
 
-  events_followed: event[] = [
-    {
-      id: 1,
-      img: '../../../assets/img/salon-manga-chiclana.jpg',
-      nombre: 'Salón del Manga Chiclana 2024',
-      organizador: 'Ayuntamiento de Chiclana de la Frontera',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la Frontera, Cádiz',
-    },
-    {
-      id: 2,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 3,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 4,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 5,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 6,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 7,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-    {
-      id: 8,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz',
-    },
-    {
-      id: 9,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-    },
-  ];
+  new_events_created: eventInterfaceProfile[] = [];
 
-  events_created: event[] = [
-    {
-      id: 6,
-      img: '../../../assets/img/salon-manga-chiclana.jpg',
-      nombre: 'Fiesta de Fin de Curso 2024',
-      organizador: 'alban.loubet',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la Frontera, Cádiz',
-    },
-  ];
+  today = new Date();
 
   userData: any;
 
@@ -222,33 +60,56 @@ export class PerfilUsuarioComponent implements OnInit {
     public authService: AuthService,
     private router: Router,
     private commonuserservice: CommonUsersServiceService
-  ) {}
-
-  async ngOnInit() {
-    //alert("Aquí se obtendrán los datos del usuario a partir de las credenciales almacenadas en IndexedDB");
-    alert(localStorage.getItem('email'));
-    //let currentUser = await this.authService.getCurrentUser();
-    console.log(localStorage.getItem('email'));
-
+  ) {
     if (localStorage.getItem('email') != null) {
       this.commonuserservice
         .getCommonUserByEmail(localStorage.getItem('email')!)
+        .pipe(delay(2000))
         .subscribe((response) => {
-          console.log(response['result']);
           console.log(response['data']);
-          console.log(response['data']['themes']);
-
           this.imageString =
             'data:image/' +
             response['data']['avatarimageformat'] +
             ';base64,' +
             response['data']['avatarimage'];
-
           this.nombre = response['data']['name'];
           this.apellidos = response['data']['surname'];
           this.rol = parseInt(response['data']['rol']);
-
           this.nick = response['data']['nick'];
+
+          if (this.rol == 2) {
+            if (response['data']['eventscreated'].length > 0) {
+              for (
+                let k = 0;
+                k < response['data']['eventscreated'].length;
+                k++
+              ) {
+                let new_event: eventInterfaceProfile = {
+                  id: response['data']['eventscreated'][k]['id'],
+                  city: response['data']['eventscreated'][k]['city'],
+                  created_by:
+                    response['data']['eventscreated'][k]['created_by'],
+                  date_when_finish:
+                    response['data']['eventscreated'][k]['date_when_finish'],
+                  date_when_started:
+                    response['data']['eventscreated'][k]['date_when_started'],
+                  image:
+                    'data:image/' +
+                    response['data']['eventscreated'][k]['imageformat'] +
+                    ';base64,' +
+                    response['data']['eventscreated'][k]['image'],
+                  imageformat:
+                    response['data']['eventscreated'][k]['imageformat'],
+                  name: response['data']['eventscreated'][k]['name'],
+                  province: response['data']['eventscreated'][k]['province'],
+                  /* eventhappened:
+                    response['data']['eventscreated'][k]['eventhappened'], */
+                };
+                this.new_events_created.push(new_event);
+              }
+            }
+          }
+
           for (let i = 0; i < response['data']['themes'].length; i++) {
             if (i < response['data']['themes'].length - 1) {
               this.themes =
@@ -262,8 +123,6 @@ export class PerfilUsuarioComponent implements OnInit {
             }
 
             //Cambiar la estructura del objeto para que se adecue a lo que me interesa
-
-            //this.recomended_events = response['data'];
           }
           for (let j = 0; j < response['data']['eventssugested'].length; j++) {
             let event: eventInterfaceProfile = {
@@ -282,24 +141,52 @@ export class PerfilUsuarioComponent implements OnInit {
               imageformat: response['data']['eventssugested'][j]['imageformat'],
               name: response['data']['eventssugested'][j]['name'],
               province: response['data']['eventssugested'][j]['province'],
+              /* eventhappened:
+                response['data']['eventscreated'][j]['eventhappened'], */
             };
             this.new_recommended_events.push(event);
           }
-        });
-    }
 
-    /* this.emaildeusuario = currentUser?.email;
-    if (currentUser == null) {
+          for (
+            let j = 0;
+            j < response['data']['eventsinterested'].length;
+            j++
+          ) {
+            let event: eventInterfaceProfile = {
+              id: response['data']['eventsinterested'][j]['id'],
+              city: response['data']['eventsinterested'][j]['city'],
+              created_by: response['data']['eventsinterested'][j]['created_by'],
+              date_when_finish:
+                response['data']['eventsinterested'][j]['date_when_finish'],
+              date_when_started:
+                response['data']['eventsinterested'][j]['date_when_started'],
+              image:
+                'data:image/' +
+                response['data']['eventsinterested'][j]['imageformat'] +
+                ';base64,' +
+                response['data']['eventsinterested'][j]['image'],
+              imageformat:
+                response['data']['eventsinterested'][j]['imageformat'],
+              name: response['data']['eventsinterested'][j]['name'],
+              province: response['data']['eventsinterested'][j]['province'],
+              /* eventhappened:
+                response['data']['eventscreated'][j]['eventhappened'], */
+            };
+            this.new_followed_events.push(event);
+          }
+        });
+    } else {
       console.log(
         'intentando entrar en el perfil sin estar logueado. redirigiendo a Home'
       );
       this.router.navigate(['/home']);
-    } else {
-        this.commonuserservice
-          .getCommonUserByEmail(localStorage.getItem('email')!)
-          .subscribe((response) => {
-            console.log(response['result']);
-          });
-    } */
+    }
+  }
+
+  async ngOnInit() {
+    //alert("Aquí se obtendrán los datos del usuario a partir de las credenciales almacenadas en IndexedDB");
+    //alert(localStorage.getItem('email'));
+    //let currentUser = await this.authService.getCurrentUser();
+    /* console.log(localStorage.getItem('email')); */
   }
 }

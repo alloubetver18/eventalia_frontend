@@ -1,178 +1,318 @@
 <section class="formulario-evento">
-  <form (submit)="registrarEvento($event)" [formGroup]="myForm" class="formulario_evento">
-  <section class="uno">
-    <div class="uno-uno">
-      <h1>Disfruta de momentos inolvidables: Crea un Evento</h1>
-    
-      <mat-form-field class="nombreEvento">
-        <mat-label>Nombre</mat-label>
-        <input formControlName="name" matInput type="text" placeholder="" value="" /> </mat-form-field
-      ><br />
-      <h3>Géneros</h3>
-      <div class="generos">
-        <div class="generos_uno">
-          <mat-checkbox class="example-margin">Literatura</mat-checkbox>
-          <mat-checkbox class="example-margin">Deportes</mat-checkbox>
-          <mat-checkbox class="example-margin">Cultura</mat-checkbox>
-          <mat-checkbox class="example-margin">Ocio</mat-checkbox>
-        </div>
-        <div class="generos_dos">
-          <mat-checkbox class="example-margin">Viajes</mat-checkbox>
-          <mat-checkbox class="example-margin">Videojuegos</mat-checkbox>
-          <mat-checkbox class="example-margin">Tecnologías</mat-checkbox>
-          <mat-checkbox class="example-margin">Negocios</mat-checkbox>
-        </div>
-        <div class="generos_tres">
-          <mat-checkbox class="example-margin">Tiempo Libre</mat-checkbox>
-          <mat-checkbox class="example-margin">Reuniones Sociales</mat-checkbox>
-          <mat-checkbox class="example-margin">Artes escénicas</mat-checkbox>
-          <mat-checkbox class="example-margin">Otros</mat-checkbox>
-        </div>
-      </div>
-    </div>
-    <div class="uno-dos">
-      <div class="derecha">
-        <input
-          type="file"
-          #findImage
-          name="imagen"
-          id=""
-          (change)="handleImageUpload($event)"
-          style="display: none"
-        />
-        <button
-          mat-flat-button
-          class="estilosbtnsecundario"
-          (click)="buscarImagen($event)"
-        >
-          Añadir imagen
-        </button>
+  <form
+    (submit)="registrarEvento($event)"
+    [formGroup]="myForm"
+    class="formulario_evento"
+  >
+    <section class="uno">
+      <div class="uno-uno">
+        <h1>Disfruta de momentos inolvidables: Crea un Evento</h1>
 
-        <img
-          class="imgPerfil"
-          [src]="imagenCargada"
-          alt="imagenGuardada"
-          srcset=""
-        /><br />
-      </div>
-    </div>
-  </section>
-  <section class="dos">
-    <mat-form-field class="descripcion">
-      <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
-      <textarea formControlName="description"
-        matInput
-        placeholder="Ex. It makes me feel..."
-      ></textarea></mat-form-field
-    ><br />
-  </section>
-  <section class="tres">
-    <div class="tres-uno">
-      <label for="">Donde quieras y cuando quieras...</label><br />
-      <div id="search">
-        <mat-form-field class="example-full-width">
-          <mat-label>Nombre del lugar</mat-label>
+        <mat-form-field class="nombreEvento">
+          <mat-label>Nombre</mat-label>
           <input
-            formControlName="placename"
+            formControlName="name"
             matInput
             type="text"
-            placeholder="Nombre del lugar"
-            value=""
-          />
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>Buscar lugar por nombre, dirección o coordenadas (LON,LAT)</mat-label>
-          <input
-            matInput
-            type="text"
-            #locationInput
             placeholder=""
             value=""
-          />
-        </mat-form-field>
-
-        <!-- <input type="text" #locationInput placeholder="Buscar lugar por nombre"> -->
-        <button
-          mat-flat-button
-          class="estilosbtnsecundario"
-          (click)="searchLocation($event)"
-        >
-          Buscar
-        </button>
-        <!-- <button (click)="searchLocation()">Buscar</button> -->
-      </div>
-      <div id="map"></div>
-
-      <div id="position">
-        {{ posicion }}
-      </div>
-
-      <a [href]="'https://www.google.com/maps/search/?api=1&query=' + posicion"
-        >Ir a la localización</a
-      >
-    </div>
-    <div class="tres-dos">
-      <div class="cuando-quieras">
-        <label for="">Más información:</label><br />
-        <div class="mas-info">
-          <mat-form-field class="nombreEvento">
-            <mat-label>Dirección</mat-label>
-            <input formControlName="placeaddress" matInput type="text" placeholder="" value="" /> </mat-form-field
-          ><br>
-          <mat-form-field class="nombreEvento">
-            <mat-label>Localidad</mat-label>
-            <input formControlName="placecity" matInput type="text" placeholder="" value="" /> </mat-form-field
-          ><br>
-          <mat-form-field class="nombreEvento">
-            <mat-label>Provincia</mat-label>
-            <input formControlName="placeprovince" matInput type="text" placeholder="" value="" /> </mat-form-field
-          ><br>
-          <mat-form-field class="example-form-field">
-            <mat-label>Desde...</mat-label>
-            <input formControlName="dateFrom" matInput [matDatepicker]="datepicker1" />
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="datepicker1"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #datepicker1>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>
-                  Apply
-                </button>
-              </mat-datepicker-actions>
-            </mat-datepicker> </mat-form-field
-          ><br />
-          <mat-form-field class="example-form-field">
-            <mat-label>Hasta</mat-label>
-            <input formControlName="dateTo" matInput [matDatepicker]="datepicker2" />
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="datepicker2"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #datepicker2>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>
-                  Apply
-                </button>
-              </mat-datepicker-actions>
-            </mat-datepicker> </mat-form-field
-          ><br />
-          <mat-form-field class="nombreEvento">
-            <mat-label>Hora de inicio (HH:MM)</mat-label>
-            <input formControlName="starsAt" matInput type="text" placeholder="" value="" /> </mat-form-field
-          ><br>
+          /> </mat-form-field
+        ><br />
+        <h3>Géneros</h3>
+        <div class="generos">
+          <div class="generos_uno">
+            <mat-checkbox
+              class="example-margin"
+              value="1"
+              [(ngModel)]="themesSelected[0]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Literatura</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="2"
+              [(ngModel)]="themesSelected[1]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Deportes</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="3"
+              [(ngModel)]="themesSelected[2]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Cultura</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="4"
+              [(ngModel)]="themesSelected[3]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Ocio</mat-checkbox
+            >
+          </div>
+          <div class="generos_dos">
+            <mat-checkbox
+              class="example-margin"
+              value="5"
+              [(ngModel)]="themesSelected[4]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Viajes</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="6"
+              [(ngModel)]="themesSelected[5]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Videojuegos</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="7"
+              [(ngModel)]="themesSelected[6]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Tecnologías</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="8"
+              [(ngModel)]="themesSelected[7]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Negocios</mat-checkbox
+            >
+          </div>
+          <div class="generos_tres">
+            <mat-checkbox
+              class="example-margin"
+              value="9"
+              [(ngModel)]="themesSelected[8]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Tiempo Libre</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="10"
+              [(ngModel)]="themesSelected[9]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Reuniones Sociales</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="11"
+              [(ngModel)]="themesSelected[10]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Artes escénicas</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              value="12"
+              [(ngModel)]="themesSelected[11]"
+              (change)="selectTheme($event)"
+              [ngModelOptions]="{ standalone: true }"
+              >Otros</mat-checkbox
+            >
+          </div>
         </div>
-        
       </div>
-    </div>
-  </section>
-  <section class="cuatro">
-    <div class="cuatro-uno">
-      <!-- <div class="terminos">
+      <div class="uno-dos">
+        <div class="derecha">
+          <input
+            type="file"
+            #findImage
+            name="imagen"
+            id=""
+            (change)="handleImageUpload($event)"
+            style="display: none"
+          />
+          <button
+            mat-flat-button
+            class="estilosbtnsecundario"
+            (click)="buscarImagen($event)"
+          >
+            Añadir imagen
+          </button>
+
+          <img
+            class="imgPerfil"
+            [src]="imagenCargada"
+            alt="imagenGuardada"
+            srcset=""
+          /><br />
+        </div>
+      </div>
+    </section>
+    <section class="dos">
+      <mat-form-field class="descripcion">
+        <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Ex. It makes me feel..."
+        ></textarea></mat-form-field
+      ><br />
+    </section>
+    <section class="tres">
+      <div class="tres-uno">
+        <label for="">Donde quieras y cuando quieras...</label><br />
+        <div id="search">
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre del lugar</mat-label>
+            <input
+              formControlName="placename"
+              matInput
+              type="text"
+              placeholder="Nombre del lugar"
+              value=""
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label
+              >Buscar lugar por nombre, dirección o coordenadas
+              (LON,LAT)</mat-label
+            >
+            <input
+              matInput
+              type="text"
+              #locationInput
+              placeholder=""
+              value=""
+            />
+          </mat-form-field>
+
+          <!-- <input type="text" #locationInput placeholder="Buscar lugar por nombre"> -->
+          <button
+            mat-flat-button
+            class="estilosbtnsecundario"
+            (click)="searchLocation($event)"
+          >
+            Buscar
+          </button>
+          <!-- <button (click)="searchLocation()">Buscar</button> -->
+        </div>
+        <div id="map"></div>
+
+        <div id="position">
+          {{ posicion }}
+        </div>
+
+        <a
+          [href]="'https://www.google.com/maps/search/?api=1&query=' + posicion"
+          >Ir a la localización</a
+        >
+      </div>
+      <div class="tres-dos">
+        <div class="cuando-quieras">
+          <label for="">Más información:</label><br />
+          <div class="mas-info">
+            <mat-form-field class="nombreEvento">
+              <mat-label>Dirección</mat-label>
+              <input
+                formControlName="placeaddress"
+                matInput
+                type="text"
+                placeholder=""
+                value=""
+              /> </mat-form-field
+            ><br />
+            <mat-form-field class="nombreEvento">
+              <mat-label>Localidad</mat-label>
+              <input
+                formControlName="placecity"
+                matInput
+                type="text"
+                placeholder=""
+                value=""
+              /> </mat-form-field
+            ><br />
+            <mat-form-field class="nombreEvento">
+              <mat-label>Provincia</mat-label>
+              <input
+                formControlName="placeprovince"
+                matInput
+                type="text"
+                placeholder=""
+                value=""
+              /> </mat-form-field
+            ><br />
+            <mat-form-field class="example-form-field">
+              <mat-label>Desde...</mat-label>
+              <input
+                formControlName="dateFrom"
+                matInput
+                [matDatepicker]="datepicker1"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="datepicker1"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker1>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>
+                    Apply
+                  </button>
+                </mat-datepicker-actions>
+              </mat-datepicker> </mat-form-field
+            ><br />
+            <mat-form-field class="example-form-field">
+              <mat-label>Hasta</mat-label>
+              <input
+                formControlName="dateTo"
+                matInput
+                [matDatepicker]="datepicker2"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="datepicker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker2>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>
+                    Apply
+                  </button>
+                </mat-datepicker-actions>
+              </mat-datepicker> </mat-form-field
+            ><br />
+            <mat-form-field class="nombreEvento">
+              <mat-label>Hora de inicio (HH:MM)</mat-label>
+              <input
+                formControlName="startsAt"
+                matInput
+                type="text"
+                placeholder=""
+                value=""
+              /> </mat-form-field
+            ><br />
+            <mat-form-field class="precioEvento">
+              <mat-label>Precio del Evento (si es gratis, escribe 0)</mat-label>
+              <input
+                formControlName="priceEvent"
+                matInput
+                type="number"
+                placeholder=""
+                value=""
+              /> </mat-form-field
+            ><br />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="cuatro">
+      <div class="cuatro-uno">
+        <!-- <div class="terminos">
         <mat-checkbox class="example-margin"
           >Acepto la política de privacidad</mat-checkbox
         >
@@ -180,19 +320,19 @@
           >Acepto los términos y condiciones del servicio</mat-checkbox
         >
       </div> -->
-    </div>
-    <div class="cuatro-dos">
-      <div class="opciones">
-        <input type="submit" value="Crear Evento" />
-        <button
-          mat-flat-button
-          class="estilosbtnsecundario"
-          (click)="iraEventos($event)"
-        >
-          Ver todos los eventos
-        </button>
       </div>
-    </div>
-  </section>
+      <div class="cuatro-dos">
+        <div class="opciones">
+          <input type="submit" value="Crear Evento" />
+          <button
+            mat-flat-button
+            class="estilosbtnsecundario"
+            (click)="iraEventos($event)"
+          >
+            Ver todos los eventos
+          </button>
+        </div>
+      </div>
+    </section>
   </form>
 </section>

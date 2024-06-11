@@ -1,145 +1,136 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ModalLugarComponent } from '../../components/modals/modal-lugar/modal-lugar.component';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
+import { EventsServiceService } from '../../services/events-service.service';
+import { Result } from '../../../../../../Angula-Curso-2/03-pokeapp/src/app/poke/interfaces/pokeList.interface';
+import { CommonUsersServiceService } from '../../services/common-users-service.service';
+import { delay } from 'rxjs';
 
-interface genero{
-  id: number,
-  denominacion: string
+interface genero {
+  id: number;
+  denominacion: string;
 }
 
-interface evento{
-  id: number,
-  img: string,
-  nombre: string,
-  id_organizador: number,
-  organizador: string,
-  fecha_hora: string,
-  direccion: string,
-  ciudad: string,
-  descripcion: string,
-  generos: genero[],
-  latlon: string,
+interface evento {
+  id: number;
+  img: string;
+  nombre: string;
+  id_organizador: number;
+  organizador: string;
+  fecha: string;
+  hora: string;
+  lugar: string;
+  direccion: string;
+  ciudad: string;
+  descripcion: string;
+  generos: genero[];
+  latlon: string;
 }
-
 
 @Component({
   selector: 'app-datos-evento',
   standalone: true,
   imports: [RouterLink, MatInputModule],
   templateUrl: './datos-evento.component.html',
-  styleUrl: './datos-evento.component.css'
+  styleUrl: './datos-evento.component.css',
 })
 export class DatosEventoComponent {
-
-  eventos: evento[] = [
-    {
-      id: 1,
-      img: '../../../assets/img/feria-caballo-jerez_red.jpg',
-      nombre: 'Feria del Caballo Jerez 2024',
-      id_organizador: 1,
-      organizador: 'Ayuntamiento de Jerez',
-      fecha_hora: '30/04/2024, 15:30',
-      direccion: 'Recinto ferial de Jerez de la Frontera, 11111',
-      ciudad: 'Jerez de la Frontera, Cádiz',
-      descripcion: 'Celebra la Feria del Caballo este fin de semana en Jerez de la Frontera',
-      generos: [
-        {
-          id: 4,
-          denominacion: 'Cultura'
-        }
-      ],
-      latlon: '36.420103,-6.148869'
-    },
-    {
-      id: 2,
-      img: '../../../assets/img/salon-manga-chiclana.jpg',
-      nombre: 'Salón del Manga Chiclana 2024',
-      id_organizador: 2,
-      organizador: 'Ayuntamiento de Chiclana de la Frontera',
-      fecha_hora: '30/04/2024, 15:30',
-      direccion: 'SalaBox, Recinto ferial de Chiclana de la Frontera, 11111',
-      ciudad: 'Chiclana de la Frontera, Cádiz',
-      descripcion: 'Celebra el Salón del Manga de Chiclana este fin de semana en Chiclana',
-      generos: [
-        {
-          id: 4,
-          denominacion: 'Cultura'
-        }
-      ],
-      latlon: '36.420103,-6.148869'
-    },
-    {
-      id: 3,
-      img: '../../../assets/img/torneo-ajedrez.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      id_organizador: 3,
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      direccion: 'Casa de la Juventud Cádiz, 11111',
-      ciudad: 'Cádiz, Cádiz',
-      descripcion: 'Torneo clasificatorio para el torneo nacional de Ajedrez de España',
-      generos: [
-        {
-          id: 4,
-          denominacion: 'Cultura'
-        }
-      ],
-      latlon: '36.420103,-6.148869'
-    },
-    {
-      id: 4,
-      img: '../../../assets/img/laser-tag.jpg',
-      nombre: 'Torneo de Laser Tag',
-      id_organizador: 4,
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      direccion: 'Sala Box, Recinto Ferial de Chiclana, 11130',
-      ciudad: 'Chiclana de la frontera, Cádiz',
-      descripcion: 'Torneo de Laer Tag en Chiclana de la Frontera',
-      generos: [
-        {
-          id: 4,
-          denominacion: 'Cultura'
-        }
-      ],
-      latlon: '36.420103,-6.148869'
-    }
-  ];
-
   eventoSeleccionado: evento = {
-      id: 0,
-      img: '',
-      nombre: '',
-      id_organizador: 0,
-      organizador: '',
-      fecha_hora: '',
-      direccion: '',
-      ciudad: '',
-      descripcion: '',
-      generos: [],
-      latlon: ''
+    id: 0,
+    img: '',
+    nombre: '',
+    id_organizador: 0,
+    organizador: '',
+    fecha: '',
+    hora: '',
+    lugar: '',
+    direccion: '',
+    ciudad: '',
+    descripcion: '',
+    generos: [],
+    latlon: '',
   };
 
   id: any;
 
-  constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog){
-    console.log(this.activatedRoute);
-    this.activatedRoute.params.subscribe(params => {
-        this.id = params['id'] || null;
-        console.log(this.id-1);
-        this.eventoSeleccionado = this.eventos[this.id-1];
-      });
+  rol: number = 0;
+
+  participatingInEvent = false;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
+    private router: Router,
+    private eventService: EventsServiceService,
+    private commonuserservice: CommonUsersServiceService
+  ) {
+    /* console.log(this.activatedRoute); */
+    this.activatedRoute.params.subscribe((params) => {
+      this.id = params['id'] || null;
+      if (this.id == null) {
+        this.router.navigate(['/home']);
+      }
+      this.commonuserservice
+        .getCommonUserByEmail(localStorage.getItem('email')!)
+        .pipe(delay(1000))
+        .subscribe((response) => {
+          console.log('Resultado de buscar usuario: ' + response['result']);
+
+          this.rol = parseInt(response['data']['rol']);
+
+          console.log('Valor del Rol: ' + this.rol);
+
+          //console.log(this.rol);
+          //Cambiar la estructura del objeto para que se adecue a lo que me interesa
+
+          //this.recomended_events = response['data'];
+        });
+      this.eventService
+        .getEventById(this.id, localStorage.getItem('email')!)
+        .subscribe((result) => {
+          console.log(result);
+          if (result['result'] != 'failure') {
+            this.eventoSeleccionado.id = this.id;
+            this.eventoSeleccionado.id_organizador =
+              result['data']['id_organizador'];
+            this.eventoSeleccionado.nombre = result['data']['nombre'];
+            this.eventoSeleccionado.organizador = result['data']['organizador'];
+            this.eventoSeleccionado.fecha = this.convertirFecha(
+              result['data']['fecha_inicio']
+            );
+            this.eventoSeleccionado.hora = result['data']['hora_inicio'];
+            this.eventoSeleccionado.lugar = result['data']['lugar'];
+            this.eventoSeleccionado.latlon =
+              result['data']['latitud'] + ',' + result['data']['longitud'];
+            this.eventoSeleccionado.direccion = result['data']['direccion'];
+            this.eventoSeleccionado.ciudad = result['data']['ciudad'];
+            this.eventoSeleccionado.descripcion = result['data']['descripcion'];
+            this.eventoSeleccionado.generos = result['data']['generos'];
+            this.eventoSeleccionado.img =
+              'data:image/' +
+              result['data']['imageformat'] +
+              ';base64,' +
+              result['data']['image'];
+            this.participatingInEvent = result['data']['participating'];
+            console.log(result['data']);
+          } else {
+            this.router.navigate(['/home']);
+          }
+        });
+    });
   }
 
-  modalLugar(event:Event){
+  modalLugar(event: Event) {
     event.preventDefault();
-    this.openDialogmodalLugar('0','0');
+    this.openDialogmodalLugar('0', '0');
   }
 
-
-  openDialogmodalLugar(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialogmodalLugar(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     this.dialog.open(ModalLugarComponent, {
       width: '500px',
       height: '600px',
@@ -148,6 +139,25 @@ export class DatosEventoComponent {
       exitAnimationDuration,
     });
   }
-  
-  
+
+  convertirFecha(fecha: string): string {
+    // Dividir la cadena en partes
+    const [year, month, day] = fecha.split('-');
+
+    // Formatear la nueva cadena
+    const nuevaFecha = `${day}/${month}/${year}`;
+
+    return nuevaFecha;
+  }
+
+  seguir() {
+    let email = localStorage.getItem('email')!;
+    let eventId = this.id;
+
+    this.eventService.followEvent(email, eventId).subscribe((result) => {
+      console.log(result);
+      alert('Seguimiento modificado correctamente.');
+      this.router.navigate(['/perfil']);
+    });
+  }
 }

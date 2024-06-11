@@ -8,4 +8,5 @@ export interface eventInterfaceProfile {
   imageformat: string;
   name: string;
   province: string;
+  /* eventhappened: string; */
 }

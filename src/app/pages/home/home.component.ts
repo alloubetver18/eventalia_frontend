@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TipoUsuarioComponent } from '../../components/modals/tipo-usuario/tipo-usuario.component';
 import { MatDialog } from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import {JsonPipe, AsyncPipe} from "@angular/common";
+import { JsonPipe, AsyncPipe } from '@angular/common';
+import { EventsServiceService } from '../../services/events-service.service';
 
-interface event{
-  id: number,
-  img: string,
-  nombre: string,
-  organizador: string,
-  fecha_hora: string,
-  ciudad: string
+interface event {
+  id: number;
+  img: string;
+  nombre: string;
+  organizador: string;
+  fecha_hora: string;
+  ciudad: string;
 }
 
 @Component({
@@ -23,13 +24,11 @@ interface event{
   imports: [RouterLink, MatButtonModule, MatCardModule, AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [AuthService]
+  providers: [AuthService],
 })
-
-export class HomeComponent implements OnInit{
-
+export class HomeComponent implements OnInit {
   list_events: event[] = [
-    {
+    /*  {
       id: 1,
       img: '../../../assets/img/salon-manga-chiclana-redux2.jpg',
       nombre: 'Feria del Caballo Jerez 2024',
@@ -60,16 +59,41 @@ export class HomeComponent implements OnInit{
       organizador: 'Casa de la Juventud Chiclana',
       fecha_hora: '30/04/2024, 15:30',
       ciudad: 'Chiclana de la frontera, Cádiz'
-    }
+    } */
   ];
 
   user: any;
   public user$: Observable<any> = this.authService.afAuth.user;
-  constructor(public authService: AuthService, public dialog: MatDialog, private router: Router){
-
+  constructor(
+    public authService: AuthService,
+    public dialog: MatDialog,
+    private router: Router,
+    private eventservice: EventsServiceService
+  ) {
+    this.eventservice.getEventList().subscribe((result) => {
+      for (let i = result['data'].length - 1; i > -1; i--) {
+        let nuevoEvento: event = {
+          id: result['data'][i]['event_id'],
+          img:
+            'data:image/' +
+            result['data'][i]['imageformat'] +
+            ';base64,' +
+            result['data'][i]['imagen'],
+          nombre: result['data'][i]['nombre'],
+          organizador: result['data'][i]['organizador'],
+          fecha_hora:
+            result['data'][i]['fecha_inicio'] +
+            ', ' +
+            result['data'][i]['hora_inicio'],
+          ciudad:
+            result['data'][i]['ciudad'] + ', ' + result['data'][i]['provincia'],
+        };
+        this.list_events.push(nuevoEvento);
+      }
+    });
   }
   async ngOnInit() {
-    this.user = await this.authService.getCurrentUser().then(()=>{
+    this.user = await this.authService.getCurrentUser().then(() => {
       /* if(this.user){
         console.log("user: ", this.user);
         this.isLogged=true;
@@ -80,7 +104,10 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     this.dialog.open(TipoUsuarioComponent, {
       width: '250px',
       enterAnimationDuration,

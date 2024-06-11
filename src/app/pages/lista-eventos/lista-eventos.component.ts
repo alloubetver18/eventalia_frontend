@@ -1,48 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCheckboxChange, MatCheckboxModule} from '@angular/material/checkbox';
-import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
-import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsModule
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
+import { FormsModule } from '@angular/forms'; // Asegúrate de importar FormsModule
 import { MatNativeDateModule } from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FiltersComponent } from '../../components/modals/filters/filters.component';
+import { EventsServiceService } from '../../services/events-service.service';
 
-interface event{
-  id: number,
-  img: string,
-  nombre: string,
-  organizador: string,
-  from: Date |null,
-  to: Date |null,
-  ciudad: string,
-  provincia: number,
-  generos: number[],
-  generosString: string
+interface event {
+  id: number;
+  img: string;
+  nombre: string;
+  organizador: string;
+  from: Date | null;
+  to: Date | null;
+  ciudad: string;
+  provincia: number;
+  generos: number[];
+  generosString: string;
 }
 
 @Component({
   selector: 'app-lista-eventos',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatInputModule, MatDatepickerModule, MatSelectModule, MatCheckboxModule, MatButtonModule, RouterLink, MatSidenavModule, NgxPaginationModule, FormsModule, MatNativeDateModule, DatePipe],
+  imports: [
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    RouterLink,
+    MatSidenavModule,
+    NgxPaginationModule,
+    FormsModule,
+    MatNativeDateModule,
+    DatePipe,
+  ],
   templateUrl: './lista-eventos.component.html',
-  styleUrl: './lista-eventos.component.css'
+  styleUrl: './lista-eventos.component.css',
 })
-export class ListaEventosComponent implements OnInit{
+export class ListaEventosComponent implements OnInit {
+  provinciasArray = ['Cádiz', 'Sevilla', 'Málaga', 'Granada', 'Jaén'];
 
   searchTerm: string = '';
 
   fromTerm: Date | null = null;
 
-  toTerm: Date|null = null;
+  toTerm: Date | null = null;
 
   provinceTerm: number = -1;
 
@@ -62,11 +80,11 @@ export class ListaEventosComponent implements OnInit{
     false,
     false,
     false,
-    false
+    false,
   ];
 
   eventlist: event[] = [
-    {
+    /* {
       id: 1,
       img: '../../../assets/img/salon-manga-chiclana.jpg',
       nombre: 'Salón del Manga Chiclana 2024',
@@ -75,8 +93,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-05-05'),
       ciudad: 'Chiclana de la Frontera',
       provincia: 0,
-      generos: [1,2],
-      generosString: "Literatura, Deportes"
+      generos: [1, 2],
+      generosString: 'Literatura, Deportes',
     },
     {
       id: 2,
@@ -87,8 +105,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-05-03'),
       ciudad: 'Cádiz, Cádiz',
       provincia: 2,
-      generos: [3,5],
-      generosString: "Cultura, Viajes"
+      generos: [3, 5],
+      generosString: 'Cultura, Viajes',
     },
     {
       id: 3,
@@ -99,8 +117,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-06-05'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [3,4],
-      generosString: "Cultura, Ocio"
+      generos: [3, 4],
+      generosString: 'Cultura, Ocio',
     },
     {
       id: 4,
@@ -111,8 +129,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-05-25'),
       ciudad: 'Cádiz, Cádiz',
       provincia: 1,
-      generos: [1,2,3,4],
-      generosString: "Literatura, Deportes, Cultura, Ocio"
+      generos: [1, 2, 3, 4],
+      generosString: 'Literatura, Deportes, Cultura, Ocio',
     },
     {
       id: 5,
@@ -123,8 +141,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-06-25'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 4,
-      generos: [1,2,7,8],
-      generosString: "Literatura, Deportes, Negocios, Tiempo Libre"
+      generos: [1, 2, 7, 8],
+      generosString: 'Literatura, Deportes, Negocios, Tiempo Libre',
     },
     {
       id: 6,
@@ -135,8 +153,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-07-05'),
       ciudad: 'Cádiz, Cádiz',
       provincia: 1,
-      generos: [8,9],
-      generosString: "Tiempo Libre, Reuniones Sociales"
+      generos: [8, 9],
+      generosString: 'Tiempo Libre, Reuniones Sociales',
     },
     {
       id: 7,
@@ -147,8 +165,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-07-15'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [1,4],
-      generosString: "Literatura, Ocio"
+      generos: [1, 4],
+      generosString: 'Literatura, Ocio',
     },
     {
       id: 8,
@@ -159,8 +177,8 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-07-15'),
       ciudad: 'Cádiz, Cádiz',
       provincia: 2,
-      generos: [1,2],
-      generosString: "Literatura, Deportes"
+      generos: [1, 2],
+      generosString: 'Literatura, Deportes',
     },
     {
       id: 9,
@@ -171,9 +189,9 @@ export class ListaEventosComponent implements OnInit{
       to: new Date('2024-08-15'),
       ciudad: 'Chiclana de la frontera, Cádiz',
       provincia: 0,
-      generos: [6,9],
-      generosString: "Videojuegos, Tiempo Libre"
-    }
+      generos: [6, 9],
+      generosString: 'Videojuegos, Tiempo Libre',
+    }, */
   ];
 
   eventSearch: event[] = [];
@@ -184,50 +202,132 @@ export class ListaEventosComponent implements OnInit{
 
   themesList: number[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog) {
-    console.log("Entrando en el constructor del componente.");
-    this.route.params.subscribe(params => {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public dialog: MatDialog,
+    private eventservice: EventsServiceService
+  ) {
+    console.log('Entrando en el constructor del componente.');
+    this.route.params.subscribe((params) => {
       // Aquí puedes acceder a los parámetros de la ruta
       console.log(params);
       // Por ejemplo, si tienes un parámetro llamado 'id', puedes acceder a él así:
       const id = params['idgenero'];
       console.log('ID:', id);
-      if(id==undefined){
-        this.eventResult = this.eventlist;
-      }else{
-        this.themesSelected[id-1]=true;
+      if (id == undefined) {
+        //this.eventResult = this.eventlist;
+        this.eventservice.getEventList().subscribe((result) => {
+          for (let i = 0; i < result['data'].length; i++) {
+            console.log(result['data'][i]['event_id']);
+            let arrayGenerosId: number[] = [];
+            let generosStringEvento: string = '';
+            for (let j = 0; j < result['data'][i]['generos'].length; j++) {
+              arrayGenerosId.push(result['data'][i]['generos'][j]['id']);
+              if (j == result['data'][i]['generos'].length - 1) {
+                generosStringEvento +=
+                  result['data'][i]['generos'][j]['denominacion'] + '.';
+              } else {
+                generosStringEvento +=
+                  result['data'][i]['generos'][j]['denominacion'] + ', ';
+              }
+            }
+
+            let nuevoEvento: event = {
+              id: result['data'][i]['event_id'],
+              img:
+                'data:image/' +
+                result['data'][i]['imageformat'] +
+                ';base64,' +
+                result['data'][i]['imagen'],
+              nombre: result['data'][i]['nombre'],
+              organizador: result['data'][i]['organizador'],
+              from: new Date(result['data'][i]['fecha_inicio']),
+              to: new Date(result['data'][i]['fecha_fin']),
+              ciudad: result['data'][i]['ciudad'],
+              provincia: this.provinciasArray.indexOf(
+                result['data'][i]['provincia']
+              ),
+              generos: arrayGenerosId,
+              generosString: generosStringEvento,
+            };
+            this.eventlist.push(nuevoEvento);
+          }
+          console.log('Listado de eventos:' + this.eventlist);
+          this.eventResult = this.eventlist;
+          console.log(result['data'][0]);
+        });
+      } else {
+        this.themesSelected[id - 1] = true;
         this.themesList.push(parseInt(id));
-        this.filter();
+
+        this.eventservice.getEventList().subscribe((result) => {
+          for (let i = 0; i < result['data'].length; i++) {
+            console.log(result['data'][i]['event_id']);
+            let arrayGenerosId: number[] = [];
+            let generosStringEvento: string = '';
+            for (let j = 0; j < result['data'][i]['generos'].length; j++) {
+              arrayGenerosId.push(result['data'][i]['generos'][j]['id']);
+              if (j == result['data'][i]['generos'].length - 1) {
+                generosStringEvento +=
+                  result['data'][i]['generos'][j]['denominacion'] + '.';
+              } else {
+                generosStringEvento +=
+                  result['data'][i]['generos'][j]['denominacion'] + ', ';
+              }
+            }
+
+            let nuevoEvento: event = {
+              id: result['data'][i]['event_id'],
+              img:
+                'data:image/' +
+                result['data'][i]['imageformat'] +
+                ';base64,' +
+                result['data'][i]['imagen'],
+              nombre: result['data'][i]['nombre'],
+              organizador: result['data'][i]['organizador'],
+              from: new Date(result['data'][i]['fecha_inicio']),
+              to: new Date(result['data'][i]['fecha_fin']),
+              ciudad: result['data'][i]['ciudad'],
+              provincia: this.provinciasArray.indexOf(
+                result['data'][i]['provincia']
+              ),
+              generos: arrayGenerosId,
+              generosString: generosStringEvento,
+            };
+            this.eventlist.push(nuevoEvento);
+          }
+          console.log('Listado de eventos:' + this.eventlist);
+          this.eventResult = this.eventlist;
+          console.log(result['data'][0]);
+          this.filter();
+        });
       }
-      
     });
   }
 
   ngOnInit(): void {
-    console.log("Entrando en el NgOnInit del componente.");
+    console.log('Entrando en el NgOnInit del componente.');
 
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       // Aquí puedes acceder a los parámetros de la ruta
       console.log(params);
       // Por ejemplo, si tienes un parámetro llamado 'id', puedes acceder a él así:
       const id = params['idgenero'];
       console.log('ID:', id);
-      if(id==undefined){
+      if (id == undefined) {
         this.eventResult = this.eventlist;
-      }else if(Number.isNaN(parseInt(id)) || id>12){
+      } else if (Number.isNaN(parseInt(id)) || id > 12) {
         this.router.navigate(['/listaeventos']);
-      }else{
-        this.themesSelected[id-1]=true;
+      } else {
+        this.themesSelected[id - 1] = true;
         this.themesList.push(parseInt(id));
         this.filter();
       }
-      
     });
   }
 
-
-  filter(){
-
+  filter() {
     /* Filtraremos por los siguientes elementos, de mayor a menor restricción:
     - Fecha de Inicio y/o Fecha de Fin
     - Provincia
@@ -244,11 +344,11 @@ export class ListaEventosComponent implements OnInit{
 
     this.filteredEvents = [];
 
-    console.log("Iniciamos el proceso de filtrado.");
+    console.log('Iniciamos el proceso de filtrado.');
 
-    console.log("Limpiando lista de pantalla...");
+    console.log('Limpiando lista de pantalla...');
 
-    console.log("Preparando listado para la búsqueda.");
+    console.log('Preparando listado para la búsqueda.');
 
     this.eventSearch = this.eventlist;
 
@@ -257,127 +357,160 @@ export class ListaEventosComponent implements OnInit{
     this.searchByName();
     this.searchByThemes();
 
-    if(this.filtersApplied==0){
+    if (this.filtersApplied == 0) {
       this.eventResult = this.eventlist;
     }
-    this.p=1;
-    
+    this.p = 1;
   }
 
-  searchByDate(){
-    console.log("Paso 1: Filtramos por fecha");
+  searchByDate() {
+    console.log('Paso 1: Filtramos por fecha');
 
-    if(this.fromTerm == null && this.toTerm == null){
-      console.log("Mensaje de Fechas: No se han seleccionado ninguna fecha. Pasamos al siguente filtro.");
-    }else{
-      console.log("Mensaje de Fechas: Al menos se ha añadido una fecha al filtro. Iniciando proceso de filtrado.");
+    if (this.fromTerm == null && this.toTerm == null) {
+      console.log(
+        'Mensaje de Fechas: No se han seleccionado ninguna fecha. Pasamos al siguente filtro.'
+      );
+    } else {
+      console.log(
+        'Mensaje de Fechas: Al menos se ha añadido una fecha al filtro. Iniciando proceso de filtrado.'
+      );
       this.filtersApplied++;
-      if(this.filteredEvents.length>0){
+      if (this.filteredEvents.length > 0) {
         this.eventSearch = this.filteredEvents;
       }
 
-      if(this.fromTerm != null){
-        this.filteredEvents = this.eventSearch.filter(obj =>
-          obj.from! >= this.fromTerm!);
-        if(this.toTerm != null){
-          this.filteredEvents = this.filteredEvents.filter(obj =>
-            obj.from! <= this.toTerm!);
+      if (this.fromTerm != null) {
+        this.filteredEvents = this.eventSearch.filter(
+          (obj) => obj.from! >= this.fromTerm!
+        );
+        if (this.toTerm != null) {
+          this.filteredEvents = this.filteredEvents.filter(
+            (obj) => obj.from! <= this.toTerm!
+          );
         }
         this.eventResult = this.filteredEvents;
-      }else{
-        if(this.toTerm != null){
-          this.filteredEvents = this.eventSearch.filter(obj =>
-            obj.from! <= this.toTerm!);
+      } else {
+        if (this.toTerm != null) {
+          this.filteredEvents = this.eventSearch.filter(
+            (obj) => obj.from! <= this.toTerm!
+          );
           this.eventResult = this.filteredEvents;
         }
       }
-      console.log("Proceso de filtrado por fechas finalizado. Número de elementos filtrados: "+this.eventResult.length);
+      console.log(
+        'Proceso de filtrado por fechas finalizado. Número de elementos filtrados: ' +
+          this.eventResult.length
+      );
     }
   }
-  
-  searchByProvince(){
-    console.log("Paso 2: Filtramos por provincias");
 
-    if(this.provinceTerm == -1){
-      console.log("Mensaje de Provincias: No se ha seleccionado ninguna provincia. Pasamos al siguente filtro.");
-    }else{
-      console.log("Mensaje de Provincias: Se ha seleccionado una provincia. Iniciando proceso de filtrado.");
+  searchByProvince() {
+    console.log('Paso 2: Filtramos por provincias');
+
+    if (this.provinceTerm == -1) {
+      console.log(
+        'Mensaje de Provincias: No se ha seleccionado ninguna provincia. Pasamos al siguente filtro.'
+      );
+    } else {
+      console.log(
+        'Mensaje de Provincias: Se ha seleccionado una provincia. Iniciando proceso de filtrado.'
+      );
       this.filtersApplied++;
-      if(this.filteredEvents.length>0){
+      if (this.filteredEvents.length > 0) {
         this.eventSearch = this.filteredEvents;
       }
 
-      this.filteredEvents = this.eventSearch.filter(obj =>
-        obj.provincia == this.provinceTerm );
+      this.filteredEvents = this.eventSearch.filter(
+        (obj) => obj.provincia == this.provinceTerm
+      );
       this.eventResult = this.filteredEvents;
-      console.log("Proceso de filtrado por provincias finalizado. Número de elementos filtrados: "+this.eventResult.length);
+      console.log(
+        'Proceso de filtrado por provincias finalizado. Número de elementos filtrados: ' +
+          this.eventResult.length
+      );
     }
-    
   }
 
-  searchByName(){
-    console.log("Paso 3: Filtramos por nombre");
+  searchByName() {
+    console.log('Paso 3: Filtramos por nombre');
 
-    if(this.searchTerm.length==0){
-      console.log("Mensaje de Nombre: No se ha escrito ningun nombre. Pasamos al siguente filtro.");
-    }else{
-      console.log("Mensaje de Nombre: Se ha escrito al menos 1 caracter. Iniciando proceso de filtrado.");
+    if (this.searchTerm.length == 0) {
+      console.log(
+        'Mensaje de Nombre: No se ha escrito ningun nombre. Pasamos al siguente filtro.'
+      );
+    } else {
+      console.log(
+        'Mensaje de Nombre: Se ha escrito al menos 1 caracter. Iniciando proceso de filtrado.'
+      );
       this.filtersApplied++;
-      if(this.filteredEvents.length>0){
+      if (this.filteredEvents.length > 0) {
         this.eventSearch = this.filteredEvents;
       }
 
       const term = this.searchTerm.toLowerCase();
-      this.filteredEvents = this.eventSearch.filter(obj =>
-        obj.nombre.toLowerCase().includes(term));
+      this.filteredEvents = this.eventSearch.filter((obj) =>
+        obj.nombre.toLowerCase().includes(term)
+      );
       this.eventResult = this.filteredEvents;
-      console.log("Proceso de filtrado por nombre finalizado. Número de elementos filtrados: "+this.eventResult.length);
+      console.log(
+        'Proceso de filtrado por nombre finalizado. Número de elementos filtrados: ' +
+          this.eventResult.length
+      );
     }
-    
-  } 
+  }
 
-  selectTheme(event: MatCheckboxChange){
+  selectTheme(event: MatCheckboxChange) {
     console.log(event.source.value);
     const isChecked = event.checked;
-    if(isChecked){
+    if (isChecked) {
       this.themesList.push(parseInt(event.source.value));
-    }else{
-      this.themesList = this.themesList.filter(num => num !== parseInt(event.source.value));
+    } else {
+      this.themesList = this.themesList.filter(
+        (num) => num !== parseInt(event.source.value)
+      );
     }
     console.log('Checkbox is checked:', isChecked);
     console.log(this.themesList);
     this.filter();
   }
 
-  searchByThemes(){
-    console.log("Paso 4: Filtramos por géneros");
+  searchByThemes() {
+    console.log('Paso 4: Filtramos por géneros');
 
-    if(this.themesList.length==0){
-      console.log("Mensaje de Género: No se ha seleccionado ningun género. Pasamos al siguente filtro.");
-      console.log("Número de elementos filtrados: "+this.eventResult.length);
-
-    }else{
-      console.log("Mensaje de Género: Se ha seleccionado al menos 1 géneros. Iniciando proceso de filtrado.");
+    if (this.themesList.length == 0) {
+      console.log(
+        'Mensaje de Género: No se ha seleccionado ningun género. Pasamos al siguente filtro.'
+      );
+      console.log('Número de elementos filtrados: ' + this.eventResult.length);
+    } else {
+      console.log(
+        'Mensaje de Género: Se ha seleccionado al menos 1 géneros. Iniciando proceso de filtrado.'
+      );
       this.filtersApplied++;
-      if(this.filteredEvents.length>0){
+      if (this.filteredEvents.length > 0) {
         this.eventSearch = this.filteredEvents;
       }
 
-      this.filteredEvents = this.eventSearch.filter(item => 
-        item.generos.some(genero => this.themesList.includes(genero))
+      this.filteredEvents = this.eventSearch.filter((item) =>
+        item.generos.some((genero) => this.themesList.includes(genero))
       );
 
       this.eventResult = this.filteredEvents;
-      console.log("Proceso de filtrado por género finalizado. Número de elementos filtrados: "+this.eventResult.length);
+      console.log(
+        'Proceso de filtrado por género finalizado. Número de elementos filtrados: ' +
+          this.eventResult.length
+      );
     }
   }
 
-
-  mostrarFiltrosResponsive(){
+  mostrarFiltrosResponsive() {
     this.openDialogmodalFiltros('0', '0');
   }
 
-  openDialogmodalFiltros(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  openDialogmodalFiltros(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     const dialogRef = this.dialog.open(FiltersComponent, {
       width: '500px',
       height: '800px',
@@ -385,7 +518,7 @@ export class ListaEventosComponent implements OnInit{
       exitAnimationDuration,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       this.searchTerm = result['name'];
       this.fromTerm = result['from'];
@@ -395,11 +528,9 @@ export class ListaEventosComponent implements OnInit{
       this.filter();
     });
   }
-  
 
-  reiniciarFiltros(){
-
-    console.log("Filtros reiniciados.");
+  reiniciarFiltros() {
+    console.log('Filtros reiniciados.');
     this.eventResult = this.eventlist;
     this.filteredEvents = [];
     this.eventSearch = [];
@@ -416,10 +547,18 @@ export class ListaEventosComponent implements OnInit{
 
     this.filtersApplied = 0;
 
-    for(let i=0;i<this.themesSelected.length;i++){
-      this.themesSelected[i]=false;
+    for (let i = 0; i < this.themesSelected.length; i++) {
+      this.themesSelected[i] = false;
     }
-
   }
 
+  convertirFecha(fecha: string): string {
+    // Dividir la cadena en partes
+    const [year, month, day] = fecha.split('-');
+
+    // Formatear la nueva cadena
+    const nuevaFecha = `${day}/${month}/${year}`;
+
+    return nuevaFecha;
+  }
 }

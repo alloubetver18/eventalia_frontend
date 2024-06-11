@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
-import { ActivatedRoute } from '@angular/router';
-
+import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationServiceService } from '../../services/organization-service.service';
 
 @Component({
   selector: 'app-datos-organizacion',
   standalone: true,
   imports: [MatInputModule],
   templateUrl: './datos-organizacion.component.html',
-  styleUrl: './datos-organizacion.component.css'
+  styleUrl: './datos-organizacion.component.css',
 })
 export class DatosOrganizacionComponent {
   organizaciones: any[] = [
@@ -19,7 +19,8 @@ export class DatosOrganizacionComponent {
       nombre: 'Ayuntamiento de Jerez',
       web: 'ayuntamientodejerez.es',
       email_contacto: 'info@ayuntamientodejerez.es',
-      descripcion: 'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la localidad de Jerez de la Frontera',
+      descripcion:
+        'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la localidad de Jerez de la Frontera',
     },
     {
       id: 2,
@@ -27,7 +28,8 @@ export class DatosOrganizacionComponent {
       nombre: 'Ayuntamiento de Chiclana de la Frontera',
       web: 'ayuntamientodechiclana.es',
       email_contacto: 'info@ayuntamientodechiclana.es',
-      descripcion: 'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la localidad de Chiclana de la Frontera',
+      descripcion:
+        'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la localidad de Chiclana de la Frontera',
     },
     {
       id: 3,
@@ -35,7 +37,8 @@ export class DatosOrganizacionComponent {
       nombre: 'Delegación Cultural Provincia de Cádiz',
       web: 'delegacionculturacadiz.es',
       email_contacto: 'info@delegacionculturacadiz.es',
-      descripcion: 'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la provincia de Cádiz',
+      descripcion:
+        'Organización sin ánimo de lucro que gestiona todo tipo de trámites en la provincia de Cádiz',
     },
     {
       id: 4,
@@ -43,9 +46,10 @@ export class DatosOrganizacionComponent {
       nombre: 'Casa de la Juventud Chiclana de la Frontera',
       web: 'juventud.chiclana.es',
       email_contacto: 'info@juventudchiclana.es',
-      descripcion: 'Organización sin ánimo de lucro que gestiona todo tipo de trámites para jovenes y adolescentes en la localidad de Chiclana de la Frontera',
-    }
-  ]
+      descripcion:
+        'Organización sin ánimo de lucro que gestiona todo tipo de trámites para jovenes y adolescentes en la localidad de Chiclana de la Frontera',
+    },
+  ];
 
   organizacionSeleccionada: any = {
     id: 0,
@@ -58,15 +62,34 @@ export class DatosOrganizacionComponent {
 
   id: any;
 
-
-  constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog){
-    this.activatedRoute.params.subscribe(params => {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
+    private orgservice: OrganizationServiceService,
+    private router: Router
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
       this.id = params['id'] || null;
-      console.log(this.id-1);
-      this.organizacionSeleccionada = this.organizaciones[this.id-1];
+      console.log(this.id - 1);
+      //this.organizacionSeleccionada = this.organizaciones[this.id-1];
+      this.orgservice.getOrganizationById(this.id).subscribe((result) => {
+        console.log(result);
+        if (result['result'] != 'failure') {
+          this.organizacionSeleccionada.nombre = result['data']['name'];
+          this.organizacionSeleccionada.web = result['data']['webpage'];
+          this.organizacionSeleccionada.email_contacto =
+            result['data']['email'];
+          this.organizacionSeleccionada.descripcion =
+            result['data']['description'];
+          this.organizacionSeleccionada.img =
+            'data:image/' +
+            result['data']['imageformat'] +
+            ';base64,' +
+            result['data']['image'];
+        } else {
+          this.router.navigate(['/home']);
+        }
+      });
     });
   }
-
-
-
 }

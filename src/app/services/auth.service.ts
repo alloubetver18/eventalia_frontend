@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { commonUserInterface } from '../models/commonuser.interface';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { OrganizationInterface } from '../models/organization.interface';
 //import {auth} from 'firebase/compat';
 
 @Injectable()
@@ -63,6 +64,10 @@ export class AuthService {
 
   registerAPI(cui: commonUserInterface): Observable<any> {
     return this._http.post('http://localhost:8000/user/common/add', cui);
+  }
+
+  registerOrganizationAPI(cui: OrganizationInterface): Observable<any> {
+    return this._http.post('http://localhost:8000/user/organizations/add', cui);
   }
 
   async logout() {

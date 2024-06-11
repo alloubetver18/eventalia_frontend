@@ -101,6 +101,7 @@
 
     .results .btnreiniciar.filter_responsive{
         display: block;
+        margin-bottom: 1rem;
     }
 
     .filters{
@@ -131,8 +132,6 @@
     .results .evento .datosEvento{
         height: 30rem;
     }
-
-
 
 
 }

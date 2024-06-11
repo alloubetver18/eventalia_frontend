@@ -5,36 +5,40 @@
   <section class="izq">
     <h1>{{ eventoSeleccionado.nombre }}</h1>
     <h2>
-      <a [routerLink]="['/datosOrganizacion', eventoSeleccionado.id_organizador]"
+      <a
+        [routerLink]="['/datosOrganizacion', eventoSeleccionado.id_organizador]"
         >Organiza: {{ eventoSeleccionado.organizador }}</a
       >
     </h2>
-    <h2>Fecha: 30/04/2024</h2>
-    <h2>Hora: 17:00</h2>
+    <h2>Fecha: {{ eventoSeleccionado.fecha }}</h2>
+    <h2>Hora: {{ eventoSeleccionado.hora }}</h2>
     <section class="lugar">
-      
       <a href="#" (click)="modalLugar($event)">
-        Lugar: {{eventoSeleccionado.direccion}}</a>
+        Lugar: {{ eventoSeleccionado.lugar }}</a
+      >
     </section>
     <section class="descripcion">
-      <p>{{eventoSeleccionado.descripcion}}</p>
+      <p>{{ eventoSeleccionado.descripcion }}</p>
     </section>
-    
+
     <section class="generos">
-      Etiquetas: 
-      @for (genero of eventoSeleccionado.generos; track genero.id) {
-        <span>{{genero.denominacion}}</span>,
-      }
+      Etiquetas: @for (genero of eventoSeleccionado.generos; track genero.id) {
+      <span>{{ genero.denominacion }}</span
+      >, }
     </section>
   </section>
   <section class="der">
     <section class="reacciones">
-      <button
-          mat-flat-button
-          class="estilosbtnsecundario"
-        >
-          Seguir
-        </button>
+      @if(rol==1 && !participatingInEvent){
+      <button mat-flat-button class="estilosbtnsecundario" (click)="seguir()">
+        Seguir
+      </button>
+      } @if(rol==1 && participatingInEvent){
+      <button mat-flat-button class="estilosbtnsecundario" (click)="seguir()">
+        Dejar de seguir
+      </button>
+      }
+
       <!-- Reportar -->
       <!-- Me interesa -->
     </section>
@@ -43,26 +47,3 @@
 <section class="eventos_relacionados">
   <!-- Podemos cargar 3 eventos del mismo género, si existen y aún no han terminado -->
 </section>
-<!-- <section class="comentarios">
-  <div class="comentario">
-    <h3>Alban.loubet, el 13/05/2024, dijo:</h3>
-    <p>Estoy deseando que llegue el día</p>
-  </div>
-  <div class="comentar">
-    <mat-form-field class="comentario">
-        <mat-label>Deja un comentario acerca del evento</mat-label>
-        <textarea
-          matInput
-          placeholder="Ex. It makes me feel..."
-        ></textarea></mat-form-field
-      ><br />
-      <button
-          mat-flat-button
-          class="estilosbtnsecundario"
-        >
-          Comentar
-        </button>
-  </div>
-</section> -->
-
-

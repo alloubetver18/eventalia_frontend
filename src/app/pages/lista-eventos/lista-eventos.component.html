@@ -1,98 +1,222 @@
 <h2 class="title">Eventos</h2>
 
 <div class="content">
-    <section class="filters">
-        <mat-form-field class="example-full-width">
-            <mat-label>Nombre</mat-label>
-            <input [(ngModel)]="searchTerm" matInput type="text" placeholder="" value="" (input)="filter()">
-        </mat-form-field><br>
-        <mat-form-field class="example-form-field">
-            <mat-label>Iniciado Entre...</mat-label>
-            <input matInput [matDatepicker]="datepicker1" [(ngModel)]="fromTerm" >
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
-            <mat-datepicker #datepicker1>
-            <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply (click)="filter()">Apply</button>
-            </mat-datepicker-actions>
-            </mat-datepicker>
-        </mat-form-field><br>
-        <mat-form-field class="example-form-field">
-            <mat-label>...y...</mat-label>
-            <input matInput [matDatepicker]="datepicker2" [(ngModel)]="toTerm" >
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="datepicker2"></mat-datepicker-toggle>
-            <mat-datepicker #datepicker2>
-            <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply (click)="filter()">Apply</button>
-            </mat-datepicker-actions>
-            </mat-datepicker>
-        </mat-form-field><br>
-        <mat-form-field>
-            <mat-label>Provincia</mat-label>
-            <mat-select [(ngModel)]="provinceTerm" name="province" (selectionChange)="filter()">
-                <mat-option value="0">Cádiz</mat-option>
-                <mat-option value="1">Sevilla</mat-option>
-                <mat-option value="2">Málaga</mat-option>
-                <mat-option value="3">Granada</mat-option>
-                <mat-option value="4">Jaén</mat-option>
-            </mat-select>
-        </mat-form-field>
+  <section class="filters">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nombre</mat-label>
+      <input
+        [(ngModel)]="searchTerm"
+        matInput
+        type="text"
+        placeholder=""
+        value=""
+        (input)="filter()"
+      /> </mat-form-field
+    ><br />
+    <mat-form-field class="example-form-field">
+      <mat-label>Iniciado Entre...</mat-label>
+      <input matInput [matDatepicker]="datepicker1" [(ngModel)]="fromTerm" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="datepicker1"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker1>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            matDatepickerApply
+            (click)="filter()"
+          >
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker> </mat-form-field
+    ><br />
+    <mat-form-field class="example-form-field">
+      <mat-label>...y...</mat-label>
+      <input matInput [matDatepicker]="datepicker2" [(ngModel)]="toTerm" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="datepicker2"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepicker2>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            matDatepickerApply
+            (click)="filter()"
+          >
+            Apply
+          </button>
+        </mat-datepicker-actions>
+      </mat-datepicker> </mat-form-field
+    ><br />
+    <mat-form-field>
+      <mat-label>Provincia</mat-label>
+      <mat-select
+        [(ngModel)]="provinceTerm"
+        name="province"
+        (selectionChange)="filter()"
+      >
+        <mat-option value="0">Cádiz</mat-option>
+        <mat-option value="1">Sevilla</mat-option>
+        <mat-option value="2">Málaga</mat-option>
+        <mat-option value="3">Granada</mat-option>
+        <mat-option value="4">Jaén</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <div class="generos">
-            <mat-checkbox class="example-margin" value="1" [(ngModel)]="themesSelected[0]" (change)="selectTheme($event)">Literatura</mat-checkbox>
-            <mat-checkbox class="example-margin" value="2" [(ngModel)]="themesSelected[1]" (change)="selectTheme($event)">Deportes</mat-checkbox>
-            <mat-checkbox class="example-margin" value="3" [(ngModel)]="themesSelected[2]" (change)="selectTheme($event)">Cultura</mat-checkbox>
-            <mat-checkbox class="example-margin" value="4" [(ngModel)]="themesSelected[3]" (change)="selectTheme($event)">Ocio</mat-checkbox>
-            <mat-checkbox class="example-margin" value="5" [(ngModel)]="themesSelected[4]" (change)="selectTheme($event)">Viajes</mat-checkbox>
-            <mat-checkbox class="example-margin" value="6" [(ngModel)]="themesSelected[5]" (change)="selectTheme($event)">Videojuegos</mat-checkbox>
-            <mat-checkbox class="example-margin" value="7" [(ngModel)]="themesSelected[6]" (change)="selectTheme($event)">Tecnologías</mat-checkbox>
-            <mat-checkbox class="example-margin" value="8" [(ngModel)]="themesSelected[7]" (change)="selectTheme($event)">Negocios</mat-checkbox>
-            <mat-checkbox class="example-margin" value="9" [(ngModel)]="themesSelected[8]" (change)="selectTheme($event)">Tiempo Libre</mat-checkbox>
-            <mat-checkbox class="example-margin" value="10" [(ngModel)]="themesSelected[9]" (change)="selectTheme($event)">Reuniones Sociales</mat-checkbox>
-            <mat-checkbox class="example-margin" value="11" [(ngModel)]="themesSelected[10]" (change)="selectTheme($event)">Artes escénicas</mat-checkbox>
-            <mat-checkbox class="example-margin" value="12" [(ngModel)]="themesSelected[11]" (change)="selectTheme($event)">Otros</mat-checkbox>
+    <div class="generos">
+      <mat-checkbox
+        class="example-margin"
+        value="1"
+        [(ngModel)]="themesSelected[0]"
+        (change)="selectTheme($event)"
+        >Literatura</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="2"
+        [(ngModel)]="themesSelected[1]"
+        (change)="selectTheme($event)"
+        >Viajes</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="3"
+        [(ngModel)]="themesSelected[2]"
+        (change)="selectTheme($event)"
+        >Tiempo Libre</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="4"
+        [(ngModel)]="themesSelected[3]"
+        (change)="selectTheme($event)"
+        >Deportes</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="5"
+        [(ngModel)]="themesSelected[4]"
+        (change)="selectTheme($event)"
+        >Videojuegos</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="6"
+        [(ngModel)]="themesSelected[5]"
+        (change)="selectTheme($event)"
+        >Reuniones Sociales</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="7"
+        [(ngModel)]="themesSelected[6]"
+        (change)="selectTheme($event)"
+        >Cultura</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="8"
+        [(ngModel)]="themesSelected[7]"
+        (change)="selectTheme($event)"
+        >Tecnologías</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="9"
+        [(ngModel)]="themesSelected[8]"
+        (change)="selectTheme($event)"
+        >Artes escénicas</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="10"
+        [(ngModel)]="themesSelected[9]"
+        (change)="selectTheme($event)"
+        >Ocio</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="11"
+        [(ngModel)]="themesSelected[10]"
+        (change)="selectTheme($event)"
+        >Negocios</mat-checkbox
+      >
+      <mat-checkbox
+        class="example-margin"
+        value="12"
+        [(ngModel)]="themesSelected[11]"
+        (change)="selectTheme($event)"
+        >Otros</mat-checkbox
+      >
+    </div>
+  </section>
+
+  <section class="filter_responsive">
+    <!-- Aquí, en versión móvil, irá un botón para abrir un modal con los filtros correspondientes -->
+    <!-- Este modal, al cerrarse, devolverá un objeto que contendrá la información a partir la cual se filtrarán los datos a mostrar en pantalla -->
+  </section>
+  <section class="restartFilter"></section>
+
+  <section class="results">
+    <button
+      mat-flat-button
+      primary
+      class="btnreiniciar filter_responsive"
+      (click)="mostrarFiltrosResponsive()"
+    >
+      Mostrar Filtros
+    </button>
+    <button
+      mat-flat-button
+      primary
+      class="btnreiniciar"
+      (click)="reiniciarFiltros()"
+    >
+      Reiniciar Filtros
+    </button>
+    <pagination-controls
+      id="listed"
+      class="listed_control"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+    @if(eventResult.length==0){
+    <section class="lista_eventos buscando">
+      <mat-spinner></mat-spinner>
+    </section>
+    }@else{
+    <section class="lista_eventos">
+      @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 4,
+      currentPage: p }; track event.id) {
+      <div class="evento">
+        <img [src]="event.img" alt="" class="imgEvento" />
+        <div class="datosEvento">
+          <h3>{{ event.nombre }}</h3>
+          <p>{{ event.organizador }}</p>
+          <p>
+            Del {{ event.from | date : "dd/MM/yyyy" }} al
+            {{ event.to | date : "dd/MM/yyyy" }}
+          </p>
+          <p>{{ event.generosString }}</p>
         </div>
+        <button
+          mat-flat-button
+          class="estilosbtnsecundario"
+          [routerLink]="['/datosEvento', event.id]"
+        >
+          Info.
+        </button>
+      </div>
+      }
     </section>
-
-    <section class="filter_responsive">
-        
-        <!-- Aquí, en versión móvil, irá un botón para abrir un modal con los filtros correspondientes -->
-        <!-- Este modal, al cerrarse, devolverá un objeto que contendrá la información a partir la cual se filtrarán los datos a mostrar en pantalla -->
-    </section>
-    <section class="restartFilter"></section>
-
-    
-    <section class="results">
-        <button mat-flat-button primary class="btnreiniciar filter_responsive" (click)="mostrarFiltrosResponsive()">Mostrar Filtros</button>
-        <button mat-flat-button primary class="btnreiniciar" (click)="reiniciarFiltros()">Reiniciar Filtros</button>
-        <pagination-controls id="listed" class="listed_control" (pageChange)="p = $event"></pagination-controls>
-        @if(eventResult.length==0){
-            <section class="lista_eventos buscando">
-                <mat-spinner></mat-spinner>
-            </section>
-        }@else{
-            <section class="lista_eventos">
-                @for (event of eventResult|paginate: { id: 'listed', itemsPerPage: 4, currentPage: p }; track event.id) {
-                    <div class="evento">
-                        <img [src]="event.img" alt="" class="imgEvento">
-                        <div class="datosEvento">
-                            <h3>{{event.nombre}}</h3>
-                            <p>{{event.organizador}}</p>
-                            <p>Del {{event.from | date:'dd/MM/yyyy'}} al {{event.to | date:'dd/MM/yyyy'}}</p>
-                            <p>{{event.generosString}}</p>
-                        </div>
-                        <button mat-flat-button class="estilosbtnsecundario" [routerLink]="['/datosEvento', event.id]">Info.</button>
-                    </div>
-                }
-                
-            </section>
-        }
-        
-    </section>
-
+    }
+  </section>
 </div>
-
-

@@ -14,6 +14,10 @@
     justify-content: space-evenly;
 }
 
+.data{
+  margin-left: 2rem;
+}
+
 .example-card{
     width: 23%;
 }
@@ -27,7 +31,7 @@ img.uno, img.dos, img.tres, img.cuatro{
     background-color: #E04700 !important;
     color: white !important;
     border-radius: 5rem;
-    
+
     padding: 1rem;
 }
 
