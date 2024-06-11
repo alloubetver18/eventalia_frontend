@@ -13,9 +13,9 @@ footer{
     margin: auto;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
   footer{
-    height: 20rem;
+    height: 25rem;
     background-color: #d9d9d9;
 
   }

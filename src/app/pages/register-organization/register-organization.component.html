@@ -17,16 +17,23 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      ><br />
+      >@if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+      <div class="errormessage">Se requiere nombre de organización</div>
+      }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Describe la actividad de tu empresa</mat-label>
+        <mat-label>Describe la actividad de tu empresa:</mat-label>
         <textarea
           formControlName="description"
           rows="8"
           matInput
           placeholder="Ex. It makes me feel..."
         ></textarea></mat-form-field
-      ><br />
+      >@if(myForm.get('description')!.invalid &&
+      myForm.get('description')!.touched){
+      <div class="errormessage">
+        Se requiere descripción de la actividad de la organización
+      </div>
+      }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Sitio Web</mat-label>
         <input
@@ -36,7 +43,9 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      ><br />
+      >@if(myForm.get('webpage')!.invalid && myForm.get('webpage')!.touched){
+      <div class="errormessage">Ingresa la página web de tu organización</div>
+      }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Email</mat-label>
         <input
@@ -46,7 +55,9 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      ><br />
+      >@if(myForm.get('email')!.invalid && myForm.get('email')!.touched){
+      <div class="errormessage">Introduce un email válido</div>
+      }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Password</mat-label>
         <input
@@ -56,16 +67,25 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      ><br />
+      >@if(myForm.get('password')!.invalid && myForm.get('password')!.touched){
+      <div class="errormessage">Introduce una contraseña válida</div>
+      }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Repetir Password</mat-label>
         <input
           matInput
+          formControlName="repeatpassword"
           type="password"
           placeholder=""
           value=""
         /> </mat-form-field
-      ><br />
+      >@if(myForm.get('repeatpassword')?.hasError('required') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">Repite la contraseña de arriba</div>
+      } @if(!myForm.get('repeatpassword')?.hasError('required') &&
+      myForm.get('repeatpassword')?.value != myForm.get('password')?.value){
+      <div class="errormessage">Las contraseñas no son idénticas</div>
+      }<br />
     </div>
     <div class="derecha">
       <input
@@ -93,6 +113,10 @@
     </div>
 
     <div class="generos">
+      <h3 class="titulogeneros">
+        Indique aquellos géneros con los cuales se asocie mejor la actividad de
+        su organización:
+      </h3>
       <div class="generos_uno">
         <mat-checkbox
           class="example-margin"
@@ -104,19 +128,19 @@
           class="example-margin"
           value="2"
           (change)="selectTheme($event)"
-          >Deportes</mat-checkbox
+          >Viajes</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="3"
           (change)="selectTheme($event)"
-          >Cultura</mat-checkbox
+          >Tiempo Libre</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="4"
           (change)="selectTheme($event)"
-          >Ocio</mat-checkbox
+          >Deportes</mat-checkbox
         >
       </div>
       <div class="generos_dos">
@@ -124,25 +148,25 @@
           class="example-margin"
           value="5"
           (change)="selectTheme($event)"
-          >Viajes</mat-checkbox
+          >Videojuegos</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="6"
           (change)="selectTheme($event)"
-          >Videojuegos</mat-checkbox
+          >Reuniones Sociales</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="7"
           (change)="selectTheme($event)"
-          >Tecnologías</mat-checkbox
+          >Cultura</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="8"
           (change)="selectTheme($event)"
-          >Negocios</mat-checkbox
+          >Tecnologías</mat-checkbox
         >
       </div>
       <div class="generos_tres">
@@ -150,19 +174,19 @@
           class="example-margin"
           value="9"
           (change)="selectTheme($event)"
-          >Tiempo Libre</mat-checkbox
+          >Artes Escénicas</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="10"
           (change)="selectTheme($event)"
-          >Reuniones Sociales</mat-checkbox
+          >Ocio</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
           value="11"
           (change)="selectTheme($event)"
-          >Artes escénicas</mat-checkbox
+          >Negocios</mat-checkbox
         >
         <mat-checkbox
           class="example-margin"
@@ -173,13 +197,12 @@
       </div>
     </div>
 
-    <!-- <div class="terminos">
-            <mat-checkbox class="example-margin">Acepto la política de privacidad</mat-checkbox>
-            <mat-checkbox class="example-margin">Acepto los términos y condiciones del servicio</mat-checkbox>
-        </div> -->
-
     <div class="opciones">
-      <input type="submit" value="Únete a Eventalia" />
+      <input
+        type="submit"
+        [disabled]="myForm.invalid"
+        value="Únete a Eventalia"
+      />
       <button
         mat-flat-button
         class="estilosbtnsecundario"
@@ -188,12 +211,5 @@
         Ver todos los eventos
       </button>
     </div>
-
-    <!-- <div class="derecha">
-            <label for="imagen">Añadir imagen: </label>
-            <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen()">Añadir imagen</button>
-            <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
-            <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
-        </div> -->
   </form>
 </section>

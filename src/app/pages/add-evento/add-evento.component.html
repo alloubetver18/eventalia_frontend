@@ -16,8 +16,12 @@
             type="text"
             placeholder=""
             value=""
-          /> </mat-form-field
-        ><br />
+          />
+        </mat-form-field>
+        @if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+        <div class="errormessage">Se requiere nombre de evento</div>
+        }
+        <br />
         <h3>Géneros</h3>
         <div class="generos">
           <div class="generos_uno">
@@ -35,7 +39,7 @@
               [(ngModel)]="themesSelected[1]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Deportes</mat-checkbox
+              >Viajes</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -43,7 +47,7 @@
               [(ngModel)]="themesSelected[2]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Cultura</mat-checkbox
+              >Tiempo Libre</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -51,7 +55,7 @@
               [(ngModel)]="themesSelected[3]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Ocio</mat-checkbox
+              >Deportes</mat-checkbox
             >
           </div>
           <div class="generos_dos">
@@ -61,7 +65,7 @@
               [(ngModel)]="themesSelected[4]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Viajes</mat-checkbox
+              >Videojuegos</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -69,7 +73,7 @@
               [(ngModel)]="themesSelected[5]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Videojuegos</mat-checkbox
+              >Reuniones Sociales</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -77,7 +81,7 @@
               [(ngModel)]="themesSelected[6]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Tecnologías</mat-checkbox
+              >Cultura</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -85,7 +89,7 @@
               [(ngModel)]="themesSelected[7]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Negocios</mat-checkbox
+              >Tecnología</mat-checkbox
             >
           </div>
           <div class="generos_tres">
@@ -95,7 +99,7 @@
               [(ngModel)]="themesSelected[8]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Tiempo Libre</mat-checkbox
+              >Artes escénicas</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -103,7 +107,7 @@
               [(ngModel)]="themesSelected[9]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Reuniones Sociales</mat-checkbox
+              >Ocio</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -111,7 +115,7 @@
               [(ngModel)]="themesSelected[10]"
               (change)="selectTheme($event)"
               [ngModelOptions]="{ standalone: true }"
-              >Artes escénicas</mat-checkbox
+              >Negocio</mat-checkbox
             >
             <mat-checkbox
               class="example-margin"
@@ -126,6 +130,10 @@
       </div>
       <div class="uno-dos">
         <div class="derecha">
+          <span
+            >El archivo debe de ser una imagen jpeg o png, y tener 600px de
+            ancho o menos.</span
+          ><br />
           <input
             type="file"
             #findImage
@@ -159,7 +167,10 @@
           matInput
           placeholder="Ex. It makes me feel..."
         ></textarea></mat-form-field
-      ><br />
+      >@if(myForm.get('description')!.invalid &&
+      myForm.get('description')!.touched){
+      <div class="errormessage">Se requiere Descripción de evento</div>
+      }<br />
     </section>
     <section class="tres">
       <div class="tres-uno">
@@ -175,12 +186,19 @@
               value=""
             />
           </mat-form-field>
+          @if(myForm.get('placename')!.invalid &&
+          myForm.get('placename')!.touched){
+          <div class="errormessage">
+            Se requiere Nombre del lugar del evento
+          </div>
+          }<br />
           <mat-form-field class="example-full-width">
             <mat-label
               >Buscar lugar por nombre, dirección o coordenadas
               (LON,LAT)</mat-label
             >
             <input
+              formControlName="location"
               matInput
               type="text"
               #locationInput
@@ -188,8 +206,13 @@
               value=""
             />
           </mat-form-field>
+          @if(myForm.get('location')!.invalid &&
+          myForm.get('location')!.touched){
+          <div class="errormessage">
+            Se requiere Obtener la localización exacta del Evento
+          </div>
+          }<br />
 
-          <!-- <input type="text" #locationInput placeholder="Buscar lugar por nombre"> -->
           <button
             mat-flat-button
             class="estilosbtnsecundario"
@@ -197,18 +220,8 @@
           >
             Buscar
           </button>
-          <!-- <button (click)="searchLocation()">Buscar</button> -->
         </div>
         <div id="map"></div>
-
-        <div id="position">
-          {{ posicion }}
-        </div>
-
-        <a
-          [href]="'https://www.google.com/maps/search/?api=1&query=' + posicion"
-          >Ir a la localización</a
-        >
       </div>
       <div class="tres-dos">
         <div class="cuando-quieras">
@@ -223,7 +236,10 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            ><br />
+            >@if(myForm.get('placeaddress')!.invalid &&
+            myForm.get('placeaddress')!.touched){
+            <div class="errormessage">Se requiere una dirección completa</div>
+            }<br />
             <mat-form-field class="nombreEvento">
               <mat-label>Localidad</mat-label>
               <input
@@ -233,7 +249,10 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            ><br />
+            >@if(myForm.get('placecity')!.invalid &&
+            myForm.get('placecity')!.touched){
+            <div class="errormessage">Se requiere localidad</div>
+            }<br />
             <mat-form-field class="nombreEvento">
               <mat-label>Provincia</mat-label>
               <input
@@ -243,7 +262,10 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            ><br />
+            >@if(myForm.get('placeprovince')!.invalid &&
+            myForm.get('placeprovince')!.touched){
+            <div class="errormessage">Se requiere Provincia</div>
+            }<br />
             <mat-form-field class="example-form-field">
               <mat-label>Desde...</mat-label>
               <input
@@ -264,7 +286,12 @@
                   </button>
                 </mat-datepicker-actions>
               </mat-datepicker> </mat-form-field
-            ><br />
+            >@if(myForm.get('dateFrom')!.invalid &&
+            myForm.get('dateFrom')!.touched){
+            <div class="errormessage">
+              Se requiere Fecha de inicio del evento
+            </div>
+            }<br />
             <mat-form-field class="example-form-field">
               <mat-label>Hasta</mat-label>
               <input
@@ -285,7 +312,10 @@
                   </button>
                 </mat-datepicker-actions>
               </mat-datepicker> </mat-form-field
-            ><br />
+            >@if(myForm.get('dateTo')!.invalid &&
+            myForm.get('dateTo')!.touched){
+            <div class="errormessage">Se requiere fecha de fin del evento</div>
+            }<br />
             <mat-form-field class="nombreEvento">
               <mat-label>Hora de inicio (HH:MM)</mat-label>
               <input
@@ -295,7 +325,10 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            ><br />
+            >@if(myForm.get('startsAt')!.invalid &&
+            myForm.get('startsAt')!.touched){
+            <div class="errormessage">Se requiere Hora de inicio evento</div>
+            }<br />
             <mat-form-field class="precioEvento">
               <mat-label>Precio del Evento (si es gratis, escribe 0)</mat-label>
               <input
@@ -305,25 +338,23 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            ><br />
+            >@if(myForm.get('priceEvent')!.invalid &&
+            myForm.get('priceEvent')!.touched){
+            <div class="errormessage">Se requiere precio del evento</div>
+            }<br />
           </div>
         </div>
       </div>
     </section>
     <section class="cuatro">
-      <div class="cuatro-uno">
-        <!-- <div class="terminos">
-        <mat-checkbox class="example-margin"
-          >Acepto la política de privacidad</mat-checkbox
-        >
-        <mat-checkbox class="example-margin"
-          >Acepto los términos y condiciones del servicio</mat-checkbox
-        >
-      </div> -->
-      </div>
+      <div class="cuatro-uno"></div>
       <div class="cuatro-dos">
         <div class="opciones">
-          <input type="submit" value="Crear Evento" />
+          <input
+            type="submit"
+            [disabled]="myForm.invalid"
+            value="Crear Evento"
+          />
           <button
             mat-flat-button
             class="estilosbtnsecundario"

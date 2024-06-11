@@ -129,7 +129,7 @@ img.uno, img.dos, img.tres, img.cuatro{
     margin:auto;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
     .hidden-btn{
         display: block;
     }

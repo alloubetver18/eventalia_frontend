@@ -34,10 +34,15 @@
     grid-column: 1 / 8;
     grid-row: 2;
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(4, auto);
     flex-direction: column;
     width: 50rem;
+}
+
+.titulogeneros{
+  grid-column: 1 / 4;
+    grid-row: 1 / 2;
 }
 
 .generos_uno{
@@ -45,7 +50,7 @@
     grid-template-rows: repeat(3, auto);
     grid-template-columns: repeat(4, 1fr);
     grid-column: 1 / 4;
-    grid-row: 1 / 2;
+    grid-row: 2 / 3;
 }
 
 .generos_dos{
@@ -53,7 +58,7 @@
     grid-template-rows: repeat(3, auto);
     grid-template-columns: repeat(4, 1fr);
     grid-column: 1 / 4;
-    grid-row: 2/3;
+    grid-row: 3/4;
 }
 
 .generos_tres{
@@ -61,7 +66,7 @@
     grid-template-rows: repeat(3, auto);
     grid-template-columns: repeat(4, 1fr);
     grid-column: 1 / 4;
-    grid-row: 3/4;
+    grid-row: 4/5;
 }
 
 .opciones{
@@ -79,8 +84,9 @@
 }
 
 .imgPerfil{
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
 }
 
 .formulario{
@@ -99,14 +105,31 @@ input[type="submit"]{
     background-color: #E04700;
     color: white;
     border: none;
-    padding: 1rem;
+    padding: .7rem;
     border-radius: 1rem;
+    width: 12.2rem;
+    margin-bottom: 1rem;
 }
 
 input[type="submit"]:hover{
     background-color: #a53907;
     cursor: pointer;
 }
+
+input[type="submit"]:disabled{
+  background-color: #593f33;
+  cursor: pointer;
+}
+
+input[type="submit"]:disabled:hover{
+  cursor:default;
+}
+
+.errormessage{
+  font-size: 1rem;
+  color: red;
+}
+
 
 
 .estilosbtnsecundario{
@@ -117,7 +140,7 @@ input[type="submit"]:hover{
     padding: 1rem;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 426px) {
 
     .formulario_registro{
         /* width: 100%; */
@@ -125,6 +148,7 @@ input[type="submit"]:hover{
         /* justify-content: center; */
         grid-template-rows: repeat(15, auto);
         grid-template-columns: repeat(1, auto);
+        justify-items: center;
     }
 
     .derecha{
@@ -160,6 +184,29 @@ input[type="submit"]:hover{
     .opciones{
         grid-column: 1;
         grid-row: 13/15;
+        width: 300px;
+        align-items: center;
+    }
+
+    .titulogeneros{
+      width: 300px;
+    }
+
+    .generos{
+      width: 300px;
+    }
+
+    .generos_uno, .generos_dos, .generos_tres{
+      display: flex;
+      flex-direction: column;
+    }
+
+    mat-checkbox{
+      width: 200px;
+    }
+
+    .opciones{
+      margin-bottom: 2rem;
     }
 
 

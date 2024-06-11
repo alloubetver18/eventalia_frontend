@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { commonUserInterface } from '../../models/commonuser.interface';
 import { environment } from '../../../environments/environment';
+import { ValidatorService } from '../../shared/validators/validator.service';
 
 export interface Usuario {
   id: number;
@@ -64,19 +65,27 @@ export class RegisterComponent implements OnInit {
     private authservice: AuthService,
     private sanitizer: DomSanitizer,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _validatorService: ValidatorService
   ) {}
 
   ngOnInit(): void {
-    this.myForm = this.fb.group({
-      // Define tus controles de formulario y validaciones aquí
-      name: ['', Validators.required],
-      surname: [''],
-      nick: [''],
-      email: [''],
-      password: [''],
-      repeatpassword: [''],
-    });
+    this.myForm = this.fb.group(
+      {
+        // Define tus controles de formulario y validaciones aquí
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        nick: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+        repeatpassword: ['', Validators.required],
+      },
+      {
+        validators: [
+          this._validatorService.camposIguales('passw', 'repeatpassw'),
+        ],
+      }
+    );
   }
 
   cargarImagen() {
@@ -111,8 +120,11 @@ export class RegisterComponent implements OnInit {
           console.log(
             'Longitud de la cadena: ' + (fileReader.result as string).length
           );
-          //if ((format === 'jpeg' || format === 'png') && width <= 2048 && height <= 2048) {
-          if (format === 'jpeg' || format === 'png') {
+          if (
+            (format === 'jpeg' || format === 'png') &&
+            width <= 600 &&
+            height <= 2048
+          ) {
             this.base64Image = fileReader.result as string;
             this.imagenCargada = this.sanitizer.bypassSecurityTrustResourceUrl(
               this.base64Image
@@ -128,9 +140,9 @@ export class RegisterComponent implements OnInit {
             );
           } else if (format !== 'jpeg' && format !== 'png') {
             console.log('El archivo seleccionado no es una imagen jpg o png');
-          } /* else if (width > 2048 || height > 2048) {
-                console.log('Las dimensiones de la imagen son mayores a 1024x720px');
-            } */
+          } else if (width > 600 || height > 2048) {
+            alert('La imagen tiene un ancho mayor a 600px');
+          }
         };
         image.onerror = () => {
           console.log(
@@ -146,54 +158,59 @@ export class RegisterComponent implements OnInit {
   registrar(evento: Event) {
     const inputActivado = evento.target as HTMLInputElement;
     evento.preventDefault();
-    console.log(this.myForm.get('name')?.value);
 
-    let newCommonUserData: commonUserInterface = {
-      name: this.myForm.get('name')?.value,
-      surname: this.myForm.get('surname')?.value,
-      nick: this.myForm.get('nick')?.value,
-      email: this.myForm.get('email')?.value,
-      password: this.myForm.get('password')?.value,
-      rol: 1,
-      themes: this.themesList.join(),
-      imagenavatar: this.imagendividida[1],
-      imagenavatarformat: this.imageFormat,
-    };
+    if (this.imagendividida.length == 0) {
+      alert(
+        'Por favor, seleccione una imagen para usar como avatar de perfil. Recuerde: debe tener un ancho de 600px o menor.'
+      );
+    } else if (this.themesList.length == 0) {
+      alert(
+        'Seleccione algún género de interes para poder ofrecerle los mejores eventos.'
+      );
+    } else {
+      let newCommonUserData: commonUserInterface = {
+        name: this.myForm.get('name')?.value,
+        surname: this.myForm.get('surname')?.value,
+        nick: this.myForm.get('nick')?.value,
+        email: this.myForm.get('email')?.value,
+        password: this.myForm.get('password')?.value,
+        rol: 1,
+        themes: this.themesList.join(),
+        imagenavatar: this.imagendividida[1],
+        imagenavatarformat: this.imageFormat,
+      };
 
-    let emailregisterservice: string = 'usuario@usuario.es';
-    let passwordregisterservice: string = 'password';
-    if (this.myForm.get('email')?.value.length > 0) {
-      emailregisterservice = this.myForm.get('email')?.value;
+      let emailregisterservice: string = 'usuario@usuario.es';
+      let passwordregisterservice: string = 'password';
+      if (this.myForm.get('email')?.value.length > 0) {
+        emailregisterservice = this.myForm.get('email')?.value;
+      }
+      if (this.myForm.get('password')?.value.length > 0) {
+        passwordregisterservice = this.myForm.get('password')?.value;
+      }
+
+      //Añadir a partir de aquí el almacenamiento en mi BackEnd del nuevo usuario.
+      this.authservice
+        .register(emailregisterservice, passwordregisterservice)
+        .then(async () => {
+          let currentUser = await this.authservice.getCurrentUser();
+          console.log(currentUser);
+          if (currentUser == null) {
+            alert('No se ha creado el nuevo usuario.');
+          } else {
+            this.authservice.logout();
+            this.authservice
+              .registerAPI(newCommonUserData)
+              .subscribe((response) => {
+                if (response['result'] == 'success') {
+                  alert('registro realizado con éxito.');
+                  this.router.navigate(['/home']);
+                }
+              });
+            this.router.navigateByUrl('/home');
+          }
+        });
     }
-    if (this.myForm.get('password')?.value.length > 0) {
-      passwordregisterservice = this.myForm.get('password')?.value;
-    }
-
-    //Añadir a partir de aquí el almacenamiento en mi BackEnd del nuevo usuario.
-    this.authservice
-      .register(emailregisterservice, passwordregisterservice)
-      .then(async () => {
-        let currentUser = await this.authservice.getCurrentUser();
-        console.log(currentUser);
-        if (currentUser == null) {
-          alert('No se ha creado el nuevo usuario.');
-        } else {
-          alert(
-            'Usuario creado con éxito. A partir de aquí, crearemos un nuevo usuario en nuestra BD, para almacenar el resto de la información.'
-          );
-          this.authservice.logout();
-          this.authservice
-            .registerAPI(newCommonUserData)
-            .subscribe((response) => {
-              /* console.log(response['result']); */
-              if (response['result'] == 'success') {
-                alert('registro realizado con éxito.');
-                this.router.navigate(['/home']);
-              }
-            });
-          this.router.navigateByUrl('/home');
-        }
-      });
   }
 
   selectTheme(event: MatCheckboxChange) {

@@ -114,6 +114,20 @@ input[type="submit"]:hover{
     cursor: pointer;
 }
 
+input[type="submit"]:disabled{
+  background-color: #593f33;
+  cursor: pointer;
+}
+
+input[type="submit"]:disabled:hover{
+  cursor:default;
+}
+
+.errormessage{
+  font-size: 1rem;
+  color: red;
+}
+
 
 .estilosbtnsecundario{
     background-color: #007DB8 !important;
@@ -153,6 +167,7 @@ input[type="submit"]:hover{
 .formulario_evento .dos{
     width: 80%;
     margin: auto;
+    margin-top: 2rem;
 }
 
 .formulario_evento .dos .descripcion{
@@ -183,7 +198,7 @@ input[type="submit"]:hover{
 .formulario_evento #map{
     width: 80%;
     height: 400px;
-    
+
 }
 
 .formulario_evento #search{

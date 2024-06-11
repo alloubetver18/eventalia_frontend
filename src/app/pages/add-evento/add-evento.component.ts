@@ -128,15 +128,16 @@ export class AddEventoComponent implements OnInit {
     this.myForm = this.fb.group({
       // Define tus controles de formulario y validaciones aquí
       name: ['', Validators.required],
-      description: [''],
-      placename: [''],
-      placeaddress: [''],
-      placecity: [''],
-      placeprovince: [''],
-      dateFrom: [''],
-      dateTo: [''],
-      startsAt: [''],
-      priceEvent: [''],
+      description: ['', Validators.required],
+      placename: ['', Validators.required],
+      placeaddress: ['', Validators.required],
+      placecity: ['', Validators.required],
+      placeprovince: ['', Validators.required],
+      dateFrom: ['', Validators.required],
+      dateTo: ['', Validators.required],
+      startsAt: ['', Validators.required],
+      priceEvent: ['', Validators.required],
+      location: ['', Validators.required],
       // Agrega más controles según sea necesario
     });
 
@@ -149,8 +150,6 @@ export class AddEventoComponent implements OnInit {
 
           this.rol = parseInt(response['data']['rol']);
 
-          //console.log(this.rol);
-
           if (this.rol != 2) {
             this.router.navigate(['/home']);
           }
@@ -158,6 +157,8 @@ export class AddEventoComponent implements OnInit {
 
           //this.recomended_events = response['data'];
         });
+
+      console.log('Formulario válido: ' + this.myForm.invalid);
     } else {
       this.router.navigate(['/home']);
     }
@@ -255,11 +256,9 @@ export class AddEventoComponent implements OnInit {
                 ' kb'
             );
           } else if (format !== 'jpeg' && format !== 'png') {
-            console.log('El archivo seleccionado no es una imagen jpg o png');
-          } else if (width > 300 || height > 2048) {
-            console.log(
-              'Las dimensiones de la imagen son mayores a 300px de alto'
-            );
+            alert('El archivo seleccionado no es una imagen jpg o png');
+          } else if (width > 600 || height > 2048) {
+            alert('Las dimensiones de la imagen son mayores a 600px de ancho');
           }
         };
         image.onerror = () => {
@@ -275,13 +274,14 @@ export class AddEventoComponent implements OnInit {
 
   registrarEvento(evento: Event) {
     const inputActivado = evento.target as HTMLInputElement;
-    alert('registrado');
 
     evento.preventDefault();
     console.log(this.myForm.get('name')?.value);
 
     if (this.imagendividida.length == 0) {
       alert('Necesitas añadir una imagen a tu evento.');
+    } else if (this.themesList.length == 0) {
+      alert('Seleccione al menos un género');
     } else {
       let newPlace: Lugar = {
         id: 0,
@@ -307,10 +307,10 @@ export class AddEventoComponent implements OnInit {
         price: parseFloat(this.myForm.get('priceEvent')?.value),
       };
 
-      alert('Evento necesita ser terminado y almacenado para enviar.');
       console.log(JSON.stringify(newEvent));
       this.eventService.createEvent(newEvent).subscribe((result) => {
         console.log(result);
+        alert('Evento creado correctamente.');
       });
     }
   }

@@ -1,83 +1,221 @@
-
 <section class="registerUser">
-    <!-- Añadir a estos formularios el FormGorup y el FormBuilder -->
-    <form (submit)="registrar($event)" [formGroup]="myForm" class="formulario_registro">
-        <div class="izquierda">
-            <h3>Registrate en Eventalia. ¡Es gratis!</h3>
-            <mat-form-field class="example-full-width">
-                <mat-label>Nombre</mat-label>
-                <input formControlName="name" matInput type="text" placeholder="" value="">
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-                <mat-label>Apellidos</mat-label>
-                <input formControlName="surname" matInput type="text" placeholder="" value="">
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-                <mat-label>Nombre de Usuario</mat-label>
-                <input formControlName="nick" matInput type="text" placeholder="" value="">
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-                <input formControlName="email" matInput type="email" placeholder="" value="">
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-                <mat-label>Password</mat-label>
-                <input formControlName="password" matInput type="password" placeholder="" value="">
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-                <mat-label>Repetir Password</mat-label>
-                <input formControlName="repeatpassword" matInput type="password" placeholder="" value="">
-            </mat-form-field><br>
-    
-    
-    
-            
-        </div>
-        <div class="derecha">
-            <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
-            <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen($event)">Añadir imagen</button>
-        
-            <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
-        </div>
-    
-        <div class="generos">
-            <div class="generos_uno">
-                <mat-checkbox class="example-margin" value="1" (change)="selectTheme($event)">Literatura</mat-checkbox>
-                <mat-checkbox class="example-margin" value="2" (change)="selectTheme($event)">Deportes</mat-checkbox>
-                <mat-checkbox class="example-margin" value="3" (change)="selectTheme($event)">Cultura</mat-checkbox>
-                <mat-checkbox class="example-margin" value="4" (change)="selectTheme($event)">Ocio</mat-checkbox>
-            </div>
-            <div class="generos_dos">
-                <mat-checkbox class="example-margin" value="5" (change)="selectTheme($event)">Viajes</mat-checkbox>
-                <mat-checkbox class="example-margin" value="6" (change)="selectTheme($event)">Videojuegos</mat-checkbox>
-                <mat-checkbox class="example-margin" value="7" (change)="selectTheme($event)">Tecnologías</mat-checkbox>
-                <mat-checkbox class="example-margin" value="8" (change)="selectTheme($event)">Negocios</mat-checkbox>
-            </div>
-            <div class="generos_tres">
-                <mat-checkbox class="example-margin" value="9" (change)="selectTheme($event)">Tiempo Libre</mat-checkbox>
-                <mat-checkbox class="example-margin" value="10" (change)="selectTheme($event)">Reuniones Sociales</mat-checkbox>
-                <mat-checkbox class="example-margin" value="11" (change)="selectTheme($event)">Artes escénicas</mat-checkbox>
-                <mat-checkbox class="example-margin" value="12" (change)="selectTheme($event)">Otros</mat-checkbox>
-            </div>
-        </div>
-    
-        <!-- <div class="terminos">
-            <mat-checkbox class="example-margin">Acepto la política de privacidad</mat-checkbox>
-            <mat-checkbox class="example-margin">Acepto los términos y condiciones del servicio</mat-checkbox>
-        </div> -->
-    
-        <div class="opciones">
-            <input type="submit" value="Únete a Eventalia">
-            <button mat-flat-button class="estilosbtnsecundario" (click)="iraEventos($event)">Ver todos los eventos</button>
-        </div>
-       
-        <!-- <div class="derecha">
+  <!-- Añadir a estos formularios el FormGorup y el FormBuilder -->
+  <form
+    (submit)="registrar($event)"
+    [formGroup]="myForm"
+    class="formulario_registro"
+  >
+    <div class="izquierda">
+      <h2>Registrate en Eventalia. ¡Es gratis!</h2>
+      <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input
+          formControlName="name"
+          matInput
+          type="text"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      >@if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+      <div class="errormessage">Se requiere nombre de usuario</div>
+      }<br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Apellidos</mat-label>
+        <input
+          formControlName="surname"
+          matInput
+          type="text"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      >@if(myForm.get('surname')!.invalid && myForm.get('surname')!.touched){
+      <div class="errormessage">Se requiere apellido de usuario</div>
+      }<br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Nick de Usuario</mat-label>
+        <input
+          formControlName="nick"
+          matInput
+          type="text"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      >@if(myForm.get('nick')!.invalid && myForm.get('nick')!.touched){
+      <div class="errormessage">Se requiere nick de usuario</div>
+      }<br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          type="email"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      >@if(myForm.get('email')!.invalid && myForm.get('email')!.touched){
+      <div class="errormessage">Se requiere un email de usuario válido</div>
+      }<br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          matInput
+          type="password"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      >@if(myForm.get('password')!.invalid && myForm.get('password')!.touched){
+      <div class="errormessage">Introduce una contraseña.</div>
+      }<br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Repetir Password</mat-label>
+        <input
+          formControlName="repeatpassword"
+          matInput
+          type="password"
+          placeholder=""
+          value=""
+        /> </mat-form-field
+      ><br />
+      @if(myForm.get('repeatpassword')?.hasError('required') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">Repite la contraseña de arriba</div>
+      } @if(!myForm.get('repeatpassword')?.hasError('required') &&
+      myForm.get('repeatpassword')?.value != myForm.get('password')?.value){
+      <div class="errormessage">Las contraseñas no son idénticas</div>
+      }<br />
+    </div>
+
+    <div class="derecha">
+      <input
+        type="file"
+        #findImage
+        name="imagen"
+        id=""
+        (change)="handleImageUpload($event)"
+        style="display: none"
+      />
+      <button
+        mat-flat-button
+        class="estilosbtnsecundario"
+        (click)="buscarImagen($event)"
+      >
+        Añadir imagen
+      </button>
+
+      <img
+        class="imgPerfil"
+        [src]="imagenCargada"
+        alt="imagenGuardada"
+        srcset=""
+      /><br />
+    </div>
+
+    <div class="generos">
+      <h3 class="titulogeneros">
+        Para poder ofrecerle un mejor servicio, seleccione al menos 1 género de
+        su interés:
+      </h3>
+      <div class="generos_uno">
+        <mat-checkbox
+          class="example-margin"
+          value="1"
+          (change)="selectTheme($event)"
+          >Literatura</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="2"
+          (change)="selectTheme($event)"
+          >Viajes</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="3"
+          (change)="selectTheme($event)"
+          >Tiempo Libre</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="4"
+          (change)="selectTheme($event)"
+          >Deportes</mat-checkbox
+        >
+      </div>
+      <div class="generos_dos">
+        <mat-checkbox
+          class="example-margin"
+          value="5"
+          (change)="selectTheme($event)"
+          >Videojuegos</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="6"
+          (change)="selectTheme($event)"
+          >Reuniones Sociales</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="7"
+          (change)="selectTheme($event)"
+          >Cultura</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="8"
+          (change)="selectTheme($event)"
+          >Tecnologías</mat-checkbox
+        >
+      </div>
+      <div class="generos_tres">
+        <mat-checkbox
+          class="example-margin"
+          value="9"
+          (change)="selectTheme($event)"
+          >Artes Escénicas</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="10"
+          (change)="selectTheme($event)"
+          >Ocio</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="11"
+          (change)="selectTheme($event)"
+          >Negocios</mat-checkbox
+        >
+        <mat-checkbox
+          class="example-margin"
+          value="12"
+          (change)="selectTheme($event)"
+          >Otros</mat-checkbox
+        >
+      </div>
+    </div>
+
+    <div class="opciones">
+      <input
+        type="submit"
+        [disabled]="myForm.invalid"
+        value="Únete a Eventalia"
+      />
+      <button
+        mat-flat-button
+        class="estilosbtnsecundario"
+        (click)="iraEventos($event)"
+      >
+        Ver todos los eventos
+      </button>
+    </div>
+
+    <!-- <div class="derecha">
             <label for="imagen">Añadir imagen: </label>
             <button mat-flat-button class="estilosbtnsecundario" (click)="buscarImagen()">Añadir imagen</button>
             <input type="file" #findImage name="imagen" id="" (change)="handleImageUpload($event)" style="display: none;">
             <img class="imgPerfil" [src]="imagenCargada" alt="imagenGuardada" srcset=""><br>
         </div> -->
-    </form> 
+  </form>
 </section>
-   
-
