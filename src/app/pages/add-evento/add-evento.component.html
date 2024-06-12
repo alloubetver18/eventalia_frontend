@@ -11,7 +11,7 @@
         </h1>
 
         <mat-form-field class="nombreEvento">
-          <mat-label>Nombre</mat-label>
+          <mat-label>Nombre (entre 5 y 50 caracteres)</mat-label>
           <input
             formControlName="name"
             matInput
@@ -20,11 +20,18 @@
             value=""
           />
         </mat-form-field>
-        @if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+        @if(myForm.get('name')?.hasError('required') &&
+        myForm.get('name')!.touched){
         <div class="errormessage">Se requiere nombre de evento</div>
+        }@if(myForm.get('name')?.hasError('minlength') &&
+        myForm.get('name')?.touched){
+        <div class="errormessage">El nombre del evento es muy corto</div>
+        } @if(myForm.get('name')?.hasError('maxlength') &&
+        myForm.get('name')?.touched){
+        <div class="errormessage">El nombre del evento es demasiado largo</div>
         }
         <br />
-        <h3>Géneros</h3>
+        <h3>Géneros (selecciona la menos 1)</h3>
         <div class="generos">
           <div class="generos_uno">
             <mat-checkbox
@@ -163,15 +170,25 @@
     </section>
     <section class="dos">
       <mat-form-field class="descripcion">
-        <mat-label>Vende tu evento a tu público... en 500 letras.</mat-label>
+        <mat-label
+          >Vende tu evento a tu público... entre 50 y 500 letras.</mat-label
+        >
         <textarea
           formControlName="description"
           matInput
           placeholder="Ex. It makes me feel..."
         ></textarea></mat-form-field
-      >@if(myForm.get('description')!.invalid &&
+      >@if(myForm.get('description')?.hasError('required') &&
       myForm.get('description')!.touched){
-      <div class="errormessage">Se requiere Descripción de evento</div>
+      <div class="errormessage">Se requiere descripción de evento</div>
+      }@if(myForm.get('description')?.hasError('minlength') &&
+      myForm.get('description')?.touched){
+      <div class="errormessage">La descripción del evento es muy corta</div>
+      } @if(myForm.get('description')?.hasError('maxlength') &&
+      myForm.get('description')?.touched){
+      <div class="errormessage">
+        La descripción del evento es demasiado larga
+      </div>
       }<br />
     </section>
     <section class="tres">
@@ -179,7 +196,7 @@
         <label for="">Donde quieras y cuando quieras...</label><br />
         <div id="search">
           <mat-form-field class="example-full-width">
-            <mat-label>Nombre del lugar</mat-label>
+            <mat-label>Nombre del lugar (entre 5 y 50 caracteres)</mat-label>
             <input
               formControlName="placename"
               matInput
@@ -188,16 +205,22 @@
               value=""
             />
           </mat-form-field>
-          @if(myForm.get('placename')!.invalid &&
+          @if(myForm.get('placename')?.hasError('required') &&
           myForm.get('placename')!.touched){
           <div class="errormessage">
             Se requiere Nombre del lugar del evento
           </div>
+          }@if(myForm.get('placename')?.hasError('minlength') &&
+          myForm.get('placename')?.touched){
+          <div class="errormessage">El nombre del lugar es muy corto</div>
+          } @if(myForm.get('placename')?.hasError('maxlength') &&
+          myForm.get('placename')?.touched){
+          <div class="errormessage">El nombre del lugar es demasiado largo</div>
           }<br />
           <mat-form-field class="example-full-width">
             <mat-label
-              >Buscar lugar por nombre, dirección o coordenadas
-              (LON,LAT)</mat-label
+              >Buscar lugar por nombre, dirección o coordenadas (LON,LAT)
+              (máximo 80 caracteres)</mat-label
             >
             <input
               formControlName="location"
@@ -208,10 +231,16 @@
               value=""
             />
           </mat-form-field>
-          @if(myForm.get('location')!.invalid &&
+          @if(myForm.get('location')?.hasError('required') &&
           myForm.get('location')!.touched){
           <div class="errormessage">
-            Se requiere Obtener la localización exacta del Evento
+            Se requiere Obtener la localización exacta del Evento (máximo 80
+            caracteres)
+          </div>
+          }@if(myForm.get('placename')?.hasError('maxlength') &&
+          myForm.get('placename')?.touched){
+          <div class="errormessage">
+            El localizador del lugar es demasiado largo
           </div>
           }<br />
 
@@ -230,7 +259,7 @@
           <label for="">Más información:</label><br />
           <div class="mas-info">
             <mat-form-field class="nombreEvento">
-              <mat-label>Dirección</mat-label>
+              <mat-label>Dirección (entre 5 y 50 caracteres)</mat-label>
               <input
                 formControlName="placeaddress"
                 matInput
@@ -241,9 +270,19 @@
             >@if(myForm.get('placeaddress')!.invalid &&
             myForm.get('placeaddress')!.touched){
             <div class="errormessage">Se requiere una dirección completa</div>
+            }@if(myForm.get('placeaddress')?.hasError('minlength') &&
+            myForm.get('placeaddress')?.touched){
+            <div class="errormessage">
+              La dirección introducida es muy corta
+            </div>
+            } @if(myForm.get('placeaddress')?.hasError('maxlength') &&
+            myForm.get('placeaddress')?.touched){
+            <div class="errormessage">
+              La dirección introducida es demasiado larga
+            </div>
             }<br />
             <mat-form-field class="nombreEvento">
-              <mat-label>Localidad</mat-label>
+              <mat-label>Localidad (entre 5 y 30 caracteres)</mat-label>
               <input
                 formControlName="placecity"
                 matInput
@@ -254,6 +293,16 @@
             >@if(myForm.get('placecity')!.invalid &&
             myForm.get('placecity')!.touched){
             <div class="errormessage">Se requiere localidad</div>
+            }@if(myForm.get('placecity')?.hasError('minlength') &&
+            myForm.get('placecity')?.touched){
+            <div class="errormessage">
+              La localidad introducida es muy corta
+            </div>
+            } @if(myForm.get('placecity')?.hasError('maxlength') &&
+            myForm.get('placecity')?.touched){
+            <div class="errormessage">
+              La localidad introducida es demasiado larga
+            </div>
             }<br />
             <mat-form-field class="nombreEvento">
               <mat-label>Provincia</mat-label>
@@ -293,7 +342,8 @@
             <div class="errormessage">
               Se requiere Fecha de inicio del evento
             </div>
-            }<br />
+            }
+            <br />
             <mat-form-field class="example-form-field">
               <mat-label>Hasta</mat-label>
               <input
@@ -327,9 +377,12 @@
                 placeholder=""
                 value=""
               /> </mat-form-field
-            >@if(myForm.get('startsAt')!.invalid &&
+            >@if(myForm.get('startsAt')?.hasError('required') &&
             myForm.get('startsAt')!.touched){
             <div class="errormessage">Se requiere Hora de inicio evento</div>
+            } @if(myForm.get('startsAt')?.hasError('pattern') &&
+            myForm.get('startsAt')!.touched){
+            <div class="errormessage">El formato de hora no es correcto</div>
             }<br />
             <mat-form-field class="precioEvento">
               <mat-label>Precio del Evento (si es gratis, escribe 0)</mat-label>

@@ -73,16 +73,45 @@ export class RegisterComponent implements OnInit {
     this.myForm = this.fb.group(
       {
         // Define tus controles de formulario y validaciones aquí
-        name: ['', Validators.required],
-        surname: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        surname: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(20),
+          ],
+        ],
         nick: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        repeatpassword: ['', Validators.required],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.minLength(10),
+            Validators.maxLength(20),
+          ],
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(15),
+          ],
+        ],
+        repeatpassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(15),
+          ],
+        ],
       },
       {
         validators: [
-          this._validatorService.camposIguales('passw', 'repeatpassw'),
+          this._validatorService.camposIguales('password', 'repeatpassword'),
         ],
       }
     );

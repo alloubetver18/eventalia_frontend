@@ -16,9 +16,14 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      >@if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+      >@if(myForm.get('name')?.hasError('required') &&
+      myForm.get('name')?.touched){
       <div class="errormessage">Se requiere nombre de usuario</div>
-      }<br />
+      }@if(myForm.get('name')?.hasError('minlength') &&
+      myForm.get('name')?.touched){
+      <div class="errormessage">El nombre es muy corto</div>
+      }
+      <br />
       <mat-form-field class="example-full-width">
         <mat-label>Apellidos</mat-label>
         <input
@@ -27,9 +32,16 @@
           type="text"
           placeholder=""
           value=""
+          maxlength="20"
         /> </mat-form-field
       >@if(myForm.get('surname')!.invalid && myForm.get('surname')!.touched){
       <div class="errormessage">Se requiere apellido de usuario</div>
+      } @if(myForm.get('surname')?.hasError('minlength') &&
+      myForm.get('surname')?.touched){
+      <div class="errormessage">El apellido es muy corto</div>
+      } @if(myForm.get('surname')?.hasError('maxlength') &&
+      myForm.get('surname')?.touched){
+      <div class="errormessage">El apellido es demasiado largo</div>
       }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Nick de Usuario</mat-label>
@@ -54,6 +66,12 @@
         /> </mat-form-field
       >@if(myForm.get('email')!.invalid && myForm.get('email')!.touched){
       <div class="errormessage">Se requiere un email de usuario válido</div>
+      } @if(myForm.get('email')?.hasError('minlength') &&
+      myForm.get('email')?.touched){
+      <div class="errormessage">El email es muy corto</div>
+      } @if(myForm.get('email')?.hasError('maxlength') &&
+      myForm.get('email')?.touched){
+      <div class="errormessage">El email, es demasiado largo</div>
       }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Password</mat-label>
@@ -66,6 +84,12 @@
         /> </mat-form-field
       >@if(myForm.get('password')!.invalid && myForm.get('password')!.touched){
       <div class="errormessage">Introduce una contraseña.</div>
+      } @if(myForm.get('password')?.hasError('minlength') &&
+      myForm.get('password')?.touched){
+      <div class="errormessage">La contraseña es muy corta</div>
+      } @if(myForm.get('password')?.hasError('maxlength') &&
+      myForm.get('password')?.touched){
+      <div class="errormessage">La contraseña es demasiado larga</div>
       }<br />
       <mat-form-field class="example-full-width">
         <mat-label>Repetir Password</mat-label>
@@ -80,6 +104,12 @@
       @if(myForm.get('repeatpassword')?.hasError('required') &&
       myForm.get('repeatpassword')?.touched){
       <div class="errormessage">Repite la contraseña de arriba</div>
+      } @if(myForm.get('repeatpassword')?.hasError('minlength') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">La contraseña es muy corta</div>
+      } @if(myForm.get('repeatpassword')?.hasError('maxlength') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">La contraseña es demasiado larga</div>
       } @if(!myForm.get('repeatpassword')?.hasError('required') &&
       myForm.get('repeatpassword')?.value != myForm.get('password')?.value){
       <div class="errormessage">Las contraseñas no son idénticas</div>

@@ -83,6 +83,8 @@ export class AddEventoComponent implements OnInit {
 
   posicion: string = '36.420103,-6.148869';
 
+  positionSearched: boolean = false;
+
   themesSelected: boolean[] = [
     false,
     false,
@@ -127,17 +129,73 @@ export class AddEventoComponent implements OnInit {
 
     this.myForm = this.fb.group({
       // Define tus controles de formulario y validaciones aquí
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      placename: ['', Validators.required],
-      placeaddress: ['', Validators.required],
-      placecity: ['', Validators.required],
-      placeprovince: ['', Validators.required],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+        ],
+      ],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(500),
+        ],
+      ],
+      placename: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+        ],
+      ],
+      placeaddress: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      placecity: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      placeprovince: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30),
+        ],
+      ],
       dateFrom: ['', Validators.required],
       dateTo: ['', Validators.required],
-      startsAt: ['', Validators.required],
-      priceEvent: ['', Validators.required],
-      location: ['', Validators.required],
+      startsAt: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.pattern(/^([01]\d|2[0-3]):([0-5]\d)$/),
+        ],
+      ],
+      priceEvent: ['', [Validators.required, Validators.maxLength(6)]],
+      location: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(80),
+        ],
+      ],
       // Agrega más controles según sea necesario
     });
 
@@ -167,29 +225,35 @@ export class AddEventoComponent implements OnInit {
   searchLocation(event: Event) {
     event.preventDefault();
     var location = this.locationInput.nativeElement.value;
+    if (location.length == 0) {
+      alert(
+        'Introduce la dirección de un lugar, su nombre o unas coordenadas.'
+      );
+    } else {
+      // Realizar una solicitud a la API de Mapbox Geocoding
+      fetch(
+        'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
+          encodeURIComponent(location) +
+          '.json?access_token=' +
+          this.accessTokenMapBox
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // Obtener las coordenadas del primer resultado
+          var coordinates = data.features[0].center;
+          var arraycoordinates = coordinates.toString().split(',');
 
-    // Realizar una solicitud a la API de Mapbox Geocoding
-    fetch(
-      'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
-        encodeURIComponent(location) +
-        '.json?access_token=' +
-        this.accessTokenMapBox
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // Obtener las coordenadas del primer resultado
-        var coordinates = data.features[0].center;
-        var arraycoordinates = coordinates.toString().split(',');
+          this.posicion = arraycoordinates[1] + ',' + arraycoordinates[0];
 
-        this.posicion = arraycoordinates[1] + ',' + arraycoordinates[0];
+          // Centrar el mapa en las coordenadas encontradas
+          this.map.setCenter(coordinates);
+          this.map.setZoom(15);
 
-        // Centrar el mapa en las coordenadas encontradas
-        this.map.setCenter(coordinates);
-        this.map.setZoom(15);
-
-        // Agregar un marcador en el lugar encontrado
-        new mapboxgl.Marker().setLngLat(coordinates).addTo(this.map);
-      });
+          // Agregar un marcador en el lugar encontrado
+          new mapboxgl.Marker().setLngLat(coordinates).addTo(this.map);
+          this.positionSearched = true;
+        });
+    }
   }
 
   selectTheme(event: MatCheckboxChange) {
@@ -277,11 +341,19 @@ export class AddEventoComponent implements OnInit {
 
     evento.preventDefault();
     console.log(this.myForm.get('name')?.value);
-
+    console.log(new Date(this.myForm.get('dateFrom')?.value));
+    console.log(new Date(this.myForm.get('dateTo')?.value));
     if (this.imagendividida.length == 0) {
       alert('Necesitas añadir una imagen a tu evento.');
     } else if (this.themesList.length == 0) {
       alert('Seleccione al menos un género');
+    } else if (
+      new Date(this.myForm.get('dateTo')?.value) <
+      new Date(this.myForm.get('dateFrom')?.value)
+    ) {
+      alert('la fecha de inicio es posterior a la fecha de final.');
+    } else if (!this.positionSearched) {
+      alert('Busca una ubicación en el mapa para saber a dónde ir.');
     } else {
       let newPlace: Lugar = {
         id: 0,
@@ -311,6 +383,7 @@ export class AddEventoComponent implements OnInit {
       this.eventService.createEvent(newEvent).subscribe((result) => {
         console.log(result);
         alert('Evento creado correctamente.');
+        this.router.navigate(['/perfil']);
       });
     }
   }

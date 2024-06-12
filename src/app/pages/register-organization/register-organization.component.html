@@ -9,7 +9,7 @@
         Registra tu organización en Eventalia y empieza a publicar tus eventos
       </h3>
       <mat-form-field class="example-full-width">
-        <mat-label>Nombre</mat-label>
+        <mat-label>Nombre (de 10 a 20 caracteres)</mat-label>
         <input
           formControlName="name"
           matInput
@@ -17,25 +17,47 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      >@if(myForm.get('name')!.invalid && myForm.get('name')!.touched){
+      >@if(myForm.get('name')?.hasError('required') &&
+      myForm.get('name')!.touched){
       <div class="errormessage">Se requiere nombre de organización</div>
+      }@if(myForm.get('name')?.hasError('minlength') &&
+      myForm.get('name')?.touched){
+      <div class="errormessage">El nombre de la organización es muy corto</div>
+      } @if(myForm.get('name')?.hasError('maxlength') &&
+      myForm.get('name')?.touched){
+      <div class="errormessage">
+        El nombre de la organización es demasiado largo
+      </div>
       }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Describe la actividad de tu empresa:</mat-label>
+        <mat-label
+          >Describe la actividad de tu empresa (entre 10 y 50
+          caracteres):</mat-label
+        >
         <textarea
           formControlName="description"
           rows="8"
           matInput
           placeholder="Ex. It makes me feel..."
         ></textarea></mat-form-field
-      >@if(myForm.get('description')!.invalid &&
+      >@if(myForm.get('description')?.hasError('required') &&
       myForm.get('description')!.touched){
       <div class="errormessage">
         Se requiere descripción de la actividad de la organización
       </div>
+      }@if(myForm.get('description')?.hasError('minlength') &&
+      myForm.get('description')?.touched){
+      <div class="errormessage">
+        La descripción de tu actividad es muy corta
+      </div>
+      } @if(myForm.get('description')?.hasError('maxlength') &&
+      myForm.get('description')?.touched){
+      <div class="errormessage">
+        La descripción de tu actividad es demasiado larga
+      </div>
       }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Sitio Web</mat-label>
+        <mat-label>Sitio Web (de 10 a 20 caracteres)</mat-label>
         <input
           formControlName="webpage"
           matInput
@@ -43,11 +65,18 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      >@if(myForm.get('webpage')!.invalid && myForm.get('webpage')!.touched){
+      >@if(myForm.get('webpage')?.hasError('required') &&
+      myForm.get('webpage')!.touched){
       <div class="errormessage">Ingresa la página web de tu organización</div>
+      }@if(myForm.get('webpage')?.hasError('minlength') &&
+      myForm.get('webpage')?.touched){
+      <div class="errormessage">La página web es muy corta</div>
+      } @if(myForm.get('webpage')?.hasError('maxlength') &&
+      myForm.get('webpage')?.touched){
+      <div class="errormessage">La página web es demasiado larga</div>
       }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Email</mat-label>
+        <mat-label>Email (entre 10 y 40 caracteres)</mat-label>
         <input
           formControlName="email"
           matInput
@@ -55,11 +84,18 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      >@if(myForm.get('email')!.invalid && myForm.get('email')!.touched){
+      >@if(myForm.get('email')?.hasError('required') &&
+      myForm.get('email')!.touched){
       <div class="errormessage">Introduce un email válido</div>
+      }@if(myForm.get('email')?.hasError('minlength') &&
+      myForm.get('email')?.touched){
+      <div class="errormessage">El email es muy corto</div>
+      } @if(myForm.get('email')?.hasError('maxlength') &&
+      myForm.get('email')?.touched){
+      <div class="errormessage">El email es demasiado largo</div>
       }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Password</mat-label>
+        <mat-label>Password (de 8 a 15 caracteres)</mat-label>
         <input
           formControlName="password"
           matInput
@@ -67,11 +103,18 @@
           placeholder=""
           value=""
         /> </mat-form-field
-      >@if(myForm.get('password')!.invalid && myForm.get('password')!.touched){
+      >@if(myForm.get('password')?.hasError('required') &&
+      myForm.get('password')!.touched){
       <div class="errormessage">Introduce una contraseña válida</div>
+      }@if(myForm.get('password')?.hasError('minlength') &&
+      myForm.get('password')?.touched){
+      <div class="errormessage">La contraseña es muy corta</div>
+      } @if(myForm.get('password')?.hasError('maxlength') &&
+      myForm.get('password')?.touched){
+      <div class="errormessage">La contraseña es demasiado larga</div>
       }<br />
       <mat-form-field class="example-full-width">
-        <mat-label>Repetir Password</mat-label>
+        <mat-label>Repetir Password (de 8 a 15 caracteres)</mat-label>
         <input
           matInput
           formControlName="repeatpassword"
@@ -82,6 +125,12 @@
       >@if(myForm.get('repeatpassword')?.hasError('required') &&
       myForm.get('repeatpassword')?.touched){
       <div class="errormessage">Repite la contraseña de arriba</div>
+      }@if(myForm.get('repeatpassword')?.hasError('minlength') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">La contraseña es muy corta</div>
+      } @if(myForm.get('repeatpassword')?.hasError('maxlength') &&
+      myForm.get('repeatpassword')?.touched){
+      <div class="errormessage">La contraseña es demasiado larga</div>
       } @if(!myForm.get('repeatpassword')?.hasError('required') &&
       myForm.get('repeatpassword')?.value != myForm.get('password')?.value){
       <div class="errormessage">Las contraseñas no son idénticas</div>

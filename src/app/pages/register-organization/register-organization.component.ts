@@ -73,16 +73,59 @@ export class RegisterOrganizationComponent {
     this.myForm = this.fb.group(
       {
         // Define tus controles de formulario y validaciones aquí
-        name: ['', Validators.required],
-        description: ['', Validators.required],
-        webpage: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        repeatpassword: ['', Validators.required],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(20),
+          ],
+        ],
+        description: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(50),
+          ],
+        ],
+        webpage: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(20),
+          ],
+        ],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.minLength(10),
+            Validators.maxLength(40),
+          ],
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(15),
+          ],
+        ],
+        repeatpassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(15),
+          ],
+        ],
       },
       {
         validators: [
-          this._validatorService.camposIguales('passw', 'repeatpassw'),
+          this._validatorService.camposIguales('password', 'repeatpassword'),
         ],
       }
     );
