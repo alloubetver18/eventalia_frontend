@@ -20,13 +20,6 @@ export class AuthService {
         .signInWithEmailAndPassword(email, password)
         .catch(function (error) {
           // Handle Errors here.
-          /* var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
-        } else {
-          alert("Los datos de inicio de sesión son erroneos.");
-        } */
           console.log(error);
         });
 
@@ -77,30 +70,4 @@ export class AuthService {
       console.log(error);
     }
   }
-
-  /* async fbIsUserVerified(): Promise<any>{
-    // return (await this.#afAuth.currentUser)?.emailVerified;
-    return new Promise((resolve, reject) => {
-      this.afAuth.authState.subscribe(user => {
-        if (user) {
-          resolve(user.emailVerified);
-        } else {
-          resolve(false);
-        }
-      }, error => reject(error));
-    });
-  }
-
-  async fbUserEmail(): Promise<any>{
-    // return (await this.#afAuth.currentUser)?.email;
-    return new Promise((resolve, reject) => {
-      this.afAuth.authState.subscribe(user => {
-        if (user) {
-          resolve(user.email);
-        } else {
-          resolve(null);
-        }
-      }, error => reject(error));
-    });
-  } */
 }
