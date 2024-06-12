@@ -1,5 +1,4 @@
 
-
 .registerUser{
     width: 80%;
     margin: auto;
@@ -87,18 +86,6 @@
 .imgPerfil{
     width: 100px;
     height: 100px;
-}
-
-.formulario{
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center; */
-}
-
-.derecha{
-    /* display: flex;
-    flex-direction: column-reverse;
-    align-items: center; */
 }
 
 input[type="submit"]{
@@ -234,4 +221,62 @@ input[type="submit"]:disabled:hover{
 .formulario_evento .opciones input, .opciones button{
     width: 20rem;
     margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 426px) {
+
+  .uno{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .descripcion{
+    /* width: 45%; */
+    text-align: center;
+  }
+
+  .formulario_evento .uno-uno .nombreEvento{
+    /* width: 45%; */
+    width: 100%;
+  }
+
+  .formulario_evento .uno{
+    width: 250px;
+  }
+
+  .generos{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+  }
+
+  .generos_uno, .generos_dos, .generos_tres{
+    display: flex;
+    flex-direction: column;
+  }
+
+  mat-checkbox{
+    width: 200px;
+  }
+
+  .tres{
+    flex-direction: column;
+  }
+
+  .formulario_evento .tres .tres-uno{
+    width: 100%;
+  }
+
+  .formulario_evento .tres .tres-dos{
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .formulario_evento #map{
+    width: 100%;
+    height: 400px;
+    margin-bottom: 2rem;
+
+  }
+
 }
