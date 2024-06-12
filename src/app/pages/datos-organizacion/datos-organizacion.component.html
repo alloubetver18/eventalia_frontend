@@ -1,25 +1,35 @@
 <section class="imagen">
-    <img [src]="organizacionSeleccionada.img" alt="" />
+  <img [src]="organizacionSeleccionada.img" alt="" />
 </section>
 <section class="datos_organizacion">
-    <h1>{{ organizacionSeleccionada.nombre }}</h1>
-    <h2>{{ organizacionSeleccionada.web }}</h2>
-    <h2>{{ organizacionSeleccionada.email_contacto }}</h2>
-    <section class="descripcion">
-        <p>{{ organizacionSeleccionada.descripcion }}</p>
-    </section>
+  <h1>{{ organizacionSeleccionada.nombre }}</h1>
+  <h2>
+    Página web:
+    <a [href]="'http://' + organizacionSeleccionada.web">{{
+      organizacionSeleccionada.web
+    }}</a>
+  </h2>
 
-    <section class="eventos">
-        <h2>Eventos organizados por ellos:</h2>
-        <h3>Próximamente...</h3>
-    </section>
-   
-    
-    <section class="reacciones">
-        <!-- Reportar -->
-        <!-- Me interesa -->
-    </section>
+  <h2>
+    Dirección de email:
+    <a [href]="'mailto:' + organizacionSeleccionada.email_contacto">{{
+      organizacionSeleccionada.email_contacto
+    }}</a>
+  </h2>
+
+  <p>{{ organizacionSeleccionada.descripcion }}</p>
 </section>
+
+<!-- <section class="eventos">
+  <h2>Eventos organizados por ellos:</h2>
+  <h3>Próximamente...</h3>
+</section> -->
+
+<section class="reacciones">
+  <!-- Reportar -->
+  <!-- Me interesa -->
+</section>
+
 <!-- <section class="comentarios">
     <div class="comentario">
         <h3>Alban.loubet, el 13/05/2024, dijo:</h3>
@@ -35,4 +45,3 @@
           ><br />
     </div>
 </section> -->
-
