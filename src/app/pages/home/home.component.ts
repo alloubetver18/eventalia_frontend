@@ -27,6 +27,7 @@ interface event {
   providers: [AuthService],
 })
 export class HomeComponent implements OnInit {
+  event_counter = 0;
   list_events: event[] = [
     /*  {
       id: 1,
@@ -72,23 +73,28 @@ export class HomeComponent implements OnInit {
   ) {
     this.eventservice.getEventList().subscribe((result) => {
       for (let i = result['data'].length - 1; i > -1; i--) {
-        let nuevoEvento: event = {
-          id: result['data'][i]['event_id'],
-          img:
-            'data:image/' +
-            result['data'][i]['imageformat'] +
-            ';base64,' +
-            result['data'][i]['imagen'],
-          nombre: result['data'][i]['nombre'],
-          organizador: result['data'][i]['organizador'],
-          fecha_hora:
-            result['data'][i]['fecha_inicio'] +
-            ', ' +
-            result['data'][i]['hora_inicio'],
-          ciudad:
-            result['data'][i]['ciudad'] + ', ' + result['data'][i]['provincia'],
-        };
-        this.list_events.push(nuevoEvento);
+        if (this.event_counter < 4) {
+          let nuevoEvento: event = {
+            id: result['data'][i]['event_id'],
+            img:
+              'data:image/' +
+              result['data'][i]['imageformat'] +
+              ';base64,' +
+              result['data'][i]['imagen'],
+            nombre: result['data'][i]['nombre'],
+            organizador: result['data'][i]['organizador'],
+            fecha_hora:
+              result['data'][i]['fecha_inicio'] +
+              ', ' +
+              result['data'][i]['hora_inicio'],
+            ciudad:
+              result['data'][i]['ciudad'] +
+              ', ' +
+              result['data'][i]['provincia'],
+          };
+          this.list_events.push(nuevoEvento);
+          this.event_counter++;
+        }
       }
     });
   }

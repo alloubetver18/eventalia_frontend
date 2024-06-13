@@ -78,7 +78,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(20),
+            Validators.maxLength(30),
           ],
         ],
         description: [
@@ -86,7 +86,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(50),
+            Validators.maxLength(200),
           ],
         ],
         webpage: [
@@ -94,7 +94,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(20),
+            Validators.maxLength(40),
           ],
         ],
         email: [
@@ -111,7 +111,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(8),
-            Validators.maxLength(15),
+            Validators.maxLength(25),
           ],
         ],
         repeatpassword: [
@@ -119,7 +119,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(8),
-            Validators.maxLength(15),
+            Validators.maxLength(25),
           ],
         ],
       },

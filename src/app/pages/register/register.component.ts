@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
             Validators.required,
             Validators.email,
             Validators.minLength(10),
-            Validators.maxLength(20),
+            Validators.maxLength(40),
           ],
         ],
         password: [
