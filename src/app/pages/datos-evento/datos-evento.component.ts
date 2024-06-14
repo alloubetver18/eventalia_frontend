@@ -28,6 +28,7 @@ interface evento {
   descripcion: string;
   generos: genero[];
   latlon: string;
+  precio: number;
 }
 
 @Component({
@@ -53,6 +54,7 @@ export class DatosEventoComponent {
     descripcion: '',
     generos: [],
     latlon: '',
+    precio: 0,
   };
 
   id: any;
@@ -107,6 +109,7 @@ export class DatosEventoComponent {
             );
             this.eventoSeleccionado.hora = result['data']['hora_inicio'];
             this.eventoSeleccionado.lugar = result['data']['lugar'];
+            this.eventoSeleccionado.precio = result['data']['price'];
             this.eventoSeleccionado.latlon =
               result['data']['latitud'] + ',' + result['data']['longitud'];
             this.eventoSeleccionado.direccion = result['data']['direccion'];

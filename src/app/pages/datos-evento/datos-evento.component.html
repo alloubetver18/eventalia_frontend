@@ -25,6 +25,13 @@
         Lugar: {{ eventoSeleccionado.lugar }}</a
       >
     </section>
+    <section class="precio">
+      @if(eventoSeleccionado.precio===0){
+      <h3>Entrada: Gratuita.</h3>
+      } @else{
+      <h3>Entrada: {{ eventoSeleccionado.precio }} €.</h3>
+      }
+    </section>
     <section class="descripcion">
       <pre>{{ eventoSeleccionado.descripcion }}</pre>
       <p></p>
