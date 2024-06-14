@@ -364,6 +364,14 @@ export class AddEventoComponent implements OnInit {
         provincia: this.myForm.get('placeprovince')?.value,
       };
 
+      let fechaFrom = new Date(this.myForm.get('dateFrom')?.value);
+      // Sumar un día
+      fechaFrom.setDate(fechaFrom.getDate() + 1);
+
+      let fechaTo = new Date(this.myForm.get('dateTo')?.value);
+
+      fechaTo.setDate(fechaTo.getDate() + 1);
+
       let newEvent: EventData = {
         id: 0,
         Name: this.myForm.get('name')?.value,
@@ -373,8 +381,8 @@ export class AddEventoComponent implements OnInit {
         eventImage: this.imagendividida[1], //Terminar
         eventImageFormat: this.imageFormat,
         Place: newPlace,
-        from: new Date(this.myForm.get('dateFrom')?.value),
-        to: new Date(this.myForm.get('dateTo')?.value),
+        from: fechaFrom,
+        to: fechaTo,
         hour: this.myForm.get('startsAt')?.value,
         price: parseFloat(this.myForm.get('priceEvent')?.value),
       };
