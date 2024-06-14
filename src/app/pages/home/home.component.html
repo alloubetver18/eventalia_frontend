@@ -22,7 +22,7 @@
     algo que hacer en tu tiempo libre, u organizar un evento para ti y tus
     conocidos, en Eventalia te ofrecemos una herramienta para promocionarlo. Es
     muy facil: Registrate, Crea un Evento y compártelo. Otros usuarios quedarán
-    informados al instante. ¿A qué esperas? únete a Eventalia.
+    informados al instante. ¿A qué esperas? ¡Únete a Eventalia!
   </h3>
 </section>
 
@@ -39,23 +39,6 @@
       Ver todos los eventos
     </button>
   </div>
-
-  <!-- <div class="lista_eventos_for">
-      @for (event of list_events; track event.id) {
-        <div class="personal_card">
-          <div class="imagen">
-            <a [routerLink]="['/datosEvento', event.id]"><img [src]="event.img" alt=""></a>
-          </div>
-          <div class="datos">
-            <h3 class="nombre-evento">{{event.nombre}}</h3>
-            <p class="organizador">{{event.organizador}}</p>
-            <p class="fecha-hora">{{event.fecha_hora}}</p>
-            <p class="ciudad">{{event.ciudad}}</p>
-          </div>
-          <button class="hidden-btn" mat-button [routerLink]="['/datosEvento', event.id]">Mas información</button>
-        </div>
-      }
-    </div> -->
 
   <section class="lista_eventos">
     @for (event of list_events; track event.id) {
