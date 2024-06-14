@@ -25,7 +25,12 @@
 .comentar{
     width: 100%;
     margin: auto;
-    
+
+}
+
+pre{
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
 }
 
 .comentar mat-form-field{
