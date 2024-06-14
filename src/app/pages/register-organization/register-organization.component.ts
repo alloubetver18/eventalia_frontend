@@ -90,7 +90,7 @@ export class RegisterOrganizationComponent {
           [
             Validators.required,
             Validators.minLength(10),
-            Validators.maxLength(200),
+            Validators.maxLength(500),
           ],
         ],
         webpage: [
