@@ -67,7 +67,11 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private _validatorService: ValidatorService
-  ) {}
+  ) {
+    if (localStorage.getItem('email') != null) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group(

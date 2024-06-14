@@ -65,7 +65,11 @@ export class RegisterOrganizationComponent {
     private fb: FormBuilder,
     private authservice: AuthService,
     private _validatorService: ValidatorService
-  ) {}
+  ) {
+    if (localStorage.getItem('email') != null) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
