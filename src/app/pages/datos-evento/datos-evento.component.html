@@ -10,7 +10,15 @@
         >Organiza: {{ eventoSeleccionado.organizador }}</a
       >
     </h2>
+
+    @if(eventoSeleccionado.fecha===eventoSeleccionado.fecha_fin){
     <h2>Fecha: {{ eventoSeleccionado.fecha }}</h2>
+    }@else{
+    <h2>
+      Fecha: del {{ eventoSeleccionado.fecha }} al
+      {{ eventoSeleccionado.fecha_fin }}
+    </h2>
+    }
     <h2>Hora: {{ eventoSeleccionado.hora }}</h2>
     <section class="lugar">
       <a href="#" (click)="modalLugar($event)">

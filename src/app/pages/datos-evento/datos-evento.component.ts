@@ -20,6 +20,7 @@ interface evento {
   id_organizador: number;
   organizador: string;
   fecha: string;
+  fecha_fin: string;
   hora: string;
   lugar: string;
   direccion: string;
@@ -44,6 +45,7 @@ export class DatosEventoComponent {
     id_organizador: 0,
     organizador: '',
     fecha: '',
+    fecha_fin: '',
     hora: '',
     lugar: '',
     direccion: '',
@@ -99,6 +101,9 @@ export class DatosEventoComponent {
             this.eventoSeleccionado.organizador = result['data']['organizador'];
             this.eventoSeleccionado.fecha = this.convertirFecha(
               result['data']['fecha_inicio']
+            );
+            this.eventoSeleccionado.fecha_fin = this.convertirFecha(
+              result['data']['fecha_fin']
             );
             this.eventoSeleccionado.hora = result['data']['hora_inicio'];
             this.eventoSeleccionado.lugar = result['data']['lugar'];
