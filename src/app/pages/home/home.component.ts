@@ -28,40 +28,7 @@ interface event {
 })
 export class HomeComponent implements OnInit {
   event_counter = 0;
-  list_events: event[] = [
-    /*  {
-      id: 1,
-      img: '../../../assets/img/salon-manga-chiclana-redux2.jpg',
-      nombre: 'Feria del Caballo Jerez 2024',
-      organizador: 'Ayuntamiento de Jerez',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Jerez de la Frontera, Cádiz'
-    },
-    {
-      id: 2,
-      img: '../../../assets/img/salon-manga-chiclana-redux.jpg',
-      nombre: 'Salón del Manga Chiclana 2024',
-      organizador: 'Ayuntamiento de Chiclana de la Frontera',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la Frontera, Cádiz'
-    },
-    {
-      id: 3,
-      img: '../../../assets/img/salon-manga-chiclana-redux.jpg',
-      nombre: 'Torneo de Ajedrez Verano 2024',
-      organizador: 'Delegación de Cultura Provincia de Cádiz',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Cádiz, Cádiz'
-    },
-    {
-      id: 4,
-      img: '../../../assets/img/salon-manga-chiclana-redux.jpg',
-      nombre: 'Torneo de Laser Tag',
-      organizador: 'Casa de la Juventud Chiclana',
-      fecha_hora: '30/04/2024, 15:30',
-      ciudad: 'Chiclana de la frontera, Cádiz'
-    } */
-  ];
+  list_events: event[] = [];
 
   user: any;
   public user$: Observable<any> = this.authService.afAuth.user;
@@ -115,7 +82,7 @@ export class HomeComponent implements OnInit {
     exitAnimationDuration: string
   ): void {
     this.dialog.open(TipoUsuarioComponent, {
-      width: '250px',
+      width: '400px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
