@@ -186,7 +186,7 @@ export class RegisterOrganizationComponent {
                 ' kb'
             );
           } else if (format !== 'jpeg' && format !== 'png') {
-            console.log('El archivo seleccionado no es una imagen jpg o png');
+            alert('El archivo seleccionado no es una imagen jpg o png');
           } else if (width > 600 || height > 2048) {
             alert('La imagen tiene un ancho mayor a 600px');
           }
