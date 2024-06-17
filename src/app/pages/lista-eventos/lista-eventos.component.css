@@ -93,7 +93,7 @@
         padding-bottom: 3rem;
         flex-direction: column;
         align-items: center; */
-        height: 122rem;
+        height: 140rem;
     }
 
     mat-drawer{
@@ -124,6 +124,7 @@
     .evento{
         flex-direction: column;
         width: 2rem;
+        margin-bottom: 4.5rem;
     }
 
     .results{
@@ -132,6 +133,12 @@
 
     .results .evento .datosEvento{
         height: 30rem;
+    }
+
+    .estilosbtnsecundario{
+      margin-bottom: 3rem;
+      background-color: #007DB8;
+    color: white;
     }
 
 
