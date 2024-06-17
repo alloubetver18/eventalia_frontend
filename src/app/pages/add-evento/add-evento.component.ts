@@ -351,7 +351,14 @@ export class AddEventoComponent implements OnInit {
       new Date(this.myForm.get('dateTo')?.value) <
       new Date(this.myForm.get('dateFrom')?.value)
     ) {
-      alert('la fecha de inicio es posterior a la fecha de final.');
+      alert('La fecha de inicio es posterior a la fecha de final.');
+    } else if (
+      new Date() > new Date(this.myForm.get('dateTo')?.value) ||
+      new Date() > new Date(this.myForm.get('dateFrom')?.value)
+    ) {
+      alert(
+        'No puedes crear un evento cuya fecha de inicio o de término ya ha pasado'
+      );
     } else if (!this.positionSearched) {
       alert('Busca una ubicación en el mapa para saber a dónde ir.');
     } else {
