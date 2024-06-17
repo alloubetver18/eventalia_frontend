@@ -192,8 +192,8 @@ export class RegisterOrganizationComponent {
           }
         };
         image.onerror = () => {
-          console.log(
-            'El archivo seleccionado no es un archivo de imagen válido.'
+          alert(
+            'El archivo seleccionado no es un archivo de imagen válido. Por favor, seleccione una imagen jpg o png'
           );
         };
         image.src = fileReader.result as string;

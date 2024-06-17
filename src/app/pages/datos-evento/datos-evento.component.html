@@ -25,6 +25,11 @@
         Lugar: {{ eventoSeleccionado.lugar }}</a
       >
     </section>
+    <br />
+    <section class="direccion">
+      Dirección: {{ eventoSeleccionado.direccion }},
+      {{ eventoSeleccionado.ciudad }}.
+    </section>
     <section class="precio">
       @if(eventoSeleccionado.precio===0){
       <h3>Entrada: Gratuita.</h3>
