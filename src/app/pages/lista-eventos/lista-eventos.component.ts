@@ -29,6 +29,7 @@ interface event {
   to: Date | null;
   ciudad: string;
   provincia: number;
+  provincia_string: string;
   generos: number[];
   generosString: string;
 }
@@ -248,6 +249,7 @@ export class ListaEventosComponent implements OnInit {
               provincia: this.provinciasArray.indexOf(
                 result['data'][i]['provincia']
               ),
+              provincia_string: result['data'][i]['provincia'],
               generos: arrayGenerosId,
               generosString: generosStringEvento,
             };
@@ -292,6 +294,7 @@ export class ListaEventosComponent implements OnInit {
               provincia: this.provinciasArray.indexOf(
                 result['data'][i]['provincia']
               ),
+              provincia_string: result['data'][i]['provincia'],
               generos: arrayGenerosId,
               generosString: generosStringEvento,
             };

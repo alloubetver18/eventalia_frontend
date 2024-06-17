@@ -205,6 +205,7 @@
             Del {{ event.from | date : "dd/MM/yyyy" }} al
             {{ event.to | date : "dd/MM/yyyy" }}
           </p>
+          <p>{{ event.ciudad }}, {{ event.provincia_string }}</p>
           <p>{{ event.generosString }}</p>
         </div>
         <button
